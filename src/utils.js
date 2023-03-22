@@ -65,12 +65,7 @@ export async function isDir(filePath) {
 }
 
 export async function writeJSON(jsonPath, jsonData) {
-  // Convert the JSON data into a string
   const dataStr = JSON.stringify(jsonData, null, 2);
-
-  // Use the "fs" module to write the stringified JSON data to a file located at "jsonPath"
   await fs.writeFile(jsonPath, dataStr);
-
-  // Return the JSON data
   return jsonData;
 }

@@ -10,12 +10,14 @@ import {
 } from "./utils.js";
 import path from "path";
 import { readFile } from "fs/promises";
+import { v4 as uuidv4 } from 'uuid'
 
 nunjucks.configure({
   noCache: true,
 });
 
-const CONTENT_DATA_PATH = "src/data/content.json";
+
+const ARTICLES_DATA_PATH = "src/data/articles.json";
 const PORT = 3000;
 
 const server = http.createServer(async (request, response) => {
@@ -39,7 +41,6 @@ async function handleServer(request, response) {
   if (request.method === "GET") {
     if (path.extname(requestURLData.pathname) !== "") {
       const assetsFilePath = `src/assets${requestURLData.pathname}`;
-      console.log({ assetsFilePath });
       await renderFilePath(response, assetsFilePath);
       return;
     }
@@ -53,26 +54,60 @@ async function handleServer(request, response) {
       render404(response);
       return;
     }
-
     const templateData = {
       searchParams: Object.fromEntries(requestURLData.searchParams),
-      content: await readJSON(CONTENT_DATA_PATH),
+      articles: await readJSON(ARTICLES_DATA_PATH),
     };
-
+    const articleIndex = templateData.articles.findIndex((article) => article.id === templateData.searchParams.id);
+    templateData.articleIndex = articleIndex;
     const html = nunjucks.render(templatePath, templateData);
     response.end(html);
   } else if (request.method === "POST") {
     const body = await readBody(request);
     const form = convertFormDataToJSON(body);
-    await writeJSON(CONTENT_DATA_PATH, form);
+    if (requestURLData.pathname === "/create") {
+      await writeJSON(ARTICLES_DATA_PATH, await addIdAndDateAtArticles(form))
+      response.statusCode = 302;
+      response.setHeader(
+        "Location",
+        `/articles?page=1`
+      );
+      response.end()
+    } else if (requestURLData.pathname === "/edit") {
 
-    response.statusCode = 302;
-    response.setHeader(
-      "Location",
-      `${requestURLData.pathname}?submitSuccess=true`
-    );
-    response.end();
-  } else {
+      const articles = await readJSON(ARTICLES_DATA_PATH);
+      const articleIndex = articles.findIndex((article) => article.id === form.id);
+      const editArticle = {
+        title: form.title,
+        image: form.image,
+        category: form.category,
+        content: form.content,
+        date: setDate(new Date())
+      };
+      Object.assign(articles[articleIndex], editArticle);
+
+      await writeJSON(ARTICLES_DATA_PATH, articles);
+      response.statusCode = 302;
+      response.setHeader(
+        "Location",
+        `/?submitSuccess=true`
+      );
+      response.end();
+    }
+    else if (requestURLData.pathname === "/delete") {
+      const articles = await readJSON(ARTICLES_DATA_PATH);
+      const articleIndex = articles.findIndex((article) => article.id === form.id);
+      articles.splice(articleIndex, 1);
+      await writeJSON(ARTICLES_DATA_PATH, articles);
+      response.statusCode = 302;
+      response.setHeader(
+        "Location",
+        `/?deleteSuccess=true`
+      );
+      response.end();
+    }
+  }
+  else {
     render404(response);
   }
 }
@@ -89,8 +124,29 @@ async function renderFilePath(response, filePath) {
     render404(response);
   }
 }
-
 function render404(response) {
+  const html = nunjucks.render(`src/template/404.njk`);
   response.statusCode = 404;
-  response.end("Page not found");
+  response.end(html);
 }
+function setDate(date) {
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: false
+  };
+  let strDate = date.toLocaleDateString(`fr`, options);
+  return strDate;
+}
+async function addIdAndDateAtArticles(form) {
+  const date = new Date();
+  form.date = setDate(date)
+  form.id = uuidv4();
+  const articles = await readJSON(ARTICLES_DATA_PATH);
+  articles.unshift(form);
+  return articles
+}
+

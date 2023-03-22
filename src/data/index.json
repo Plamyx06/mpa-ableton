@@ -1,0 +1,113 @@
+{
+  "head": {
+    "titleTab": "Creative tools for music makers | Ableton",
+    "openGraphUrl": "https://ableton-dynamique-axvz-ijt9eeib0-plamyx06.vercel.app/",
+    "openGraphTitle": "Freeze, Delay and Deconstruct – Sound Design with Spectral Time",
+    "openGraphDescription": "In his latest video, Seed to Stage explores the Spectral Time device introduced in Live 11, walking you through its many sonic possibilities to create a myriad of trippy sounds, from metallic, glitched-out stutters to washed-out ambience and head-flipping stereo effects.",
+    "openGraphPicture": "https://ableton-production.imgix.net/uploads/homepage-teasers/339_Spectral_time_HP2.jpg?",
+    "CSSglobal": "global.css",
+    "CSS": "index.css"
+  },
+  "article1": {
+    "href": "https://www.ableton.com/en/blog/freeze-delay-and-deconstruct-sound-design-with-spectral-time",
+    "pictureSrc": "https://ableton-production.imgix.net/uploads/homepage-teasers/339_Spectral_time_HP2.jpg?",
+    "title": "Freeze, Delay and Deconstruct – Sound Design with Spectral Time",
+    "subtitle": "Watch the video",
+    "subtitleSymbol": ">",
+    "alt": "spectral-time effect picture"
+  },
+  "panelBlog1Txt": {
+    "content": "The latest from Ableton"
+  },
+  "panelBlog1nav": [
+    {
+      "title": "All posts",
+      "href": "https://www.ableton.com/en/blog/"
+    },
+    {
+      "title": "Artists",
+      "href": "https://www.ableton.com/en/blog/categories/artists/"
+    },
+    {
+      "title": "News",
+      "href": "https://www.ableton.com/en/blog/categories/news/"
+    },
+    {
+      "title": "Downloads",
+      "href": "https://www.ableton.com/en/blog/categories/downloads/"
+    },
+    {
+      "title": "Tutorials",
+      "href": "https://www.ableton.com/en/blog/categories/tutorials/"
+    },
+    {
+      "title": "Videos",
+      "href": "https://www.ableton.com/en/blog/categories/videos/"
+    },
+    {
+      "title": "Loop",
+      "href": "https://www.ableton.com/en/blog/loop/"
+    }
+  ],
+  "panelBlog1navGroup": {
+    "title": "See all post >",
+    "href": "https://www.ableton.com/en/blog/"
+  },
+  "blogTeaserCell": [
+    {
+      "category": "Loop",
+      "headline": "Get Together: The Changing Forms of Musical Collaboration",
+      "pictureSrc": "https://cdn-resources.ableton.com/resources/filer_thumbnails/misc-downloads/blog_image_U9FK8pM.jpg__3333.0x1667.0_q85_subsampling-2.jpg",
+      "href": "/en/blog/get-together-the-changing-forms-of-musical-collaboration/",
+      "alt": "gradient orange picture"
+    },
+    {
+      "category": "Loop",
+      "headline": "Loop: Five Perspectives on Working with Environmental Noise",
+      "pictureSrc": "https://cdn-resources.ableton.com/resources/filer_thumbnails/misc-downloads/blog_hero_image_800x400.jpg__3333.0x1667.0_q85_subsampling-2.jpg",
+      "href": "https://www.ableton.com/en/blog/loop-five-perspectives-on-working-with-environmental-noise/",
+      "alt": "picture of five people on a purple background"
+    },
+    {
+      "category": "Loop",
+      "headline": "Loop Session: In the Studio with Grand River",
+      "pictureSrc": "https://cdn-resources.ableton.com/resources/filer_thumbnails/unsorted-uploads/1_blog_loop_session_grand_river_blog.jpg__3333.0x1667.0_q85_subsampling-2.jpg",
+      "href": "https://www.ableton.com/en/blog/catch-up-on-the-first-loop-session-with-grand-river/",
+      "alt": "picture of a man and a woman working on a computer and a synthesizer"
+    }
+  ],
+  "panelBlog2nav": [
+    {
+      "title": "All posts",
+      "href": "https://ableton.com/en/blog/"
+    },
+    {
+      "title": "Artists",
+      "href": "https://www.ableton.com/en/blog/categories/artists/"
+    },
+    {
+      "title": "News",
+      "href": "https://www.ableton.com/en/blog/categories/news/"
+    },
+    {
+      "title": "Downloads",
+      "href": "https://www.ableton.com/en/blog/categories/downloads/"
+    },
+    {
+      "title": "Tutorials",
+      "href": "https://www.ableton.com/en/blog/categories/tutorials/"
+    },
+    {
+      "title": "Videos",
+      "href": "https://www.ableton.com/en/blog/categories/videos/"
+    },
+    {
+      "title": "Loop",
+      "href": "https://www.ableton.com/en/blog/loop/"
+    },
+    {
+      "title": "One Thing",
+      "href": "https://www.ableton.com/en/one-thing/"
+    }
+  ]
+}
