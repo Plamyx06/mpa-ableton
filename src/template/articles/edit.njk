@@ -1,4 +1,4 @@
-{% extends "./_layout.njk" %}
+{% extends "../_layout.njk" %}
 {% block head %}
     <title>Articles / Edition</title>
 {% endblock %}
@@ -24,7 +24,7 @@
                 <form method="POST" class="space-y-4">
                     <div class="flex items-baseline justify-end">
                         <label for="id" class="pr-6 text-xl font-medium leading-6 text-gray-900">ID : </label>
-                        <input type="text" readonly id="id" name="id" class=" border-none w-80 bg-gray-200 rounded-md h-6 " value="{{articles[articleIndex].id}}">
+                        <input type="text" readonly id="id" name="id" class=" border-none bg-gray-200 rounded-md h-6 text-center outline-none" value="{{articles[articleIndex].id}}"style="outline: none;">
                     </div>
                     <div>
                         <label for="title" class=" text-xl font-medium leading-6 text-gray-900">Titre :</label>
@@ -38,25 +38,26 @@
                     </diV>
                     <div class="flex justify-between items-center">
                         <div>
-                            <input class="rounded-full text-gray-600 focus:ring-0" type="radio" id="draft" name="status" value="draft">
+                            {% set isPublished = articles[articleIndex].status == "published" %}
+
+                            <input class="rounded-full text-gray-600 focus:ring-0" type="radio" id="draft" name="status" {% if not isPublished %}checked="checked"{% endif %} value="draft">
                             <label class="font-semibold" for="draft">Brouillon</label>
 
-                            <input class="ml-20 rounded-full text-gray-600 focus:ring-0" type="radio" id="published" name="status" value="published">
-                            <label class="font-semibold"for="published">Publié</label>
+                            <input class="ml-20 rounded-full text-gray-600 focus:ring-0" type="radio" id="published" name="status" {% if isPublished %}checked="checked"{% endif %} value="published">
+                            <label class="font-semibold" for="published">Publié</label>
 
                         </div>
+
                         <div class="flex items-center">
                             <label class="mr-5 font-semibold text-xl" for="category">
                                 Category :
                             </label>
-                            <select value="{{ articles[articleIndex].category }}"class="rounded-md block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600" name="category" id="category">
-
-                                <option value="Artist">Artist</option>
-                                <option value="Loop">Loop</option>
-                                <option value="News">News</option>
-                                <option value="Downloads">Downloads</option>
-                                <option value="Tutorials">Tutorials</option>
+                            <select class="rounded-md block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600" name="category" id="category">
+                                {% for selectCategory in category %}
+                                    <option value="{{ selectCategory }}" {% if selectCategory === articles[articleIndex].category %}selected{% endif %}>{{ selectCategory }}</option>
+                                {% endfor %}
                             </select>
+
                         </div>
                     </div>
                     <div>

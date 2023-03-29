@@ -1,21 +1,13 @@
 [
   {
-    "title": "je suis nouveau aussi",
-    "status": "published",
-    "category": "News",
+    "title": "je suis plus le même",
+    "status": "draft",
+    "category": "Loop",
     "image": "https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg",
-    "content": "dfjgksp",
-    "date": "22 mars 2023 à 01:04",
-    "id": "e0423171-c1d9-41f6-9885-ea46c4962c6f"
-  },
-  {
-    "title": "je suis nouveau ",
-    "status": "published",
-    "category": "News",
-    "image": "https://thumbs.dreamstime.com/b/belle-for%C3%AAt-tropicale-%C3%A0-l-itin%C3%A9raire-am%C3%A9nag%C3%A9-pour-amateurs-de-la-nature-de-ka-d-ang-36703721.jpg",
-    "content": "dsojzsojf",
-    "date": "22 mars 2023 à 01:03",
-    "id": "c495c252-4ccb-4b24-875a-abeb4419e3a6"
+    "content": "vqhsdfvusqhjhjhjhj",
+    "createdAt": "2023-03-29T07:30:20.395Z",
+    "id": "knhdsz65fa",
+    "updateAt": "2023-03-29T07:30:46.711Z"
   },
   {
     "id": "19pnw03751",
@@ -27,7 +19,10 @@
     "tags": [
       "Disco",
       "Collaboration"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "1zbizek8um",
@@ -43,7 +38,10 @@
       "EQ Eight",
       "Live 11",
       "Comping"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "043400u1p9",
@@ -60,7 +58,11 @@
       "Delay",
       "EQ Eight",
       "Live 11"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published",
+    "updateAt": "2023-03-23T14:22:15.111Z"
   },
   {
     "id": "4tqmsi0zrs",
@@ -73,7 +75,10 @@
       "Live Performance",
       "Live 11",
       "Music"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "jfg487wefn",
@@ -86,7 +91,10 @@
       "EQing",
       "Made in Ableton Live",
       "Live Performance"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "lziarnkl1p",
@@ -99,7 +107,10 @@
       "EQing",
       "Made in Ableton Live",
       "Live Performance"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "eb3wuq50b3",
@@ -112,7 +123,10 @@
       "Live 11",
       "Ableton Live",
       "EQing"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "u32a7bj4gk",
@@ -125,7 +139,10 @@
       "EQing",
       "Mastering",
       "Music"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "ycxa2sy2t3",
@@ -138,7 +155,10 @@
       "Live 11",
       "EQing",
       "Mastering"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "qlit6eloul",
@@ -151,7 +171,10 @@
       "Live 11",
       "Mixing",
       "Session View"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "tg85n6h9nm",
@@ -164,7 +187,10 @@
       "Songwriting",
       "Daw",
       "Music"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "ltm646k2ko",
@@ -177,7 +203,10 @@
       "Mixing",
       "Music",
       "Ableton Live"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "swfc9gidqj",
@@ -190,7 +219,10 @@
       "Live 11",
       "Music",
       "Ableton Live"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "8ku397pw3j",
@@ -203,7 +235,10 @@
       "Live Performance",
       "Mastering",
       "Songwriting"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "uy4wmqhhkt",
@@ -216,7 +251,10 @@
       "Songwriting",
       "Live Performance",
       "Music"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "zkncdx76mi",
@@ -229,7 +267,10 @@
       "EQing",
       "Mixing",
       "Mastering"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "xw68ugvgl4",
@@ -242,7 +283,10 @@
       "Session View",
       "Live Performance",
       "EQing"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "84ytl1bu6l",
@@ -255,7 +299,10 @@
       "Session View",
       "Live Performance",
       "Live 11"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "0uzoqr9ru8",
@@ -268,7 +315,10 @@
       "Songwriting",
       "Live 11",
       "Live 11"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "7uu4q6f5t5",
@@ -281,7 +331,10 @@
       "Live 11",
       "Ableton Live",
       "Mixing"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "xeemcjeidq",
@@ -294,7 +347,10 @@
       "Music",
       "Live 11",
       "Mixing"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "glri4nl99h",
@@ -307,7 +363,10 @@
       "Session View",
       "EQing",
       "Made in Ableton Live"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "v7dik4j95q",
@@ -320,7 +379,10 @@
       "Daw",
       "Session View",
       "Song"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "wqsvt43zvi",
@@ -333,7 +395,10 @@
       "Ableton Live",
       "Music",
       "Mastering"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "wo60xbnnkg",
@@ -346,7 +411,10 @@
       "Mastering",
       "Session View",
       "Songwriting"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "sczf8ffsz0",
@@ -359,7 +427,10 @@
       "Live 11",
       "Daw",
       "Mastering"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "ujfvazai3j",
@@ -372,7 +443,10 @@
       "Mixing",
       "Session View",
       "Live 11"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "or4v4f1k4y",
@@ -385,7 +459,10 @@
       "Made in Ableton Live",
       "Ableton Live",
       "Mastering"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "f7a5qgdw70",
@@ -398,7 +475,10 @@
       "EQing",
       "Live 11",
       "Mixing"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "5bqlov4y0l",
@@ -411,7 +491,10 @@
       "Song",
       "Mixing",
       "Music"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "qtjzg7b18c",
@@ -424,7 +507,10 @@
       "Mastering",
       "Music",
       "Daw"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "g98geg16jw",
@@ -437,7 +523,10 @@
       "EQing",
       "Live 11",
       "Mastering"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "hgup6qa7g7",
@@ -450,7 +539,10 @@
       "EQing",
       "Song",
       "Songwriting"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "tjzb3zp3wh",
@@ -463,7 +555,10 @@
       "Music",
       "Songwriting",
       "Live 11"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "qqc7q37t3x",
@@ -476,7 +571,10 @@
       "Daw",
       "Songwriting",
       "Live 11"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "d1mtg6sm3b",
@@ -489,7 +587,10 @@
       "Daw",
       "Mastering",
       "Made in Ableton Live"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "7ulw9nbjjo",
@@ -502,7 +603,10 @@
       "Daw",
       "Mixing",
       "Music"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "hkc95ruofh",
@@ -515,7 +619,10 @@
       "Song",
       "Ableton Live",
       "Made in Ableton Live"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "dknnerbygo",
@@ -528,7 +635,10 @@
       "Music",
       "Live 11",
       "Ableton Live"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "k6ajqe0win",
@@ -541,7 +651,10 @@
       "Mixing",
       "Song",
       "EQing"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "vr8vf2crvc",
@@ -554,7 +667,10 @@
       "Mastering",
       "Made in Ableton Live",
       "Ableton Live"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "jkbn78f4ct",
@@ -567,7 +683,10 @@
       "Mixing",
       "Live 11",
       "Mastering"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "p977bom002",
@@ -580,7 +699,10 @@
       "Mastering",
       "Songwriting",
       "Made in Ableton Live"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "pud8bxr0ba",
@@ -593,7 +715,10 @@
       "Song",
       "Made in Ableton Live",
       "Music"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "ktx8rh7nu3",
@@ -606,7 +731,10 @@
       "Live 11",
       "Made in Ableton Live",
       "Music"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "mdq4lcstx8",
@@ -619,7 +747,10 @@
       "Song",
       "Session View",
       "Mastering"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "5tvgsvol59",
@@ -632,7 +763,10 @@
       "Live 11",
       "Song",
       "Music"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "bwqgwucwub",
@@ -645,7 +779,10 @@
       "Daw",
       "Live Performance",
       "Music"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "fsjo3kbec6",
@@ -658,7 +795,10 @@
       "Live Performance",
       "Song",
       "Live 11"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "3rdagm704s",
@@ -671,7 +811,10 @@
       "Live Performance",
       "Session View",
       "Music"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "p16d3993gb",
@@ -684,7 +827,10 @@
       "Mixing",
       "Daw",
       "Live 11"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "7tz7hy26op",
@@ -697,7 +843,10 @@
       "Live Performance",
       "Live 11",
       "Made in Ableton Live"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "d5b1oidul3",
@@ -710,7 +859,10 @@
       "Music",
       "EQing",
       "Mastering"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "q9ig08u72v",
@@ -723,7 +875,10 @@
       "Made in Ableton Live",
       "Mixing",
       "EQing"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "6kfaxysbnk",
@@ -736,7 +891,10 @@
       "Ableton Live",
       "Made in Ableton Live",
       "Song"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "d5mpr0v6pz",
@@ -749,7 +907,10 @@
       "Music",
       "Live Performance",
       "Live 11"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "q47x9pyumf",
@@ -762,7 +923,10 @@
       "Song",
       "Daw",
       "EQing"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "vl4zg7u99a",
@@ -775,7 +939,10 @@
       "Songwriting",
       "Ableton Live",
       "Made in Ableton Live"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "3tt6n2fu13",
@@ -788,7 +955,10 @@
       "Mastering",
       "Live Performance",
       "Live 11"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "rb92cf7oi2",
@@ -801,7 +971,10 @@
       "EQing",
       "Live 11",
       "Mastering"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "yaqi5s74x3",
@@ -814,7 +987,10 @@
       "Songwriting",
       "Music",
       "Daw"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "bhytky60x3",
@@ -827,7 +1003,10 @@
       "Mixing",
       "Songwriting",
       "Ableton Live"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "x1ytq1gedn",
@@ -840,7 +1019,10 @@
       "Mixing",
       "Daw",
       "Songwriting"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "9oxv5aepzw",
@@ -853,7 +1035,10 @@
       "Live Performance",
       "Live 11",
       "Mastering"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "0v9acvf490",
@@ -866,7 +1051,10 @@
       "Songwriting",
       "Live Performance",
       "Ableton Live"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "fq0a0pkfdk",
@@ -879,7 +1067,10 @@
       "Ableton Live",
       "Live Performance",
       "Daw"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "tbz96ajqk6",
@@ -892,7 +1083,10 @@
       "Session View",
       "Ableton Live",
       "Live 11"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "y9nrxhdpfw",
@@ -905,7 +1099,10 @@
       "Live 11",
       "Mastering",
       "Live Performance"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "17m09x210h",
@@ -918,7 +1115,10 @@
       "Ableton Live",
       "EQing",
       "Live 11"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "mucugh9md6",
@@ -931,7 +1131,10 @@
       "EQing",
       "Ableton Live",
       "Music"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "nrgez2ub0f",
@@ -944,7 +1147,10 @@
       "Ableton Live",
       "Live Performance",
       "Mastering"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "ftx6gbigaw",
@@ -957,7 +1163,10 @@
       "Live Performance",
       "Mixing",
       "EQing"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "ld5bput200",
@@ -970,7 +1179,10 @@
       "Live Performance",
       "Daw",
       "Ableton Live"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "wnj2mnuuvw",
@@ -983,7 +1195,10 @@
       "EQing",
       "Session View",
       "Daw"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "9ps3hyyfn3",
@@ -996,7 +1211,10 @@
       "Ableton Live",
       "Daw",
       "Live 11"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "9sklkkm1po",
@@ -1009,7 +1227,10 @@
       "Session View",
       "EQing",
       "Ableton Live"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "o6yac66sre",
@@ -1022,7 +1243,10 @@
       "Music",
       "Mastering",
       "Live 11"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "z1xx1pi4a5",
@@ -1035,7 +1259,10 @@
       "Music",
       "Mixing",
       "Live 11"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "rvljsmunzq",
@@ -1048,7 +1275,10 @@
       "Mastering",
       "Live 11",
       "Session View"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "tbhtdw4au6",
@@ -1061,7 +1291,10 @@
       "Mixing",
       "Music",
       "Mastering"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "4ykahtq9o8",
@@ -1074,7 +1307,10 @@
       "Live 11",
       "Daw",
       "Mixing"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "knizz74t0l",
@@ -1087,7 +1323,10 @@
       "Songwriting",
       "Mixing",
       "Daw"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "41fum5dsyj",
@@ -1100,7 +1339,10 @@
       "Songwriting",
       "Live Performance",
       "Made in Ableton Live"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "6yvoal2p64",
@@ -1113,7 +1355,10 @@
       "Mixing",
       "Daw",
       "Made in Ableton Live"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "4jkhllsjhx",
@@ -1126,7 +1371,10 @@
       "Made in Ableton Live",
       "Daw",
       "Songwriting"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "rf1od1ha6i",
@@ -1139,7 +1387,10 @@
       "Made in Ableton Live",
       "Daw",
       "Live Performance"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "67dsbcm0v5",
@@ -1152,7 +1403,10 @@
       "Music",
       "Songwriting",
       "Session View"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "6l021hw4pz",
@@ -1165,7 +1419,10 @@
       "Session View",
       "Live Performance",
       "Song"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "6kd0mb6l6a",
@@ -1178,7 +1435,10 @@
       "Song",
       "Music",
       "Mastering"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "9slkciopeu",
@@ -1191,7 +1451,10 @@
       "Session View",
       "EQing",
       "Song"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "8l3hbhtlil",
@@ -1204,7 +1467,10 @@
       "Music",
       "EQing",
       "Daw"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "o31ao6lavv",
@@ -1217,7 +1483,10 @@
       "Mixing",
       "Mastering",
       "Live Performance"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "wqd3sfymb4",
@@ -1230,7 +1499,10 @@
       "Mixing",
       "Mastering",
       "Ableton Live"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "qv5uzhyrl0",
@@ -1243,7 +1515,10 @@
       "Mixing",
       "Music",
       "Live 11"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "banmgv4z9y",
@@ -1256,7 +1531,10 @@
       "Music",
       "Songwriting",
       "Live 11"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "30496ovxh5",
@@ -1269,7 +1547,10 @@
       "EQing",
       "Live 11",
       "Daw"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "3o48wbd4kw",
@@ -1282,7 +1563,10 @@
       "Mixing",
       "Made in Ableton Live",
       "EQing"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "w9cd2r38h5",
@@ -1295,7 +1579,10 @@
       "Ableton Live",
       "Session View",
       "Made in Ableton Live"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "ei91p2o3do",
@@ -1308,7 +1595,10 @@
       "Session View",
       "Live 11",
       "Mixing"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "8f9o4op5yd",
@@ -1321,7 +1611,10 @@
       "Ableton Live",
       "Live 11",
       "Daw"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   },
   {
     "id": "8f9o4op5yd",
@@ -1334,6 +1627,9 @@
       "Ableton Live",
       "Live 11",
       "Daw"
-    ]
+    ],
+    "createdAt": "2023-03-23T12:14:37.729Z",
+    "updatedAt": "",
+    "status": "published"
   }
 ]
