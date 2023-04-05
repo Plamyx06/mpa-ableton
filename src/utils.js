@@ -71,9 +71,14 @@ export async function writeJSON(jsonPath, jsonData) {
   return jsonData;
 }
 
-export function formatDateInJSON(jsonObj) {
-  const dateString = jsonObj.createdAt;
-  const dateObj = new Date(Date.parse(dateString));
+export function render404(response) {
+  const html = nunjucks.render(`src/template/404.njk`);
+  response.statusCode = 404;
+  response.end(html);
+}
+export function formatDate(dateStr) {
+  const date = new Date(dateStr);
+
   const options = {
     year: "numeric",
     month: "long",
@@ -81,12 +86,11 @@ export function formatDateInJSON(jsonObj) {
     hour: "numeric",
     minute: "numeric",
     hour12: false,
+    timeZone: "Europe/Paris"
   };
-  const formattedDate = dateObj.toLocaleDateString("fr", options);
-  return { ...jsonObj, formattedDate };
-}
-export function render404(response) {
-  const html = nunjucks.render(`src/template/404.njk`);
-  response.statusCode = 404;
-  response.end(html);
+
+  const formatter = new Intl.DateTimeFormat("fr-FR", options);
+  const formattedDate = formatter.format(date);
+
+  return formattedDate.replace(":", "h");
 }

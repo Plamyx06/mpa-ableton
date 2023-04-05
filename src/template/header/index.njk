@@ -1,0 +1,84 @@
+{% extends "src/components/_layout.njk" %}
+{% import "src/components/_button.njk" as button %}
+
+{% block main %}
+    <div class="w-full pt-10 pl-20 pr-20">
+        <div class="flex justify-between items-baseline mb-20">
+            <h1 class="text-4xl font-bold tracking-tight text-gray-900 pb-15">Gestion de la barre de navigation</h1>
+            <div>
+                <a href="/articles" class="flex items-center text-xl font-semibold mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-1">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75"/>
+                    </svg>Retour aux articles</a>
+            </div>
+        </div>
+
+        <div class="flex flex-col px-40">
+
+            <form method="POST" action="/editHeader" class="space-y-4">
+                <div class ="flex justify-between">
+                    <div class="mt-2">
+                        <label for="logo" class="text-xl w-96 font-medium leading-6 text-gray-900">Logo actuel </label>
+                        <p class="mt-4 block w-96 pt-5 leading-6 text-gray-900">{{navbarLogo.logoSvg | safe}}</p>
+                    </div>
+                    <div class="mt-8">
+                        <label for="title" class="text-xl  font-medium leading-6 text-gray-900">&#8203;</label>
+                        <p class=" block my-2 py-1.5 text-gray-900 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"/>
+                            </svg>
+                        </p>
+                    </div>
+                    <div>
+                        <label for="logo" class="text-xl font-medium leading-6 text-gray-900">Logo format SVG<span class="text-sm"><br>Modifier le logo avec un nouveau SVG</span></label>
+                        <textarea name="logoSvg" id="LogoSvg" class="resize-none block my-2 w-96 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">{{navbarLogo.logoSvg | safe}}</textarea>
+
+                    </div>
+                </div>
+                <div class ="flex justify-between">
+                    <div class="mt-2">
+                        <label for="title" class="text-xl font-medium leading-6 text-gray-900">Titres</label>
+                        {% set counter = -1 %}
+                        {% for navTitle in navbar %}
+
+                            {% set counter = counter + 1 %}
+                            <input type="text" name="title{{ counter }}" id="title{{ counter }}" value="{{ navTitle.title }}" class="block my-2 w-96 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">
+
+                        {% endfor %}
+                    </div>
+
+                    <div class="mt-2">
+                        <label for="title" class="text-xl font-medium leading-6 text-gray-900">&#8203;</label>
+                        {% for svg in navbar %}
+                            <p class="block my-2 py-1.5 text-gray-900">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"/>
+                                </svg>
+                            </p>
+                        {% endfor %}
+                    </div>
+                    <div class="mt-2">
+                        <label for="href" class="text-xl font-medium leading-6 text-gray-900">Liens</label>
+                        {% set counter = -1 %}
+                        {% for navHref in navbar %}
+
+                            {% set counter = counter + 1 %}
+                            <input type="text" name="href{{ counter }}" id="href{{ counter }}" value="{{ navHref.href }}" class="block my-2 rounded-md w-96 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">
+
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="flex justify-between items-baseline pt-5">
+                    <div>
+                        <p class="pt-2 font-light text-xs">
+                      
+                                         Dernière modification le {{ navbar[1].updatedAt | formattedDate }}
+                        </p>
+                    </div>
+                    <div>
+                        {{ button.buttonXl("md","Sauvegarder","submit", svg=false)}}
+                    </div>
+                </div>
+            </form>
+        </div>
+        {% endblock%}

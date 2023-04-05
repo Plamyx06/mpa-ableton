@@ -1,11 +1,11 @@
-{% extends "../_layout.njk" %}
+{% extends "src/components/_layout.njk" %}
+{% import "src/components/_button.njk" as button %}
 {% block head %}
     <title>Articles / Edition</title>
 {% endblock %}
 {% block main %}
 
-    {% set articlesId = searchParams.id %}
-    {% set articlesIndex = articleIndex %}
+    {% set articleIndex = editArticlesIndex %}
 
     <div class="w-full pt-10 pl-20 pr-20">
         <div class="flex justify-center mb-20">
@@ -24,7 +24,8 @@
                 <form method="POST" class="space-y-4">
                     <div class="flex items-baseline justify-end">
                         <label for="id" class="pr-6 text-xl font-medium leading-6 text-gray-900">ID : </label>
-                        <input type="text" readonly id="id" name="id" class=" border-none bg-gray-200 rounded-md h-6 text-center outline-none" value="{{articles[articleIndex].id}}"style="outline: none;">
+                        <input type="text" disabled id="id" name="id" class=" border-none bg-gray-200 rounded-md h-6 text-center outline-none" value="{{articles[articleIndex].id}}">
+                        <input type="hidden" id="id" name="id" class=" border-none bg-gray-200 rounded-md h-6 text-center outline-none" value="{{articles[articleIndex].id}}">
                     </div>
                     <div>
                         <label for="title" class=" text-xl font-medium leading-6 text-gray-900">Titre :</label>
@@ -50,11 +51,11 @@
 
                         <div class="flex items-center">
                             <label class="mr-5 font-semibold text-xl" for="category">
-                                Category :
+                                Categories 
                             </label>
                             <select class="rounded-md block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600" name="category" id="category">
                                 {% for selectCategory in category %}
-                                    <option value="{{ selectCategory }}" {% if selectCategory === articles[articleIndex].category %}selected{% endif %}>{{ selectCategory }}</option>
+                                    <option value="{{ selectCategory.name }}" {% if selectCategory.name === articles[articleIndex].category %}selected{% endif %}>{{ selectCategory.name }}</option>
                                 {% endfor %}
                             </select>
 
@@ -73,9 +74,9 @@
                         </div>
                     </div>
                     <div class="flex justify-end mt-20">
-                        <button type="submit" class="bg-gray-500 text-white rounded-md p-3 hover:bg-gray-800">Sauvegarder</button>
+                        {{ button.buttonXl("xl","Sauvegarder","submit", svg=false)}}
                     </button>
-                    <div></form>
-                </div>
+                </form>
+            </div>
 
-                {% endblock%}
+            {% endblock%}

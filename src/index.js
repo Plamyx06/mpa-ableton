@@ -1,15 +1,15 @@
 import http from "http";
 import nunjucks from "nunjucks";
 import {
-  render404
+  render404, formatDate,
 } from "./utils.js";
 import { handlePOST } from './handlePOST.js';
 import { handleGET } from './handleGET.js';
 
-nunjucks.configure({
+let env = nunjucks.configure({
   noCache: true,
 });
-
+env.addFilter("formattedDate", formatDate);
 
 const PORT = 3000;
 
@@ -39,6 +39,7 @@ async function handleServer(request, response) {
     render404(response);
   }
 }
+
 server.listen(PORT, () => {
   console.info(`Server started on port ${PORT}`);
 });

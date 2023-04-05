@@ -1,0 +1,109 @@
+{% extends "src/components/_layout.njk" %}
+{% import "src/components/_button.njk" as button %}
+
+{% block main %}
+
+    {% if searchParams.editCategorySuccess or searchParams.deleteCategorySuccess or searchParams.createCategorySuccess%}
+        <div class="rounded-md bg-green-50 p-4 mb-4">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd"/>
+                    </svg>
+                </div>
+
+                {% if searchParams.editCategorySuccess %}
+                    {% set comment = 'Les categories ont été modifié avec succès !' %}
+                {% elif searchParams.deleteCategorySuccess %}
+                    {% set comment = 'Votre categorie a été supprimé avec succès !' %}
+                {% elif searchParams.createCategorySuccess %}
+                    {% set comment = 'Votre categorie a été créé avec succès !' %}
+                {% endif %}
+
+                {% if comment %}
+                    <div class="ml-3">
+                        <p class="text-sm font-medium text-green-800">{{ comment }}</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+    <div class="w-full pt-10 pl-20 pr-20">
+        <div class="flex justify-between items-baseline mb-10">
+            <h1 class="text-4xl font-bold tracking-tight text-gray-900 pb-15">Gestion du pied de page</h1>
+            <div>
+                <a href="/articles" class="flex items-center text-xl font-semibold mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-1">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75"/>
+                    </svg>Retour aux articles</a>
+            </div>
+        </div>
+        <div class="flex flex-col px-40">
+            <div class="text-2xl font-bold flex justify-center">
+                <h1>Editer les catégories</h1>
+            </div>
+            <form method="POST" action="/editCategory" class="space-y-4">
+                <div class ="">
+                    <label for="name" class="text-xl font-medium leading-6 text-gray-900">Noms</label>
+                    <div class="grid grid-cols-3 gap-4">
+                        {% for i in range(0, category.length) %}
+                            {% set categorys = category[i] %}
+                            <input type="text" name="name{{ i }}" value="{{ categorys.name }}" class="block my-2 w-40 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">
+                        {% endfor %}
+                    </div>
+                    <div class="flex justify-end">
+                        {{ button.buttonXl("xl","Sauvegarder","submit", svg=false)}}
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="mx-20">
+            <div class="my-10 mr-40 flex items-center justify-center w-full border-t-1 border-b-2 border-gray-500"></div>
+        </div>
+
+        <div class="mx-40">
+            <div class="text-2xl font-bold flex justify-center">
+                <h1>Ajouter une nouvelle catégorie</h1>
+            </div>
+            <form method="POST" action="/addCategory" class="space-y-4">
+                <label for="name" class="text-xl font-medium leading-6 text-gray-900">Nom</label>
+                <div class ="flex justify-between items-baseline">
+
+                    <div>
+                        <input type="text" name="name" value="" required class="block  w-40 rounded-md border-0  text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">
+                    </div>
+                    <div>
+                        {{ button.buttonXl("md","Ajouter","submit", svg=false)}}
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="mx-20">
+            <div class="my-10 mr-40 flex items-center justify-center w-full border-b-2 border-gray-500"></div>
+        </div>
+
+        <div class="mx-40">
+            <div class="text-2xl font-bold flex justify-center">
+                <h1>Supprimer une catégorie</h1>
+            </div>
+            <form method="POST" action="/deleteCategory" class="space-y-4">
+                <label class="mr-5 font-semibold text-xl" for="category">                  Catégories 
+                            </label>
+                <div class="flex justify-between">
+                    <div>
+                        <select class="rounded-md block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600" name="id" id="id">
+                            <option  value="" selected>~Veuillez sélectionner une catégorie~</option>
+                            {% for selectCategory in category %}
+                                <option  value="{{ selectCategory.id }}">{{ selectCategory.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        {{ button.buttonXl("md","Supprimer","submit",class="hover:bg-red-500", svg=false)}}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% endblock%}

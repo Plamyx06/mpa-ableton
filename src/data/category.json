@@ -1,1 +1,38 @@
-["Artist", "News", "Download", "Tutorials", "Videos", "Loop"]
+[
+  {
+    "id": "8ykgd",
+    "name": "Artist",
+    "createdAt": "2023-04-04T12:00:16.811Z",
+    "updatedAt": ""
+  },
+  {
+    "id": "diegz",
+    "name": "News",
+    "createdAt": "2023-04-04T12:00:16.812Z",
+    "updatedAt": ""
+  },
+  {
+    "id": "mguop",
+    "name": "Download",
+    "createdAt": "2023-04-04T12:00:16.812Z",
+    "updatedAt": ""
+  },
+  {
+    "id": "arbkz",
+    "name": "Tutorials",
+    "createdAt": "2023-04-04T12:00:16.812Z",
+    "updatedAt": ""
+  },
+  {
+    "id": "sggon",
+    "name": "Videos",
+    "createdAt": "2023-04-04T12:00:16.812Z",
+    "updatedAt": ""
+  },
+  {
+    "id": "nia88",
+    "name": "Loop",
+    "createdAt": "2023-04-04T12:00:16.812Z",
+    "updatedAt": ""
+  }
+]

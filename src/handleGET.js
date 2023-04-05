@@ -5,6 +5,8 @@ import path from 'path';
 
 const ARTICLES_DATA_PATH = "src/data/articles.json";
 const CATEGORY_DATA_PATH = "src/data/category.json";
+const NAVBARFOOTER_DATA_PATH = "src/data/global.json";
+
 
 export async function handleGET(response, requestURLData) {
     if (path.extname(requestURLData.pathname) !== "") {
@@ -12,32 +14,45 @@ export async function handleGET(response, requestURLData) {
         await renderFilePath(response, assetsFilePath);
         return;
     }
-    if (path.basename(requestURLData.pathname).length === 10) {
-        const articleId = path.basename(requestURLData.pathname)
-        requestURLData.pathname = "/articles/edit";
-        requestURLData.searchParams.set("id", articleId);
-    }
+    const basenameURL = path.basename(requestURLData.pathname)
     let templatePath = `src/template${requestURLData.pathname}`;
     if (await isDir(templatePath)) {
         templatePath = path.join(templatePath, "index.njk");
     } else if (await isFile(`${templatePath}.njk`)) {
         templatePath = `${templatePath}.njk`;
-    } else {
+
+    } else if (requestURLData.pathname === `/articles/${basenameURL}`) {
+        const idExist = await isId(basenameURL, ARTICLES_DATA_PATH)
+        if (idExist) {
+            templatePath = `src/template/articles/edit.njk`
+        }
+    }
+    else {
         render404(response);
         return;
     }
+
     const category = await readJSON(CATEGORY_DATA_PATH);
     const articles = await readJSON(ARTICLES_DATA_PATH);
+    const navbarFooter = await readJSON(NAVBARFOOTER_DATA_PATH);
     const searchParams = Object.fromEntries(requestURLData.searchParams);
     const templateData = {
         searchParams: searchParams,
         articles: articles,
         category: category,
-        articleIndex: articles.findIndex(
-            (articles) => articles.id === searchParams.id
+        navbar: navbarFooter.navbar,
+        navbarLogo: navbarFooter.logoNavbar,
+        footer: {
+            section1: navbarFooter.footer.mainFooter1,
+            titleSection2: navbarFooter.footer.footer2,
+            section2: navbarFooter.footer.mainFooter2,
+            socialLink: navbarFooter.footer.socialLink
+        },
+        editArticlesIndex: articles.findIndex(
+            (articles) => articles.id === basenameURL
         ),
-        formatDate: formatDateInJSON,
     };
+    console.log({ templateData })
     const html = nunjucks.render(templatePath, templateData);
     response.end(html);
 
@@ -51,16 +66,15 @@ async function renderFilePath(response, filePath) {
         render404(response);
     }
 }
-function formatDateInJSON(dateStr, twoFirstLetterCountry) {
-    const date = new Date(dateStr);
-    const options = {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "numeric",
-        minute: "numeric",
-        hour12: false,
-    };
-    const formattedDate = date.toLocaleDateString(twoFirstLetterCountry, options);
-    return formattedDate;
+async function isId(targetId, jsonPath) {
+    const data = await readJSON(jsonPath)
+    const foundId = data.find(({ id }) => id === targetId);
+    if (foundId) {
+        return true;
+    } else {
+        return false;
+    }
 }
+
+
+

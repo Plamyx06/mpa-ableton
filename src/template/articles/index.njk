@@ -1,11 +1,11 @@
-{% extends "../_layout.njk" %}
-
+{% extends "src/components/_layout.njk" %}
+{% import "src/components/_button.njk" as button %}
 {% block head %}
     <title>Articles</title>
 {% endblock %}
 
 {% block main %}
-    {% if searchParams.editSuccess or searchParams.deleteSuccess or searchParams.createSuccess or searchParams.connectSuccess%}
+    {% if searchParams.editSuccess or searchParams.deleteSuccess or searchParams.createSuccess or searchParams.connectSuccess  or searchParams.editHeaderSuccess%}
         <div class="rounded-md bg-green-50 p-4 mb-4">
             <div class="flex">
                 <div class="flex-shrink-0">
@@ -13,88 +13,85 @@
                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd"/>
                     </svg>
                 </div>
-                <div class="ml-3">
-                    {% if searchParams.editSuccess %}
-                        <p class="text-sm font-medium text-green-800">
-                           Votre article a été modifié avec succès !
-                        </p>
-                    {% elif searchParams.deleteSuccess %}
-                        <p class="text-sm font-medium text-green-800">
-                           Votre article a été supprimé avec succès !
-                        </p>
-                    {% elif searchParams.createSuccess %}
-                        <p class="text-sm font-medium text-green-800">
-                           Votre article a été crée avec succès !
-                        </p>
-                    {% elif searchParams.connectSuccess %}
-                        <p class="text-sm font-medium text-green-800">
-                           Vous êtes connecté
-                        </p>
-                        {%endif%}
+
+                {% if searchParams.editSuccess %}
+                    {% set comment = 'Votre article a été modifié avec succès !' %}
+                {% elif searchParams.deleteSuccess %}
+                    {% set comment = 'Votre article a été supprimé avec succès !' %}
+                {% elif searchParams.createSuccess %}
+                    {% set comment = 'Votre article a été créé avec succès !' %}
+                {% elif searchParams.connectSuccess %}
+                    {% set comment = 'Vous êtes connecté' %}
+                {%elif  searchParams.editHeaderSuccess %}
+                    {% set comment = 'La barre de navigation a été modifié avec succès !' %}
+                {% endif %}
+
+                {% if comment %}
+                    <div class="ml-3">
+                        <p class="text-sm font-medium text-green-800">{{ comment }}</p>
                     </div>
-                </div>
+                {% endif %}
             </div>
-        {% endif %}
-        <div class="w-full pt-10 pl-20 pr-20">
+        </div>
+    {% endif %}
+    <div class="w-full pt-10 pl-20 pr-20">
 
-            <div class="flex justify-between mb-10">
-                <h1 class="text-4xl font-bold tracking-tight text-gray-900 pb-15">Articles({{articles.length}})</h1>
-                <button class="bg-gray-500 text-white rounded-md p-3 hover:bg-gray-800">
-                    <a href="/articles/create" class="text-xl">+ Nouveau
-                        </a>
-                </button>
-            </div>
+        <div class="flex justify-between mb-10">
+            <h1 class="text-4xl font-bold tracking-tight text-gray-900 pb-15">Articles({{articles.length}})</h1>
+            <a href="/articles/create" >
+                {{ button.buttonXl("md","+ Nouveau", svg=false)}}
+            </a>
+        </div>
 
-            {% set totalArticles = articles.length%}
-            {% set currentPage = 1 %}
-            {% set articlesPerPage = 5 %}
-            {% set maxPage = (totalArticles / articlesPerPage) | round(0, "ceil") %}
+        {% set totalArticles = articles.length%}
+        {% set currentPage = 1 %}
+        {% set articlesPerPage = 5 %}
+        {% set maxPage = (totalArticles / articlesPerPage) | round(0, "ceil") %}
 
-            {% set currentPage = searchParams.page | default(1) | int %}
+        {% set currentPage = searchParams.page | default(1) | int %}
 
-            {% set startIndex = (currentPage - 1) * articlesPerPage %}
-            {% set endIndex = startIndex + articlesPerPage %}
+        {% set startIndex = (currentPage - 1) * articlesPerPage %}
+        {% set endIndex = startIndex + articlesPerPage %}
 
-            {% for article in articles.slice(startIndex, endIndex) %}
-                <div class="flex flex-col pt-1">
-                    <div class="box-border p-4 border-2 border-gray-500 rounded-md">
-                        <div class="flex">
-                            <div>
-                                <img class="w-40 h-20" src="{{article.image}}">
-                            </div>
-                            <div class="pl-5 pr-5 w-full">
-                                <h2 class="font-medium pb-1">{{article.title}}</h2>
-                                <h2>
-                                    <p class="inline-block bg-gray-500 text-white text-sm rounded-md pl-1 pr-1">{{article.category}}</p>
+        {% for article in articles.slice(startIndex, endIndex) %}
+            <div class="flex flex-col pt-1">
+                <div class="box-border p-4 border-2 border-gray-500 rounded-md">
+                    <div class="flex">
+                        <div>
+                            <img class="w-40 h-20" src="{{article.image}}">
+                        </div>
+                        <div class="px-5 w-full">
+                            <h2 class="font-medium pb-2">{{article.title}}</h2>
 
-                                    <div class="flex justify-between items-center ">
-                                        {% if formatDate(article.updateAt, "fr") === "Invalid Date" %}
-                                            <p class="font-light text-xs">dernière modification le {{formatDate(article.createdAt, "fr")}}</p>
-                                        {% else %}
-                                            <p class="font-light text-xs">dernière modification le {{formatDate(article.updateAt, "fr")}}</p>
-                                        {% endif %}
-                                        <div class="">
-                                            <button id="button_published" class="bg-gray-500 text-white rounded-md px-2 mr-5 hover:bg-gray-800">
-                                                <a href="" class="inline-flex">
-                            Publié
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 ml-2">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"></path>
-                                                    </svg>
-                                                </a>
-                                            </button>
-                                            <button id="button_edit" class="bg-gray-500 text-white rounded-md px-2 mr-5 hover:bg-gray-800">
-                                                <a href="/articles/{{article.id}}" class="inline-flex">
-                            Editer
-                          </a>
-                                            </button>
-                                            <form method="POST" class="inline-flex" action="/delete">
-                                                <input type="hidden" name="id" value="{{article.id}}">
-                                                <button type="submit" value="delete" class="bg-gray-500 text-white rounded-md pl-1 pr-1 hover:bg-red-500">Supprimer</button>
-                                            </form>
+                            {{ button.button("md",article.category, svg=false)}}
 
-                                        </div>
+                            <div class="flex justify-between items-center ">
+                                <p class="pt-2 font-light text-xs">
+                                    {% if article.updatedAt %}
+                                         Dernière modification le {{ article.updatedAt | formattedDate }}
+                                    {% else %}
+                                        Créé le {{ article.createdAt | formattedDate }}
+                                    {% endif %}
+                                </p>
+                                <div class="flex">
+                                    {%if article.status === "published"%}
+                                        <a href="" class="mr-5">
+                                            {{ button.button("md","Publié")}}
+                                        </a>
+                                        {%else%}
+                                        <a href="" class="mr-5">
+                                            {{ button.button("md","Brouillon", svg=false)}}
+                                        </a>
+                                        {%endif%}
+                                        <a href="/articles/{{article.id}}"class="mr-5">
+                                            {{ button.button("md","Editer", svg=false)}}
+                                        </a>
+                                        <form method="POST" class="inline-flex" action="/delete">
+                                            <input type="hidden" name="id" value="{{article.id}}">
+                                            {{ button.button("md","Supprimer",class="hover:bg-red-500", type="submit", value="delete", svg=false) }}
+                                        </form>
                                     </div>
-                                </h2>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -104,16 +101,12 @@
             <div class="pagination flex justify-center pt-10 space-x-96">
                 {% if currentPage > 1 %}
                     <a href="?page={{ currentPage - 1 }}">
-                        <button type="submit" class="bg-gray-500 text-white rounded-md px-3 py-1 hover:bg-gray-800">
-                Précédent
-            </button>
+                        {{ button.button("md","Précedent", type="submit", svg=false) }}
                     </a>
                 {% endif %}
                 {% if currentPage < maxPage %}
                     <a href="?page={{ currentPage + 1 }}">
-                        <button type="submit" class="bg-gray-500 text-white rounded-md px-3 py-1 hover:bg-gray-800">
-                Suivant
-            </button>
+                        {{ button.button("md","Suivant", type="submit", svg=false) }}
                     </a>
                 {% endif %}
             </div>
