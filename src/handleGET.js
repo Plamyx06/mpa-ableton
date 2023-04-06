@@ -20,16 +20,17 @@ export async function handleGET(response, requestURLData) {
         response.writeHead(200, { "Content-Type": "application/json" });
         response.end(JSON.stringify(articles));
     }
-    else if (requestURLData.pathname === "/api/category") {
+    if (requestURLData.pathname === "/api/category") {
         const category = await readJSON(CATEGORY_DATA_PATH);
         response.writeHead(200, { "Content-Type": "application/json" });
         response.end(JSON.stringify(category));
     }
-    else if (requestURLData.pathname === "/api/global") {
+    if (requestURLData.pathname === "/api/global") {
         const global = await readJSON(NAVBARFOOTER_DATA_PATH);
         response.writeHead(200, { "Content-Type": "application/json" });
         response.end(JSON.stringify(global));
     }
+
 
     const basenameURL = path.basename(requestURLData.pathname)
     let templatePath = `src/template${requestURLData.pathname}`;
@@ -44,7 +45,6 @@ export async function handleGET(response, requestURLData) {
             templatePath = `src/template/articles/edit.njk`
         }
     }
-
     else {
         render404(response);
         return;
