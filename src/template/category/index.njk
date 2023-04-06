@@ -13,11 +13,11 @@
                 </div>
 
                 {% if searchParams.editCategorySuccess %}
-                    {% set comment = 'Les categories ont été modifié avec succès !' %}
+                    {% set comment = 'Les catégories ont été modifiées avec succès !' %}
                 {% elif searchParams.deleteCategorySuccess %}
-                    {% set comment = 'Votre categorie a été supprimé avec succès !' %}
+                    {% set comment = 'Votre catégorie a été supprimée avec succès !' %}
                 {% elif searchParams.createCategorySuccess %}
-                    {% set comment = 'Votre categorie a été créé avec succès !' %}
+                    {% set comment = 'Votre catégorie a été créée avec succès !' %}
                 {% endif %}
 
                 {% if comment %}
@@ -28,44 +28,46 @@
             </div>
         </div>
     {% endif %}
-    <div class="w-full pt-10 pl-20 pr-20">
-        <div class="flex justify-between items-baseline mb-10">
-            <h1 class="text-4xl font-bold tracking-tight text-gray-900 pb-15">Gestion du pied de page</h1>
-            <div>
-                <a href="/articles" class="flex items-center text-xl font-semibold mb-6">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-1">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75"/>
-                    </svg>Retour aux articles</a>
-            </div>
+    <div class="w-full mt-10 pl-20 pr-20">
+        <div class="flex justify-center items-baseline mb-10">
+            <h1 class="text-4xl font-bold tracking-tight text-gray-900 ">Gestion des categories</h1>
+        </div>
+        <div class="flex justify-end mb-10">
+            <button class=" px-40 text-blue-600 ">
+                <a href="https://ableton-dynamique.vercel.app/" target="_blank" class="inline-flex">Site web
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 ml-2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"></path>
+                    </svg>
+                </a>
+            </button>
         </div>
         <div class="flex flex-col px-40">
             <div class="text-2xl font-bold flex justify-center">
                 <h1>Editer les catégories</h1>
             </div>
-            <form method="POST" action="/editCategory" class="space-y-4">
+            <form method="POST" action="/category/edit" class="space-y-4">
                 <div class ="">
                     <label for="name" class="text-xl font-medium leading-6 text-gray-900">Noms</label>
                     <div class="grid grid-cols-3 gap-4">
-                        {% for i in range(0, category.length) %}
-                            {% set categorys = category[i] %}
-                            <input type="text" name="name{{ i }}" value="{{ categorys.name }}" class="block my-2 w-40 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">
+                        {% for categorys in category %}
+                            <input type="text" name="name{{loop.index0}}" value="{{ categorys.name }}" class="block my-2 w-40 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">
                         {% endfor %}
                     </div>
                     <div class="flex justify-end">
-                        {{ button.buttonXl("xl","Sauvegarder","submit", svg=false)}}
+                        {{ button.buttonXl("Sauvegarder","submit", svg=false)}}
                     </div>
                 </div>
             </form>
         </div>
         <div class="mx-20">
-            <div class="my-10 mr-40 flex items-center justify-center w-full border-t-1 border-b-2 border-gray-500"></div>
+            <div class="my-10 mx-60 flex items-center justify-center border-t-1 border-b-2 border-gray-500"></div>
         </div>
 
         <div class="mx-40">
             <div class="text-2xl font-bold flex justify-center">
                 <h1>Ajouter une nouvelle catégorie</h1>
             </div>
-            <form method="POST" action="/addCategory" class="space-y-4">
+            <form method="POST" action="/category/add" class="space-y-4">
                 <label for="name" class="text-xl font-medium leading-6 text-gray-900">Nom</label>
                 <div class ="flex justify-between items-baseline">
 
@@ -73,22 +75,22 @@
                         <input type="text" name="name" value="" required class="block  w-40 rounded-md border-0  text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">
                     </div>
                     <div>
-                        {{ button.buttonXl("md","Ajouter","submit", svg=false)}}
+                        {{ button.buttonXl("Ajouter","submit", svg=false)}}
                     </div>
                 </div>
             </form>
         </div>
 
         <div class="mx-20">
-            <div class="my-10 mr-40 flex items-center justify-center w-full border-b-2 border-gray-500"></div>
+            <div class="my-10 mx-60 flex items-center justify-center border-b-2 border-gray-500"></div>
         </div>
 
         <div class="mx-40">
             <div class="text-2xl font-bold flex justify-center">
                 <h1>Supprimer une catégorie</h1>
             </div>
-            <form method="POST" action="/deleteCategory" class="space-y-4">
-                <label class="mr-5 font-semibold text-xl" for="category">                  Catégories 
+            <form method="POST" action="/category/delete" class="space-y-4">
+                <label class="mr-5 font-semibold text-xl" for="category"> Catégories 
                             </label>
                 <div class="flex justify-between">
                     <div>
@@ -100,7 +102,7 @@
                         </select>
                     </div>
                     <div>
-                        {{ button.buttonXl("md","Supprimer","submit",class="hover:bg-red-500", svg=false)}}
+                        {{ button.buttonXl("Supprimer","submit",class="hover:bg-red-500", svg=false)}}
                     </div>
                 </div>
             </form>

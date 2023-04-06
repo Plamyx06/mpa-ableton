@@ -5,83 +5,68 @@
   "navbar": [
     {
       "title": "Push",
-      "href": "https://www.ableton.com/en/push/",
-      "updatedAt": "2023-04-04T08:32:59.837Z"
+      "href": "https://www.ableton.com/en/push/"
     },
     {
       "title": "Blog",
-      "href": "/blog/",
-      "updatedAt": "2023-04-04T08:32:59.837Z"
+      "href": "/blog/"
     },
     {
       "title": "Shop",
-      "href": "https://www.ableton.com/en/shop/",
-      "updatedAt": "2023-04-04T08:32:59.837Z"
+      "href": "https://www.ableton.com/en/shop/"
     },
     {
       "title": "Packs",
-      "href": "https://www.ableton.com/en/packs/",
-      "updatedAt": "2023-04-04T08:32:59.837Z"
+      "href": "https://www.ableton.com/en/packs/"
     },
     {
       "title": "Help",
-      "href": "https://www.ableton.com/en/help/",
-      "updatedAt": "2023-04-04T08:32:59.837Z"
+      "href": "https://www.ableton.com/en/help/"
     },
     {
       "title": "More +",
-      "href": "/more",
-      "updatedAt": "2023-04-04T08:32:59.837Z"
+      "href": "/more"
     },
     {
       "title": "Try live for free",
-      "href": "https://www.ableton.com/en/trial/",
-      "updatedAt": "2023-04-04T08:32:59.837Z"
+      "href": "https://www.ableton.com/en/trial/"
     },
     {
       "title": "Login or register",
-      "href": "/login",
-      "updatedAt": "2023-04-04T08:32:59.837Z"
+      "href": "/login"
     }
   ],
   "footer": {
     "mainFooter1": [
       {
         "title": "Register Live or Push >",
-        "href": "https://www.ableton.com/en/login/?next=/en/account/add_license/",
-        "updatedAt": "2023-04-04T11:43:00.380Z"
+        "href": "https://www.ableton.com/en/login/?next=/en/account/add_license/"
       },
       {
         "title": "About Ableton >",
-        "href": "https://www.ableton.com/en/about/",
-        "updatedAt": "2023-04-04T11:43:00.380Z"
+        "href": "https://www.ableton.com/en/about/"
       },
       {
         "title": "Jobs >",
-        "href": "https://www.ableton.com/en/jobs/",
-        "updatedAt": "2023-04-04T11:43:00.380Z"
+        "href": "https://www.ableton.com/en/jobs/"
       }
     ],
     "socialLink": [
       {
         "title": "Facebook",
-        "href": "https://www.facebook.com/ableton",
-        "updatedAt": "2023-04-04T11:43:00.380Z"
+        "href": "https://www.facebook.com/"
       },
       {
         "title": "Twitter",
-        "href": "https://twitter.com/ableton",
-        "updatedAt": "2023-04-04T11:43:00.380Z"
+        "href": "https://twitter.com/ableton"
       },
       {
         "title": "Youtube",
-        "href": "https://www.youtube.com/ableton",
-        "updatedAt": "2023-04-04T11:43:00.380Z"
+        "href": "https://www.youtube.com/ableton"
       },
       {
         "title": "Instagram",
-        "href": "https://www.instagram.com/ableton/",
-        "updatedAt": "2023-04-04T11:43:00.380Z"
+        "href": "https://www.instagram.com/ableton/"
       }
     ],
     "footer2": {
@@ -90,18 +75,15 @@
     "mainFooter2": [
       {
         "title": "Offers for students and teachers >",
-        "href": "https://www.ableton.com/en/shop/education/",
-        "updatedAt": "2023-04-04T11:43:00.380Z"
+        "href": "https://www.ableton.com/en/shop/education/"
       },
       {
         "title": "Ableton for the classroom >",
-        "href": "https://www.ableton.com/en/classroom/",
-        "updatedAt": "2023-04-04T11:43:00.380Z"
+        "href": "https://www.ableton.com/en/classroom/"
       },
       {
         "title": "Ableton for Colleges and Universities >",
-        "href": "https://www.ableton.com/en/colleges-universities/",
-        "updatedAt": "2023-04-04T11:43:00.380Z"
+        "href": "https://www.ableton.com/en/colleges-universities/"
       }
     ]
   }

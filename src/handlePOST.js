@@ -17,14 +17,13 @@ export async function handlePOST(request, response, requestURLData) {
     const body = await readBody(request);
     const form = convertFormDataToJSON(body);
     const targetId = path.basename(requestURLData.pathname);
-    console.log({ targetId })
     if (requestURLData.pathname === "/articles/create") {
         await writeJSON(ARTICLES_DATA_PATH, await addIdAndDateAtArticles(form));
         response302(response, `/articles?createSuccess=true`)
     } else if (targetId === form.id) {
         await editedData(ARTICLES_DATA_PATH, form);
         response302(response, `/articles?editSuccess=true`)
-    } else if (requestURLData.pathname === "/delete") {
+    } else if (requestURLData.pathname === "/articles/delete") {
         await deleteData(ARTICLES_DATA_PATH, form)
         response302(response, `/articles?deleteSuccess=true`)
     }
@@ -37,23 +36,23 @@ export async function handlePOST(request, response, requestURLData) {
             response302(response, "/login?connectFail=true");
         }
     }
-    else if (requestURLData.pathname === "/editHeader") {
+    else if (requestURLData.pathname === "/header/edit") {
         await editedDataNavbar(NAVBARFOOTER_DATA_PATH, form)
         response302(response, `/header?editHeaderSuccess=true`)
     }
-    else if (requestURLData.pathname === "/editFooter") {
+    else if (requestURLData.pathname === "/footer/edit") {
         editedDataFooter(NAVBARFOOTER_DATA_PATH, form)
         response302(response, `/footer?editFooterSuccess=true`)
     }
-    else if (requestURLData.pathname === "/editCategory") {
+    else if (requestURLData.pathname === "/category/edit") {
         await editedDataCategory(CATEGORY_DATA_PATH, form)
         response302(response, `/category?editCategorySuccess=true`)
     }
-    else if (requestURLData.pathname === "/addCategory") {
+    else if (requestURLData.pathname === "/category/add") {
         await writeJSON(CATEGORY_DATA_PATH, await addIdAndDateAtCategory(form));
         response302(response, `/category?createCategorySuccess=true`)
     }
-    else if (requestURLData.pathname === "/deleteCategory") {
+    else if (requestURLData.pathname === "/category/delete") {
         await deleteData(CATEGORY_DATA_PATH, form)
         response302(response, `/category?deleteCategorySuccess=true`)
     }
@@ -105,7 +104,7 @@ async function editedDataNavbar(jsonPath, form) {
     for (let i = 0; i < navbarData.length; i++) {
         navbarData[i].title = form[`title${i}`]
         navbarData[i].href = form[`href${i}`]
-        navbarData[i].updatedAt = new Date().toISOString();
+
     }
     const editedData = await writeJSON(jsonPath, data);
     return editedData;
@@ -121,16 +120,16 @@ async function editedDataFooter(jsonPath, form) {
     for (let i = 0; i < footerSection1Data.length; i++) {
         footerSection1Data[i].title = form[`section1Title${i}`]
         footerSection1Data[i].href = form[`section1Href${i}`]
-        footerSection1Data[i].updatedAt = new Date().toISOString();
+
     }
     for (let i = 0; i < footerSection2Data.length; i++) {
         footerSection2Data[i].title = form[`section2Title${i}`]
         footerSection2Data[i].href = form[`section2Href${i}`]
-        footerSection2Data[i].updatedAt = new Date().toISOString();
+
     }
     for (let i = 0; i < footerSocialLinkData.length; i++) {
         footerSocialLinkData[i].href = form[`socialHref${i}`]
-        footerSocialLinkData[i].updatedAt = new Date().toISOString();
+
     }
     const editedData = await writeJSON(jsonPath, data);
     return editedData;

@@ -9,11 +9,28 @@ const NAVBARFOOTER_DATA_PATH = "src/data/global.json";
 
 
 export async function handleGET(response, requestURLData) {
+
     if (path.extname(requestURLData.pathname) !== "") {
         const assetsFilePath = `src/assets${requestURLData.pathname}`;
         await renderFilePath(response, assetsFilePath);
         return;
     }
+    if (requestURLData.pathname === "/api/articles") {
+        const articles = await readJSON(ARTICLES_DATA_PATH);
+        response.writeHead(200, { "Content-Type": "application/json" });
+        response.end(JSON.stringify(articles));
+    }
+    else if (requestURLData.pathname === "/api/category") {
+        const category = await readJSON(CATEGORY_DATA_PATH);
+        response.writeHead(200, { "Content-Type": "application/json" });
+        response.end(JSON.stringify(category));
+    }
+    else if (requestURLData.pathname === "/api/global") {
+        const global = await readJSON(NAVBARFOOTER_DATA_PATH);
+        response.writeHead(200, { "Content-Type": "application/json" });
+        response.end(JSON.stringify(global));
+    }
+
     const basenameURL = path.basename(requestURLData.pathname)
     let templatePath = `src/template${requestURLData.pathname}`;
     if (await isDir(templatePath)) {
@@ -27,6 +44,7 @@ export async function handleGET(response, requestURLData) {
             templatePath = `src/template/articles/edit.njk`
         }
     }
+
     else {
         render404(response);
         return;
@@ -52,7 +70,6 @@ export async function handleGET(response, requestURLData) {
             (articles) => articles.id === basenameURL
         ),
     };
-    console.log({ templateData })
     const html = nunjucks.render(templatePath, templateData);
     response.end(html);
 

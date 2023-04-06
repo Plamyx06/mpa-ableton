@@ -6,14 +6,14 @@
 {% block main %}
     <div class="w-full pt-10 pl-20 pr-20 ">
         <h1 class="text-4xl font-bold tracking-tight text-gray-900">Tableau de bord</h1>
-        <button class="items-center pt-10 text-blue-600">
+        <button class="pt-10 text-blue-600">
             <a href="https://ableton-dynamique.vercel.app/" target="_blank" class="inline-flex">Site web
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 ml-2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"></path>
                 </svg>
             </a>
         </button>
-        <button class="items-center pt-10 text-blue-600 ml-20">
+        <button class="pt-10 text-blue-600 ml-20">
             <a href="https://analytics.google.com/analytics/web/#/p350515555/reports/intelligenthome" target="_blank" class="inline-flex">Analytics
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 ml-2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"></path>
@@ -31,7 +31,7 @@
                         </div>
                         <div class="px-5 w-full">
                             <h2 class="font-medium pb-2">{{article.title}}</h2>
-                            {{ button.button("md",article.category, type, svg=false)}}
+                            {{ button.button(article.category, type, svg=false)}}
                             <div class="flex justify-between items-baseline">
                                 <p class="pt-2 font-light text-xs">
                                     {% if article.updatedAt %}
@@ -44,19 +44,19 @@
                                 <div class="flex">
                                     {%if article.status === "published"%}
                                         <a href="" class="mr-5">
-                                            {{ button.button("md","Publié")}}
+                                            {{ button.button("Publié")}}
                                         </a>
                                         {%else%}
                                         <a href="" class="mr-5">
-                                            {{ button.button("md","Brouillon",class="", type="button", value="", svg=false)}}
+                                            {{ button.button("Brouillon",class="", type="button", value="", svg=false)}}
                                         </a>
                                         {%endif%}
                                         <a href="/articles/{{article.id}}"class="mr-5">
-                                            {{ button.button("md","Editer", svg=false)}}
+                                            {{ button.button("Editer", svg=false)}}
                                         </a>
-                                        <form method="POST" class="inline-flex" action="/delete">
+                                        <form method="POST" class="inline-flex" action="/articles/delete">
                                             <input type="hidden" name="id" value="{{article.id}}">
-                                            {{ button.button("md","Supprimer",class="hover:bg-red-500", type="submit", value="delete", svg=false) }}
+                                            {{ button.button("Supprimer",class="hover:bg-red-500", type="submit", value="delete", svg=false) }}
                                         </form>
                                     </div>
                                 </div>

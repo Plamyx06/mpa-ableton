@@ -2,9 +2,9 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"></path>
                 </svg>' %}
 
-{% macro button(name, text, type, class = "", svg = true) %}
+{% macro button(text, type, class = "", svg = true) %}
     {% set buttonType = type | default("button") %}
-    <button type="{{buttonType}}" class="btn-{{name}} flex justify-center items-center bg-gray-500 h-6 w-24 text-white text-center rounded-md hover:bg-gray-800 {{ class }}">
+    <button type="{{buttonType}}" class=" flex justify-center items-center bg-gray-500 h-6 w-24 text-white text-center rounded-md hover:bg-gray-800 {{ class }}">
         {{ text }}
         {% if svg %}
             {{ svgIcon | safe }}
@@ -12,9 +12,9 @@
     </button>
 {% endmacro %}
 
-{% macro buttonXl(name, text, type, class = "", svg = true) %}
+{% macro buttonXl(text, type, class = "", svg = true) %}
     {% set buttonType = type | default("button") %}
-    <button type="{{buttonType}}" class="btn-{{name}} flex justify-center items-center bg-gray-500 text-white text-center rounded-md hover:bg-gray-800 text-xl w-32 h-10 {{ class }}">
+    <button type="{{buttonType}}" class="flex justify-center items-center bg-gray-500 text-white text-center rounded-md hover:bg-gray-800 text-xl w-32 h-10 {{ class }}">
         {{ text }}
         {% if svg %}
             {{ svgIcon | safe }}
