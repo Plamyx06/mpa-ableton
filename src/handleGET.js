@@ -17,18 +17,18 @@ export async function handleGET(response, requestURLData) {
     }
     if (requestURLData.pathname === "/api/articles") {
         const articles = await readJSON(ARTICLES_DATA_PATH);
-        response.writeHead(200, { "Content-Type": "application/json" });
         response.end(JSON.stringify(articles));
+        return
     }
-    if (requestURLData.pathname === "/api/category") {
+    if (requestURLData.pathname === "/api/articles-category") {
         const category = await readJSON(CATEGORY_DATA_PATH);
-        response.writeHead(200, { "Content-Type": "application/json" });
         response.end(JSON.stringify(category));
+        return
     }
     if (requestURLData.pathname === "/api/global") {
         const global = await readJSON(NAVBARFOOTER_DATA_PATH);
-        response.writeHead(200, { "Content-Type": "application/json" });
         response.end(JSON.stringify(global));
+        return
     }
 
 
