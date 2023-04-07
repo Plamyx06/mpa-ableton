@@ -9,7 +9,8 @@ import { customAlphabet } from "nanoid";
 
 const ARTICLES_DATA_PATH = "src/data/articles.json";
 const USER_DATA_PATH = "src/data/user.json"
-const NAVBARFOOTER_DATA_PATH = "src/data/global.json";
+const HEADER_DATA_PATH = "src/data/header.json";
+const FOOTER_DATA_PATH = "src/data/footer.json";
 const CATEGORY_DATA_PATH = "src/data/category.json";
 
 
@@ -37,11 +38,11 @@ export async function handlePOST(request, response, requestURLData) {
         }
     }
     else if (requestURLData.pathname === "/header/edit") {
-        await editedDataNavbar(NAVBARFOOTER_DATA_PATH, form)
+        await editedDataNavbar(HEADER_DATA_PATH, form)
         response302(response, `/header?editHeaderSuccess=true`)
     }
     else if (requestURLData.pathname === "/footer/edit") {
-        editedDataFooter(NAVBARFOOTER_DATA_PATH, form)
+        editedDataFooter(FOOTER_DATA_PATH, form)
         response302(response, `/footer?editFooterSuccess=true`)
     }
     else if (requestURLData.pathname === "/category/edit") {
@@ -57,6 +58,7 @@ export async function handlePOST(request, response, requestURLData) {
         response302(response, `/category?deleteCategorySuccess=true`)
     }
 }
+
 async function addIdAndDateAtArticles(form) {
     const nanoid = customAlphabet("0123456789qwertyuiopasdfghjklzxcvbnm", 10);
     form.createdAt = new Date().toISOString();

@@ -5,7 +5,8 @@ import path from 'path';
 
 const ARTICLES_DATA_PATH = "src/data/articles.json";
 const CATEGORY_DATA_PATH = "src/data/category.json";
-const NAVBARFOOTER_DATA_PATH = "src/data/global.json";
+const HEADER_DATA_PATH = "src/data/header.json";
+const FOOTER_DATA_PATH = "src/data/footer.json";
 
 
 export async function handleGET(response, requestURLData) {
@@ -20,17 +21,21 @@ export async function handleGET(response, requestURLData) {
         response.end(JSON.stringify(articles));
         return
     }
-    if (requestURLData.pathname === "/api/articles-category") {
+    if (requestURLData.pathname === "/api/articles-categories") {
         const category = await readJSON(CATEGORY_DATA_PATH);
         response.end(JSON.stringify(category));
         return
     }
-    if (requestURLData.pathname === "/api/global") {
-        const global = await readJSON(NAVBARFOOTER_DATA_PATH);
-        response.end(JSON.stringify(global));
+    if (requestURLData.pathname === "/api/footer") {
+        const footer = await readJSON(FOOTER_DATA_PATH);
+        response.end(JSON.stringify(footer));
         return
     }
-
+    if (requestURLData.pathname === "/api/header") {
+        const header = await readJSON(HEADER_DATA_PATH);
+        response.end(JSON.stringify(header));
+        return
+    }
 
     const basenameURL = path.basename(requestURLData.pathname)
     let templatePath = `src/template${requestURLData.pathname}`;
@@ -52,27 +57,28 @@ export async function handleGET(response, requestURLData) {
 
     const category = await readJSON(CATEGORY_DATA_PATH);
     const articles = await readJSON(ARTICLES_DATA_PATH);
-    const navbarFooter = await readJSON(NAVBARFOOTER_DATA_PATH);
+    const navbar = await readJSON(HEADER_DATA_PATH);
+    const footer = await readJSON(FOOTER_DATA_PATH);
     const searchParams = Object.fromEntries(requestURLData.searchParams);
     const templateData = {
         searchParams: searchParams,
         articles: articles,
         category: category,
-        navbar: navbarFooter.navbar,
-        navbarLogo: navbarFooter.logoNavbar,
+        navbar: navbar.navbar,
+        navbarLogo: navbar.logoNavbar,
         footer: {
-            section1: navbarFooter.footer.mainFooter1,
-            titleSection2: navbarFooter.footer.footer2,
-            section2: navbarFooter.footer.mainFooter2,
-            socialLink: navbarFooter.footer.socialLink
+            section1: footer.footer.mainFooter1,
+            titleSection2: footer.footer.footer2,
+            section2: footer.footer.mainFooter2,
+            socialLink: footer.footer.socialLink
         },
         editArticlesIndex: articles.findIndex(
             (articles) => articles.id === basenameURL
         ),
     };
+
     const html = nunjucks.render(templatePath, templateData);
     response.end(html);
-
 }
 
 async function renderFilePath(response, filePath) {

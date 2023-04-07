@@ -1,0 +1,53 @@
+{
+  "footer": {
+    "mainFooter1": [
+      {
+        "title": "Register Live or Push >",
+        "href": "https://www.ableton.com/en/login/?next=/en/account/add_license/"
+      },
+      {
+        "title": "About Ableton >",
+        "href": "https://www.ableton.com/en/about/"
+      },
+      {
+        "title": "Jobs >",
+        "href": "https://www.ableton.com/en/jobs/"
+      }
+    ],
+    "socialLink": [
+      {
+        "title": "Facebook",
+        "href": "https://www.facebook.com/"
+      },
+      {
+        "title": "Twitter",
+        "href": "https://twitter.com/ableton"
+      },
+      {
+        "title": "Youtube",
+        "href": "https://www.youtube.com/ableton"
+      },
+      {
+        "title": "Instagram",
+        "href": "https://www.instagram.com/ableton/"
+      }
+    ],
+    "footer2": {
+      "mainTitle": "Education"
+    },
+    "mainFooter2": [
+      {
+        "title": "Offers for students and teachers >",
+        "href": "https://www.ableton.com/en/shop/education/"
+      },
+      {
+        "title": "Ableton for the classroom >",
+        "href": "https://www.ableton.com/en/classroom/"
+      },
+      {
+        "title": "Ableton for Colleges and Universities >",
+        "href": "https://www.ableton.com/en/colleges-universities/"
+      }
+    ]
+  }
+}

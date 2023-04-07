@@ -62,14 +62,12 @@
                         <label for="href" class="text-xl font-medium leading-6 text-gray-900">Liens</label>
 
                         {% for navHref in navbar %}
-
                             <input type="text" name="href{{loop.index0}}" id="href{{loop.index0}}" value="{{ navHref.href }}" class="block my-2 rounded-md w-96 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">
-
                         {% endfor %}
                     </div>
                 </div>
                 <div class="flex justify-end items-baseline pt-5">
-                    {{ button.buttonXl("Sauvegarder","submit", svg=false)}}
+                    {{ button.buttonXl("Sauvegarder","submit")}}
                 </div>
             </form>
         </div>

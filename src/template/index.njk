@@ -1,5 +1,6 @@
 {% extends "src/components/_layout.njk" %}
 {% import "src/components/_button.njk" as button %}
+
 {% block head %}
     <title>Tableau de bord</title>
 {% endblock %}
@@ -31,7 +32,7 @@
                         </div>
                         <div class="px-5 w-full">
                             <h2 class="font-medium pb-2">{{article.title}}</h2>
-                            {{ button.button(article.category, type, svg=false)}}
+                            {{ button.button(article.category, type)}}
                             <div class="flex justify-between items-baseline">
                                 <p class="pt-2 font-light text-xs">
                                     {% if article.updatedAt %}
@@ -44,19 +45,19 @@
                                 <div class="flex">
                                     {%if article.status === "published"%}
                                         <a href="" class="mr-5">
-                                            {{ button.button("Publié")}}
+                                            {{ button.button('Publié' + button.iconTrash()) }}
                                         </a>
                                         {%else%}
                                         <a href="" class="mr-5">
-                                            {{ button.button("Brouillon",class="", type="button", value="", svg=false)}}
+                                            {{ button.button("Brouillon",class="")}}
                                         </a>
                                         {%endif%}
                                         <a href="/articles/{{article.id}}"class="mr-5">
-                                            {{ button.button("Editer", svg=false)}}
+                                            {{ button.button("Editer")}}
                                         </a>
                                         <form method="POST" class="inline-flex" action="/articles/delete">
                                             <input type="hidden" name="id" value="{{article.id}}">
-                                            {{ button.button("Supprimer",class="hover:bg-red-500", type="submit", value="delete", svg=false) }}
+                                            {{ button.button("Supprimer",class="hover:bg-red-500", type="submit") }}
                                         </form>
                                     </div>
                                 </div>

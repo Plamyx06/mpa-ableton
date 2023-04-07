@@ -39,7 +39,7 @@
         <div class="flex justify-between mb-10">
             <h1 class="text-4xl font-bold tracking-tight text-gray-900 pb-15">Articles({{articles.length}})</h1>
             <a href="/articles/create" >
-                {{ button.buttonXl("+ Nouveau", svg=false)}}
+                {{ button.buttonXl("+ Nouveau")}}
             </a>
         </div>
 
@@ -63,7 +63,7 @@
                         <div class="px-5 w-full">
                             <h2 class="font-medium pb-2">{{article.title}}</h2>
 
-                            {{ button.button(article.category, svg=false)}}
+                            {{ button.button(article.category)}}
 
                             <div class="flex justify-between items-center ">
                                 <p class="pt-2 font-light text-xs">
@@ -76,19 +76,19 @@
                                 <div class="flex">
                                     {%if article.status === "published"%}
                                         <a href="" class="mr-5">
-                                            {{ button.button("Publié")}}
+                                            {{ button.button("Publié" + button.iconTrash())}}
                                         </a>
                                         {%else%}
                                         <a href="" class="mr-5">
-                                            {{ button.button("Brouillon", svg=false)}}
+                                            {{ button.button("Brouillon")}}
                                         </a>
                                         {%endif%}
                                         <a href="/articles/{{article.id}}"class="mr-5">
-                                            {{ button.button("Editer", svg=false)}}
+                                            {{ button.button("Editer")}}
                                         </a>
                                         <form method="POST" class="inline-flex" action="/articles/delete">
                                             <input type="hidden" name="id" value="{{article.id}}">
-                                            {{ button.button("Supprimer",class="hover:bg-red-500", type="submit", value="delete", svg=false) }}
+                                            {{ button.button("Supprimer",class="hover:bg-red-500", type="submit", value="delete") }}
                                         </form>
                                     </div>
                                 </div>
@@ -101,12 +101,12 @@
             <div class="pagination flex justify-center pt-10 space-x-96">
                 {% if currentPage > 1 %}
                     <a href="?page={{ currentPage - 1 }}">
-                        {{ button.button("Précedent", type="submit", svg=false) }}
+                        {{ button.button("Précedent", type="submit") }}
                     </a>
                 {% endif %}
                 {% if currentPage < maxPage %}
                     <a href="?page={{ currentPage + 1 }}">
-                        {{ button.button("Suivant", type="submit", svg=false) }}
+                        {{ button.button("Suivant", type="submit") }}
                     </a>
                 {% endif %}
             </div>
