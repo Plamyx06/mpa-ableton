@@ -32,7 +32,7 @@ async function handleServer(request, response) {
   });
 
   if (request.method === "GET") {
-    await handleGET(response, requestURLData);
+    await handleGET(response, requestURLData, request);
   } else if (request.method === "POST") {
     await handlePOST(request, response, requestURLData);
   } else {

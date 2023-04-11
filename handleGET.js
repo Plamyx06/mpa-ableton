@@ -39,13 +39,19 @@ export async function handleGET(response, requestURLData, request) {
     }
     else if (requestURLData.pathname !== "/login") {
         const objCookie = request.headers.cookie
-        let cookieId = objCookie ? objCookie.replace('sessionId=', '') : false;
-        if (!await verifyUserSessionId(cookieId)) {
+        let cookieId = objCookie.replace('sessionId=', '');
+        if (await verifyUserSessionId(cookieId)) {
+
+        } else
             response.writeHead(302, { Location: '/login' });
-            response.end();
-            return;
-        }
+        response.end();
+        return;
+
     }
+
+
+
+
 
 
     const basenameURL = path.basename(requestURLData.pathname)

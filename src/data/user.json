@@ -1,14 +1,17 @@
 [
   {
     "email": "aurelien@gmail.com",
-    "password": "12341234"
+    "password": "12341234",
+    "sessionId": "pwszofgd6vncegt8oihp"
   },
   {
     "email": "mario@gmail.com",
-    "password": "12341234"
+    "password": "12341234",
+    "sessionId": "0j0tp67gtq9wl773bgrn"
   },
   {
     "email": "mathieu@gmail.com",
-    "password": "12341234"
+    "password": "12341234",
+    "sessionId": "udkp3lu47reroj8ydui0"
   }
 ]

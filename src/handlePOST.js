@@ -32,10 +32,17 @@ export async function handlePOST(request, response, requestURLData) {
         const users = await readJSON(USER_DATA_PATH);
         const user = users.find(user => user.email === form.email);
         if (user && form.password === user.password) {
+            const id = user.sessionId
+            const maxAge = (3600 * 7)
+            response.setHeader("Set-Cookie", `sessionId=${id} ; HttpOnly; Max-Age=${maxAge}; Path=/`);
             response302(response, "/articles?connectSuccess=true");
         } else {
             response302(response, "/login?connectFail=true");
         }
+    }
+    else if (requestURLData.pathname === "/login/logout") {
+        response.setHeader("Set-Cookie", "sessionId=; HttpOnly; Max-Age=0; Path=/");
+        response302(response, "/login");
     }
     else if (requestURLData.pathname === "/header/edit") {
         await editedDataNavbar(HEADER_DATA_PATH, form)

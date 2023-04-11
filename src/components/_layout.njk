@@ -26,16 +26,19 @@
                     <a href="/footer" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-light">Footer</a>
                     <a href="/category" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-light">Catégories d'articles</a>
                 </div>
-                <div class="space-y-1 px-2 pt-2 mb-5">
-                    <button class="w-full text-left">
-                        <a href="/login" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-light">Déconnexion</a>
+                <form method="POST" action="/login/logout">
+                    <div class="space-y-1 px-2 pt-2 mb-5">
+                        <a href="/login" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-light">
+                            <button class="w-full text-left" type="submit">
+                        Déconnexion
                     </button>
-                </div>
-            </nav>
-            <main class="w-full">
-                {% block main %}{% endblock %}
-            </main>
-        </div>
+                        </a>
+                    </div>
+                </nav>
+                <main class="w-full">
+                    {% block main %}{% endblock %}
+                </main>
+            </div>
 
-    </body>
-</html>
+        </body>
+    </html>
