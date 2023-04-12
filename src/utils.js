@@ -94,3 +94,9 @@ export function formatDate(dateStr) {
 
   return formattedDate.replace(":", "h");
 }
+
+export function response302(response, pathRedirect) {
+  response.statusCode = 302;
+  response.setHeader("Location", pathRedirect);
+  response.end();
+}

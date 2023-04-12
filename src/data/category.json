@@ -1,38 +1,38 @@
 [
   {
-    "id": "8ykgd",
+    "categoryId": "qxqnj",
     "name": "Artist",
-    "createdAt": "2023-04-04T12:00:16.811Z",
+    "createdAt": "2023-04-11T14:06:43.460Z",
     "updatedAt": ""
   },
   {
-    "id": "diegz",
+    "categoryId": "icsfj",
     "name": "News",
-    "createdAt": "2023-04-04T12:00:16.812Z",
+    "createdAt": "2023-04-11T14:06:43.460Z",
     "updatedAt": ""
   },
   {
-    "id": "mguop",
+    "categoryId": "qjjpe",
     "name": "Download",
-    "createdAt": "2023-04-04T12:00:16.812Z",
+    "createdAt": "2023-04-11T14:06:43.460Z",
     "updatedAt": ""
   },
   {
-    "id": "arbkz",
+    "categoryId": "6r34v",
     "name": "Tutorials",
-    "createdAt": "2023-04-04T12:00:16.812Z",
+    "createdAt": "2023-04-11T14:06:43.460Z",
     "updatedAt": ""
   },
   {
-    "id": "sggon",
+    "categoryId": "aa99o",
     "name": "Videos",
-    "createdAt": "2023-04-04T12:00:16.812Z",
+    "createdAt": "2023-04-11T14:06:43.460Z",
     "updatedAt": ""
   },
   {
-    "id": "nia88",
+    "categoryId": "6iwsp",
     "name": "Loop",
-    "createdAt": "2023-04-04T12:00:16.812Z",
+    "createdAt": "2023-04-11T14:06:43.460Z",
     "updatedAt": ""
   }
 ]

@@ -1,4 +1,4 @@
-import { isDir, isFile, readJSON, render404 } from './utils.js';
+import { isDir, isFile, readJSON, render404, response302 } from './utils.js';
 import { readFile } from "fs/promises";
 import nunjucks from 'nunjucks';
 import path from 'path';
@@ -41,12 +41,10 @@ export async function handleGET(response, requestURLData, request) {
         const objCookie = request.headers.cookie
         let cookieId = objCookie ? objCookie.replace('sessionId=', '') : false;
         if (!await verifyUserSessionId(cookieId)) {
-            response.writeHead(302, { Location: '/login' });
-            response.end();
+            response302(response, "/login?connectFail=true");
             return;
         }
     }
-
 
     const basenameURL = path.basename(requestURLData.pathname)
     let templatePath = `src/template${requestURLData.pathname}`;

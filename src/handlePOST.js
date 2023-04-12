@@ -3,6 +3,7 @@ import {
     readBody,
     readJSON,
     writeJSON,
+    response302
 } from "./utils.js"
 import path from "path";
 import { customAlphabet } from "nanoid";
@@ -98,11 +99,6 @@ async function deleteData(jsonPath, form) {
     );
     data.splice(dataIndex, 1);
     await writeJSON(jsonPath, data);
-}
-function response302(response, pathRedirect) {
-    response.statusCode = 302;
-    response.setHeader("Location", pathRedirect);
-    response.end();
 }
 async function editedDataNavbar(jsonPath, form) {
     const data = await readJSON(jsonPath);

@@ -6,7 +6,7 @@ const data = [];
 const nanoid = customAlphabet("0123456789qwertyuiopasdfghjklzxcvbnm", 5);
 for (const category of categories) {
     const categoryObject = {
-        id: nanoid(),
+        categoryId: nanoid(),
         name: category,
         createdAt: new Date().toISOString(),
         updatedAt: ""
