@@ -2,15 +2,15 @@
   "footer": {
     "mainFooter1": [
       {
-        "title": "Register Live or Push >",
+        "title": "Register Live or Push ",
         "href": "https://www.ableton.com/en/login/?next=/en/account/add_license/"
       },
       {
-        "title": "About Ableton >",
+        "title": "About Ableton ",
         "href": "https://www.ableton.com/en/about/"
       },
       {
-        "title": "Jobs >",
+        "title": "Jobs ",
         "href": "https://www.ableton.com/en/jobs/"
       }
     ],
@@ -37,15 +37,15 @@
     },
     "mainFooter2": [
       {
-        "title": "Offers for students and teachers >",
+        "title": "Offers for students and teachers ",
         "href": "https://www.ableton.com/en/shop/education/"
       },
       {
-        "title": "Ableton for the classroom >",
+        "title": "Ableton for the classroom ",
         "href": "https://www.ableton.com/en/classroom/"
       },
       {
-        "title": "Ableton for Colleges and Universities >",
+        "title": "Ableton for Colleges and Universities ",
         "href": "https://www.ableton.com/en/colleges-universities/"
       }
     ]

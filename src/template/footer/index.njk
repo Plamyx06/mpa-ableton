@@ -1,9 +1,9 @@
-{% extends "src/components/_layout.njk" %}
-{% import "src/components/_button.njk" as button %}
+{% extends "src/components/layout.njk" %}
+{% import "src/components/button.njk" as button %}
 
 {% block main %}
     <div class="w-full pt-10 pl-20 pr-20">
-        <div class="flex justify-center items-baseline mb-5">
+        <div class="ml-40 items-baseline mb-5">
             <h1 class="text-4xl font-bold tracking-tight text-gray-900 ">Gestion du footer</h1>
         </div>
         <div class="flex justify-end">
@@ -25,7 +25,7 @@
                         <label for="title" class="text-xl font-medium leading-6 text-gray-900">Section 1</label>
 
                         {% for footerTitle in footer.section1 %}
-                            <input type="text" name="section1Title{{loop.index0}}" id="Section1Title{{loop.index0}}" value="{{ footerTitle.title }}" class="block my-2 w-96 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">
+                            <input type="text" name="section1Title_{{loop.index0}}" id="Section1Title_{{loop.index0}}" value="{{ footerTitle.title }}" class="block my-2 w-96 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">
                         {% endfor %}
                     </div>
 
@@ -44,7 +44,7 @@
 
                         {% for footerHref in footer.section1 %}
 
-                            <input type="text" name="section1Href{{loop.index0}}" id="section1href{{loop.index0}}" value="{{ footerHref.href }}" class="block my-2 rounded-md w-96 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">
+                            <input type="text" name="section1Href_{{loop.index0}}" id="section1href_{{loop.index0}}" value="{{ footerHref.href }}" class="block my-2 rounded-md w-96 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">
 
                         {% endfor %}
                     </div>
@@ -63,7 +63,7 @@
 
                         {% for footerTitle in footer.section2 %}
 
-                            <input type="text" name="section2Title{{loop.index0}}" id="section2Title{{loop.index0}}" value="{{ footerTitle.title }}" class="block my-2 w-96 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">
+                            <input type="text" name="section2Title_{{loop.index0}}" id="section2Title_{{loop.index0}}" value="{{ footerTitle.title }}" class="block my-2 w-96 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">
 
                         {% endfor %}
                     </div>
@@ -84,7 +84,7 @@
                         {% for footerHref in footer.section2 %}
 
                             {% set counter = counter + 1 %}
-                            <input type="text" name="section2Href{{loop.index0}}" id="section2Href{{loop.index0 }}" value="{{ footerHref.href }}" class="block my-2 rounded-md w-96 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">
+                            <input type="text" name="section2Href_{{loop.index0}}" id="section2Href_{{loop.index0 }}" value="{{ footerHref.href }}" class="block my-2 rounded-md w-96 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">
 
                         {% endfor %}
                     </div>
@@ -118,14 +118,14 @@
 
                         {% for footerSocialHref in footer.socialLink %}
 
-                            <input type="text" name="socialHref{{loop.index0}}" id="socialHref{{loop.index0}}" value="{{ footerSocialHref.href }}" class="block my-2 rounded-md w-96 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">
+                            <input type="text" name="socialHref_{{loop.index0}}" id="socialHref_{{loop.index0}}" value="{{ footerSocialHref.href }}" class="block my-2 rounded-md w-96 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">
 
                         {% endfor %}
                     </div>
                 </div>
                 <div class="flex justify-end items-baseline pt-5 ">
                     <div>
-                        {{ button.buttonXl("Sauvegarder","submit")}}
+                        {{ button.primary("Sauvegarder",size="large",type="submit")}}
                     </div>
                 </div>
             </form>

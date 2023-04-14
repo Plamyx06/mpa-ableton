@@ -1,5 +1,5 @@
-{% extends "src/components/_layout.njk" %}
-{% import "src/components/_button.njk" as button %}
+{% extends "src/components/layout.njk" %}
+{% import "src/components/button.njk" as button %}
 {% block head %}
     <title>Articles / Edition</title>
 {% endblock %}
@@ -8,13 +8,13 @@
     {% set articleIndex = editArticlesIndex %}
 
     <div class="w-full pt-10 pl-20 pr-20">
-        <div class="flex justify-center mb-20">
+        <div class="ml-40 mb-10">
             <h1 class="text-4xl font-bold tracking-tight text-gray-900 pb-15">Articles / Editer</h1>
         </div>
         <div>
 
             <div class="flex flex-col px-40">
-                <div>
+                <div class="flex justify-end">
 
                     <a href="/articles?page=1" class="flex items-center text-xl font-semibold mb-6">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-1">
@@ -55,10 +55,9 @@
                             </label>
                             <select class="rounded-md block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600" name="category" id="category">
                                 {% for selectCategory in category %}
-                                    <option value="{{ selectCategory.name }}" {% if selectCategory.name === articles[articleIndex].category %}selected{% endif %}>{{ selectCategory.name }}</option>
+                                    <option value="{{ selectCategory.name }}" {% if selectCategory.categoryId === articles[articleIndex].categoryId %}selected{% endif %}>{{ selectCategory.name }}</option>
                                 {% endfor %}
                             </select>
-
                         </div>
                     </div>
                     <div>
@@ -74,7 +73,7 @@
                         </div>
                     </div>
                     <div class="flex justify-end mt-20">
-                        {{ button.buttonXl("Sauvegarder","submit")}}
+                        {{ button.primary("Sauvegarder",size="large","submit")}}
                     </button>
                 </form>
             </div>

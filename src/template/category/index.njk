@@ -1,5 +1,5 @@
-{% extends "src/components/_layout.njk" %}
-{% import "src/components/_button.njk" as button %}
+{% extends "src/components/layout.njk" %}
+{% import "src/components/button.njk" as button %}
 
 {% block main %}
 
@@ -29,7 +29,7 @@
         </div>
     {% endif %}
     <div class="w-full mt-10 pl-20 pr-20">
-        <div class="flex justify-center items-baseline mb-10">
+        <div class="ml-40 items-baseline mb-10">
             <h1 class="text-4xl font-bold tracking-tight text-gray-900 ">Gestion des categories</h1>
         </div>
         <div class="flex justify-end mb-10">
@@ -45,16 +45,16 @@
             <div class="text-2xl font-bold flex justify-center">
                 <h1>Editer les catégories</h1>
             </div>
-            <form method="POST" action="/category/edit" class="space-y-4">
+            <form method="POST" action="/article-category/edit" class="space-y-4">
                 <div class ="">
                     <label for="name" class="text-xl font-medium leading-6 text-gray-900">Noms</label>
                     <div class="grid grid-cols-3 gap-4">
                         {% for categorys in category %}
-                            <input type="text" name="name{{loop.index0}}" value="{{ categorys.name }}" class="block my-2 w-40 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">
+                            <input type="text" name="name_{{loop.index0}}" value="{{ categorys.name }}" class="block my-2 w-40 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">
                         {% endfor %}
                     </div>
                     <div class="flex justify-end">
-                        {{ button.buttonXl("Sauvegarder","submit")}}
+                        {{ button.primary("Sauvegarder",size="large",type="submit")}}
                     </div>
                 </div>
             </form>
@@ -67,7 +67,7 @@
             <div class="text-2xl font-bold flex justify-center">
                 <h1>Ajouter une nouvelle catégorie</h1>
             </div>
-            <form method="POST" action="/category/add" class="space-y-4">
+            <form method="POST" action="/article-category/add" class="space-y-4">
                 <label for="name" class="text-xl font-medium leading-6 text-gray-900">Nom</label>
                 <div class ="flex justify-between items-baseline">
 
@@ -75,7 +75,7 @@
                         <input type="text" name="name" value="" required class="block  w-40 rounded-md border-0  text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">
                     </div>
                     <div>
-                        {{ button.buttonXl("Ajouter","submit")}}
+                        {{ button.primary("Ajouter",size="large",type="submit")}}
                     </div>
                 </div>
             </form>
@@ -89,7 +89,7 @@
             <div class="text-2xl font-bold flex justify-center">
                 <h1>Supprimer une catégorie</h1>
             </div>
-            <form method="POST" action="/category/delete" class="space-y-4">
+            <form method="POST" action="/article-category/delete" class="space-y-4">
                 <label class="mr-5 font-semibold text-xl" for="category"> Catégories 
                             </label>
                 <div class="flex justify-between">
@@ -102,7 +102,7 @@
                         </select>
                     </div>
                     <div>
-                        {{ button.buttonXl("Supprimer","submit",class="hover:bg-red-500")}}
+                        {{ button.primary("Supprimer",size="large",type="submit")}}
                     </div>
                 </div>
             </form>

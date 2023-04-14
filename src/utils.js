@@ -1,5 +1,5 @@
 import fs from "fs/promises";
-import nunjucks from 'nunjucks';
+import nunjucks from "nunjucks";
 
 export async function pathExists(path) {
   try {
@@ -18,7 +18,7 @@ export async function readBody(request) {
   return new Promise((resolve, reject) => {
     let body = "";
     request.on("data", (chunk) => {
-      body += chunk.toString(); // convert Buffer to string
+      body += chunk.toString();
     });
     request.on("error", (err) => {
       reject(err);
@@ -86,7 +86,7 @@ export function formatDate(dateStr) {
     hour: "numeric",
     minute: "numeric",
     hour12: false,
-    timeZone: "Europe/Paris"
+    timeZone: "Europe/Paris",
   };
 
   const formatter = new Intl.DateTimeFormat("fr-FR", options);
@@ -99,4 +99,11 @@ export function response302(response, pathRedirect) {
   response.statusCode = 302;
   response.setHeader("Location", pathRedirect);
   response.end();
+}
+
+export function getCategoryNameById(id, category) {
+  const articleCategory = category.find(
+    (articleCategory) => articleCategory.categoryId === id
+  );
+  return articleCategory.name;
 }
