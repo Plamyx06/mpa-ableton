@@ -7,6 +7,8 @@ import {
 } from "./utils.js";
 import path from "path";
 import { customAlphabet } from "nanoid";
+import cookie from "cookie";
+import * as argon2 from "argon2";
 
 const ARTICLES_DATA_PATH = "src/data/article.json";
 const USER_DATA_PATH = "src/data/user.json";
@@ -30,7 +32,14 @@ export async function handlePOST(request, response, requestURLData) {
   } else if (requestURLData.pathname === "/login") {
     const users = await readJSON(USER_DATA_PATH);
     const user = users.find((user) => user.email === form.email);
-    if (user && form.password === user.password) {
+    const verifyPassword = await argon2.verify(
+      `$argon2id$v=19$m=65536,t=4,p=${user.password}`,
+      form.password
+    );
+    if (user && verifyPassword) {
+      const nanoid = customAlphabet("0123456789qwertyuiopasdfghjklzxcvbnm", 20);
+      user.sessionId = nanoid();
+      await writeJSON(USER_DATA_PATH, users);
       const id = user.sessionId;
       const maxAge = 3600 * 7;
       response.setHeader(
@@ -42,6 +51,15 @@ export async function handlePOST(request, response, requestURLData) {
       response302(response, "/login?connectFail=true");
     }
   } else if (requestURLData.pathname === "/logout") {
+    const users = await readJSON(USER_DATA_PATH);
+    const cookieObject = request.headers.cookie;
+    const cookieParse = cookie.parse(cookieObject);
+    const cookieId = cookieParse.sessionId;
+    const user = users.find((user) => user.sessionId === cookieId);
+    if (user) {
+      user.sessionId = "";
+      await writeJSON(USER_DATA_PATH, users);
+    }
     response.setHeader("Set-Cookie", "sessionId=; HttpOnly; Max-Age=0; Path=/");
     response302(response, "/login");
   } else if (requestURLData.pathname === "/header/edit") {

@@ -16,10 +16,24 @@ export async function handleGET(response, requestURLData, request) {
     await renderFilePath(response, assetsFilePath);
     return;
   } else if (requestURLData.pathname === "/api/articles") {
+    const authHeader = request.headers.authorization;
+    const secret = "lemotdepassecpasse";
+    if (authHeader !== `Bearer ${secret}`) {
+      response.writeHead(403);
+      response.end();
+      return;
+    }
     const articles = await readJSON(ARTICLES_DATA_PATH);
     response.end(JSON.stringify(articles));
     return;
   } else if (requestURLData.pathname === "/api/articles-categories") {
+    const authHeader = request.headers.authorization;
+    const secret = "lemotdepassecpass";
+    if (authHeader !== `Bearer ${secret}`) {
+      response.writeHead(403);
+      response.end();
+      return;
+    }
     const category = await readJSON(CATEGORY_DATA_PATH);
     response.end(JSON.stringify(category));
     return;
@@ -33,8 +47,9 @@ export async function handleGET(response, requestURLData, request) {
     return;
   } else if (requestURLData.pathname !== "/login") {
     const objCookie = request.headers.cookie;
-    const cookies = cookie.parse(objCookie);
+    const cookies = cookie.parse(objCookie || "");
     const cookieId = cookies.sessionId;
+
     if (!(await verifyUserSessionId(cookieId))) {
       response302(response, "/login?connectFail=true");
       return;
@@ -62,6 +77,8 @@ export async function handleGET(response, requestURLData, request) {
   const articles = await readJSON(ARTICLES_DATA_PATH);
   const navbar = await readJSON(HEADER_DATA_PATH);
   const footer = await readJSON(FOOTER_DATA_PATH);
+  const userConnect = await FindEmailWithCookie(request);
+
   const searchParams = Object.fromEntries(requestURLData.searchParams);
   const templateData = {
     searchParams: searchParams,
@@ -69,6 +86,7 @@ export async function handleGET(response, requestURLData, request) {
     category: category,
     navbar: navbar.navbar,
     navbarLogo: navbar.logoNavbar,
+    userConnect: userConnect,
     footer: {
       section1: footer.footer.mainFooter1,
       titleSection2: footer.footer.footer2,
@@ -79,11 +97,10 @@ export async function handleGET(response, requestURLData, request) {
       (articles) => articles.id === basenameURL
     ),
   };
-
+  console.log({ templateData });
   const html = nunjucks.render(templatePath, templateData);
   response.end(html);
 }
-
 async function renderFilePath(response, filePath) {
   if (await isFile(filePath)) {
     const fileContent = await readFile(filePath);
@@ -99,4 +116,15 @@ async function isId(targetId, jsonPath) {
 async function verifyUserSessionId(id) {
   const users = await readJSON(USER_DATA_PATH);
   return !!users.find((user) => user.sessionId === id);
+}
+async function FindEmailWithCookie(request) {
+  const users = await readJSON(USER_DATA_PATH);
+  const objCookie = request.headers.cookie;
+  const cookies = cookie.parse(objCookie || "");
+  const cookieId = cookies.sessionId;
+  const foundUser = users.find((user) => user.sessionId === cookieId);
+
+  if (foundUser) {
+    return foundUser.email;
+  }
 }
