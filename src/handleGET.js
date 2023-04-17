@@ -20,9 +20,11 @@ export async function handleGET(response, requestURLData, request) {
     const secret = "lemotdepassecpasse";
     if (authHeader !== secret) {
       response.writeHead(403);
-      response.end({
-        message: "Accès refusé. Veuillez fournir une autorisation valide.",
-      });
+      response.end(
+        JSON.stringify(
+          `Accès refusé. Veuillez fournir une autorisation valide.`
+        )
+      );
       return;
     }
     const articles = await readJSON(ARTICLES_DATA_PATH);
