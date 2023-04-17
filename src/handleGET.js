@@ -18,7 +18,7 @@ export async function handleGET(response, requestURLData, request) {
   } else if (requestURLData.pathname === "/api/articles") {
     const authHeader = request.headers.authorization;
     const secret = "lemotdepassecpasse";
-    if (authHeader !== `Bearer ${secret}`) {
+    if (authHeader !== secret) {
       response.writeHead(403);
       response.end();
       return;
@@ -29,7 +29,7 @@ export async function handleGET(response, requestURLData, request) {
   } else if (requestURLData.pathname === "/api/articles-categories") {
     const authHeader = request.headers.authorization;
     const secret = "lemotdepassecpass";
-    if (authHeader !== `Bearer ${secret}`) {
+    if (authHeader !== secret) {
       response.writeHead(403);
       response.end();
       return;
