@@ -28,7 +28,7 @@ export async function handleGET(response, requestURLData, request) {
     return;
   } else if (requestURLData.pathname === "/api/articles-categories") {
     const authHeader = request.headers.authorization;
-    const secret = "lemotdepassecpass";
+    const secret = "lemotdepassecpasse";
     if (authHeader !== secret) {
       response.writeHead(403);
       response.end();
@@ -38,10 +38,24 @@ export async function handleGET(response, requestURLData, request) {
     response.end(JSON.stringify(category));
     return;
   } else if (requestURLData.pathname === "/api/footer") {
+    const authHeader = request.headers.authorization;
+    const secret = "lemotdepassecpasse";
+    if (authHeader !== secret) {
+      response.writeHead(403);
+      response.end();
+      return;
+    }
     const footer = await readJSON(FOOTER_DATA_PATH);
     response.end(JSON.stringify(footer));
     return;
   } else if (requestURLData.pathname === "/api/header") {
+    const authHeader = request.headers.authorization;
+    const secret = "lemotdepassecpasse";
+    if (authHeader !== secret) {
+      response.writeHead(403);
+      response.end();
+      return;
+    }
     const header = await readJSON(HEADER_DATA_PATH);
     response.end(JSON.stringify(header));
     return;
