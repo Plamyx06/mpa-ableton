@@ -20,7 +20,9 @@ export async function handleGET(response, requestURLData, request) {
     const secret = "lemotdepassecpasse";
     if (authHeader !== secret) {
       response.writeHead(403);
-      response.end();
+      response.end({
+        message: "Accès refusé. Veuillez fournir une autorisation valide.",
+      });
       return;
     }
     const articles = await readJSON(ARTICLES_DATA_PATH);
@@ -31,7 +33,9 @@ export async function handleGET(response, requestURLData, request) {
     const secret = "lemotdepassecpasse";
     if (authHeader !== secret) {
       response.writeHead(403);
-      response.end();
+      response.end({
+        message: "Accès refusé. Veuillez fournir une autorisation valide.",
+      });
       return;
     }
     const category = await readJSON(CATEGORY_DATA_PATH);
@@ -42,7 +46,9 @@ export async function handleGET(response, requestURLData, request) {
     const secret = "lemotdepassecpasse";
     if (authHeader !== secret) {
       response.writeHead(403);
-      response.end();
+      response.end({
+        message: "Accès refusé. Veuillez fournir une autorisation valide.",
+      });
       return;
     }
     const footer = await readJSON(FOOTER_DATA_PATH);
@@ -53,7 +59,9 @@ export async function handleGET(response, requestURLData, request) {
     const secret = "lemotdepassecpasse";
     if (authHeader !== secret) {
       response.writeHead(403);
-      response.end();
+      response.end({
+        message: "Accès refusé. Veuillez fournir une autorisation valide.",
+      });
       return;
     }
     const header = await readJSON(HEADER_DATA_PATH);
