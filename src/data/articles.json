@@ -1,12 +1,32 @@
 [
   {
-    "title": "je suis un articles",
+    "title": "new 3",
     "status": "draft",
-    "categoryId": "6r34v",
-    "image": "https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg",
-    "content": "jjjjjj",
-    "createdAt": "2023-04-13T14:03:34.461Z",
-    "id": "5bn41ywx0h",
+    "categoryId": "qxqnj",
+    "image": "",
+    "content": "",
+    "createdAt": "2023-04-19T10:14:11.437Z",
+    "id": "s516msrf6z",
+    "updatedAt": ""
+  },
+  {
+    "title": "new 2",
+    "status": "draft",
+    "categoryId": "qxqnj",
+    "image": "",
+    "content": "",
+    "createdAt": "2023-04-19T10:14:06.008Z",
+    "id": "3lqu3qbowd",
+    "updatedAt": ""
+  },
+  {
+    "title": "new 1",
+    "status": "draft",
+    "categoryId": "qxqnj",
+    "image": "",
+    "content": "",
+    "createdAt": "2023-04-19T10:13:58.504Z",
+    "id": "htxwemsab8",
     "updatedAt": ""
   },
   {

@@ -2,6 +2,7 @@
 {% import "src/components/button.njk" as button %}
 {% block head %}
     <title>Articles</title>
+    <script src="modal.js"></script>
 {% endblock %}
 
 {% block main %}
@@ -86,9 +87,9 @@
                                         <a href="/articles/{{article.id}}"class="mr-5">
                                             {{ button.primary("Editer")}}
                                         </a>
-                                        <form method="POST" class="inline-flex" action="/articles/delete">
+                                        <form method="POST" class="inline-flex" id="form_{{loop.index0}}" action="/articles/delete">
                                             <input type="hidden" name="id" value="{{article.id}}">
-                                            {{ button.primary("Supprimer", value="delete") }}
+                                            {{ button.primary("Supprimer") }}
                                         </form>
                                     </div>
                                 </div>
@@ -111,4 +112,5 @@
                 {% endif %}
             </div>
         </div>
+        {% include "src/components/modalDelete.njk" %}
         {% endblock%}

@@ -2,7 +2,7 @@
   {
     "email": "aurelien@gmail.com",
     "password": "4$RmCHvrh2OsfZagCjB4x6XQ$q+r1huYaagXbAKET7nDyCw",
-    "sessionId": "gkjki7xbbz7lbm8q11ue"
+    "sessionId": ""
   },
   {
     "email": "mario@gmail.com",
@@ -13,5 +13,17 @@
     "email": "mathieu@gmail.com",
     "password": "4$5IUzEI9vX3iN7x7Qd6FkfA$irntlmWAADwM1y7ElQZQLg",
     "sessionId": ""
+  },
+  {
+    "email": "ggggg@gmail.com",
+    "password": "4$B9Vn/pmIMbwii3y/ELJSGg$3Ft8561r1ResvGx0GqCx2Q",
+    "sessionId": "",
+    "createdAt": "2023-04-19T11:00:16.814Z"
+  },
+  {
+    "email": "skuta.elodie@gmail.com",
+    "password": "4$KJ2iFzyTPwOmjGllZMmTMg$wmupwowW/m7SGGLifTHpBA",
+    "sessionId": "s8oyg2d3zvpl5txatcnw",
+    "createdAt": "2023-04-19T12:47:19.774Z"
   }
 ]

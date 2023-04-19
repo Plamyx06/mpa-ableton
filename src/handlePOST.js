@@ -10,11 +10,11 @@ import { customAlphabet } from "nanoid";
 import cookie from "cookie";
 import * as argon2 from "argon2";
 
-const ARTICLES_DATA_PATH = "src/data/article.json";
+const ARTICLES_DATA_PATH = "src/data/articles.json";
 const USER_DATA_PATH = "src/data/user.json";
 const HEADER_DATA_PATH = "src/data/header.json";
 const FOOTER_DATA_PATH = "src/data/footer.json";
-const CATEGORY_DATA_PATH = "src/data/category.json";
+const ARTICLE_CATEGORIES_DATA_PATH = "src/data/article-categories.json";
 
 export async function handlePOST(request, response, requestURLData) {
   const body = await readBody(request);
@@ -26,42 +26,15 @@ export async function handlePOST(request, response, requestURLData) {
   } else if (targetId === form.id) {
     await editedData(ARTICLES_DATA_PATH, form);
     response302(response, `/articles?editSuccess=true`);
-  } else if (requestURLData.pathname === "/article/delete") {
+  } else if (requestURLData.pathname === "/articles/delete") {
     await deleteData(ARTICLES_DATA_PATH, form);
     response302(response, `/articles?deleteSuccess=true`);
   } else if (requestURLData.pathname === "/login") {
-    const users = await readJSON(USER_DATA_PATH);
-    const user = users.find((user) => user.email === form.email);
-    const verifyPassword = await argon2.verify(
-      `$argon2id$v=19$m=65536,t=4,p=${user.password}`,
-      form.password
-    );
-    if (user && verifyPassword) {
-      const nanoid = customAlphabet("0123456789qwertyuiopasdfghjklzxcvbnm", 20);
-      user.sessionId = nanoid();
-      await writeJSON(USER_DATA_PATH, users);
-      const id = user.sessionId;
-      const maxAge = 3600 * 7;
-      response.setHeader(
-        "Set-Cookie",
-        `sessionId=${id} ; HttpOnly; Max-Age=${maxAge}; Path=/`
-      );
-      response302(response, "/articles?connectSuccess=true");
-    } else {
-      response302(response, "/login?connectFail=true");
-    }
+    await handleLoginRequest(response, form);
+  } else if (requestURLData.pathname === "/login/register") {
+    await handleRegisterRequest(response, form);
   } else if (requestURLData.pathname === "/logout") {
-    const users = await readJSON(USER_DATA_PATH);
-    const cookieObject = request.headers.cookie;
-    const cookieParse = cookie.parse(cookieObject);
-    const cookieId = cookieParse.sessionId;
-    const user = users.find((user) => user.sessionId === cookieId);
-    if (user) {
-      user.sessionId = "";
-      await writeJSON(USER_DATA_PATH, users);
-    }
-    response.setHeader("Set-Cookie", "sessionId=; HttpOnly; Max-Age=0; Path=/");
-    response302(response, "/login");
+    await handleLogoutRequest(request, response);
   } else if (requestURLData.pathname === "/header/edit") {
     await editedDataNavbar(HEADER_DATA_PATH, form);
     response302(response, `/header?editHeaderSuccess=true`);
@@ -69,13 +42,16 @@ export async function handlePOST(request, response, requestURLData) {
     editedDataFooter(FOOTER_DATA_PATH, form);
     response302(response, `/footer?editFooterSuccess=true`);
   } else if (requestURLData.pathname === "/article-category/edit") {
-    await editedDataCategory(CATEGORY_DATA_PATH, form);
+    await editedDataCategory(ARTICLE_CATEGORIES_DATA_PATH, form);
     response302(response, `/category?editCategorySuccess=true`);
   } else if (requestURLData.pathname === "/article-category/add") {
-    await writeJSON(CATEGORY_DATA_PATH, await addIdAndDateAtCategory(form));
+    await writeJSON(
+      ARTICLE_CATEGORIES_DATA_PATH,
+      await addIdAndDateAtCategory(form)
+    );
     response302(response, `/category?createCategorySuccess=true`);
   } else if (requestURLData.pathname === "/article-category/delete") {
-    await deleteData(CATEGORY_DATA_PATH, form);
+    await deleteData(ARTICLE_CATEGORIES_DATA_PATH, form);
     response302(response, `/category?deleteCategorySuccess=true`);
   }
 }
@@ -152,7 +128,7 @@ async function addIdAndDateAtCategory(form) {
   form.id = nanoid();
   form.createdAt = new Date().toISOString();
   form.updatedAt = "";
-  const category = await readJSON(CATEGORY_DATA_PATH);
+  const category = await readJSON(ARTICLE_CATEGORIES_DATA_PATH);
   category.push(form);
   return category;
 }
@@ -164,4 +140,62 @@ async function editedDataCategory(jsonPath, form) {
   }
   const editedData = await writeJSON(jsonPath, data);
   return editedData;
+}
+async function handleLoginRequest(response, form) {
+  const users = await readJSON(USER_DATA_PATH);
+  const user = users.find((user) => user.email === form.email);
+  const verifyPassword = await argon2.verify(
+    `$argon2id$v=19$m=65536,t=4,p=${user.password}`,
+    form.password
+  );
+  if (user && verifyPassword) {
+    const nanoid = customAlphabet("0123456789qwertyuiopasdfghjklzxcvbnm", 20);
+    user.sessionId = nanoid();
+    await writeJSON(USER_DATA_PATH, users);
+    const id = user.sessionId;
+    const maxAge = 3600 * 7;
+    response.setHeader(
+      "Set-Cookie",
+      `sessionId=${id} ; HttpOnly; Max-Age=${maxAge}; Path=/`
+    );
+    response302(response, "/articles?connectSuccess=true");
+  } else {
+    response302(response, "/login?connectFail=true");
+  }
+}
+async function handleLogoutRequest(request, response) {
+  const users = await readJSON(USER_DATA_PATH);
+  const cookieObject = request.headers.cookie;
+  const cookieParse = cookie.parse(cookieObject);
+  const cookieId = cookieParse.sessionId;
+  const user = users.find((user) => user.sessionId === cookieId);
+  if (user) {
+    user.sessionId = "";
+    await writeJSON(USER_DATA_PATH, users);
+  }
+  response.setHeader("Set-Cookie", "sessionId=; HttpOnly; Max-Age=0; Path=/");
+  response302(response, "/login");
+}
+async function handleRegisterRequest(response, form) {
+  const users = await readJSON(USER_DATA_PATH);
+  const userExist = users.find((user) => user.email === form.email);
+  if (userExist) {
+    response302(response, "/login/register?userExist=true");
+  } else {
+    const hashedPassword = await argon2.hash(form.password, {
+      timeCost: 4,
+      hashLength: 16,
+    });
+    const hashedSplit = hashedPassword.split("=");
+    const hash = hashedSplit[4];
+    const session = {
+      email: form.email,
+      password: hash,
+      sessionId: "",
+      createdAt: new Date().toISOString(),
+    };
+    users.push(session);
+    await writeJSON(USER_DATA_PATH, users);
+    response302(response, "/login?createAccount=true");
+  }
 }

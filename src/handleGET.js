@@ -5,75 +5,34 @@ import path from "path";
 import cookie from "cookie";
 
 const ARTICLES_DATA_PATH = "src/data/articles.json";
-const CATEGORY_DATA_PATH = "src/data/category.json";
+const ARTICLE_CATEGORIES_DATA_PATH = "src/data/article-categories.json";
 const HEADER_DATA_PATH = "src/data/header.json";
 const FOOTER_DATA_PATH = "src/data/footer.json";
 const USER_DATA_PATH = "src/data/user.json";
 
 export async function handleGET(response, requestURLData, request) {
-  if (path.extname(requestURLData.pathname) !== "") {
-    const assetsFilePath = `src/assets${requestURLData.pathname}`;
-    await renderFilePath(response, assetsFilePath);
-    return;
-  } else if (requestURLData.pathname === "/api/articles") {
-    const authHeader = request.headers.authorization;
-    const secret = "lemotdepassecpasse";
-    if (authHeader !== secret) {
-      response.writeHead(403);
-      response.end(
-        JSON.stringify(
-          `Accès refusé. Veuillez fournir une autorisation valide.`
-        )
-      );
+  const extname = path.extname(requestURLData.pathname);
+  if (extname !== "") {
+    if (extname === ".js") {
+      const fileName = path.basename(requestURLData.pathname);
+      const filePath = await readFile(`src/script/${fileName}`);
+      response.end(filePath);
+      return;
+    } else {
+      const assetsFilePath = `src/assets${requestURLData.pathname}`;
+      await renderFilePath(response, assetsFilePath);
       return;
     }
-    const articles = await readJSON(ARTICLES_DATA_PATH);
-    response.end(JSON.stringify(articles));
+  } else if (requestURLData.pathname.startsWith("/api")) {
+    await handleAPIRequest(request, requestURLData, response);
     return;
-  } else if (requestURLData.pathname === "/api/articles-categories") {
-    const authHeader = request.headers.authorization;
-    const secret = "lemotdepassecpasse";
-    if (authHeader !== secret) {
-      response.writeHead(403);
-      response.end({
-        message: "Accès refusé. Veuillez fournir une autorisation valide.",
-      });
-      return;
-    }
-    const category = await readJSON(CATEGORY_DATA_PATH);
-    response.end(JSON.stringify(category));
-    return;
-  } else if (requestURLData.pathname === "/api/footer") {
-    const authHeader = request.headers.authorization;
-    const secret = "lemotdepassecpasse";
-    if (authHeader !== secret) {
-      response.writeHead(403);
-      response.end({
-        message: "Accès refusé. Veuillez fournir une autorisation valide.",
-      });
-      return;
-    }
-    const footer = await readJSON(FOOTER_DATA_PATH);
-    response.end(JSON.stringify(footer));
-    return;
-  } else if (requestURLData.pathname === "/api/header") {
-    const authHeader = request.headers.authorization;
-    const secret = "lemotdepassecpasse";
-    if (authHeader !== secret) {
-      response.writeHead(403);
-      response.end({
-        message: "Accès refusé. Veuillez fournir une autorisation valide.",
-      });
-      return;
-    }
-    const header = await readJSON(HEADER_DATA_PATH);
-    response.end(JSON.stringify(header));
-    return;
-  } else if (requestURLData.pathname !== "/login") {
+  } else if (
+    requestURLData.pathname !== "/login" &&
+    requestURLData.pathname !== "/login/register"
+  ) {
     const objCookie = request.headers.cookie;
     const cookies = cookie.parse(objCookie || "");
     const cookieId = cookies.sessionId;
-
     if (!(await verifyUserSessionId(cookieId))) {
       response302(response, "/login?connectFail=true");
       return;
@@ -97,13 +56,13 @@ export async function handleGET(response, requestURLData, request) {
     return;
   }
 
-  const category = await readJSON(CATEGORY_DATA_PATH);
+  const category = await readJSON(ARTICLE_CATEGORIES_DATA_PATH);
   const articles = await readJSON(ARTICLES_DATA_PATH);
   const navbar = await readJSON(HEADER_DATA_PATH);
   const footer = await readJSON(FOOTER_DATA_PATH);
   const userConnect = await FindEmailWithCookie(request);
-
   const searchParams = Object.fromEntries(requestURLData.searchParams);
+
   const templateData = {
     searchParams: searchParams,
     articles: articles,
@@ -121,7 +80,7 @@ export async function handleGET(response, requestURLData, request) {
       (articles) => articles.id === basenameURL
     ),
   };
-  console.log({ templateData });
+
   const html = nunjucks.render(templatePath, templateData);
   response.end(html);
 }
@@ -150,5 +109,32 @@ async function FindEmailWithCookie(request) {
 
   if (foundUser) {
     return foundUser.email;
+  }
+}
+async function handleAPIRequest(request, requestURLData, response) {
+  const secret = "lemotdepassecpasse";
+  const authorizationApi = request.headers.authorization;
+  const dataApi = [
+    { path: "/api/articles", dataPath: ARTICLES_DATA_PATH },
+    {
+      path: "/api/articles-categories",
+      dataPath: ARTICLE_CATEGORIES_DATA_PATH,
+    },
+    { path: "/api/header", dataPath: HEADER_DATA_PATH },
+    { path: "/api/footer", dataPath: FOOTER_DATA_PATH },
+  ];
+
+  for (const api of dataApi) {
+    if (requestURLData.pathname === api.path) {
+      if (authorizationApi !== secret) {
+        response.status = 403;
+        response.end("Accès refusé");
+        return;
+      }
+      const data = await readJSON(api.dataPath);
+      response.statusCode = 200;
+      response.end(JSON.stringify(data));
+      return;
+    }
   }
 }
