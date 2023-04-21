@@ -15,8 +15,8 @@ export async function handleGET(response, requestURLData, request) {
   if (extname !== "") {
     if (extname === ".js") {
       const fileName = path.basename(requestURLData.pathname);
-      const filePath = await readFile(`src/script/${fileName}`);
-      response.end(filePath);
+      const filePath = `src/script/${fileName}`;
+      await renderFilePath(response, filePath);
       return;
     } else {
       const assetsFilePath = `src/assets${requestURLData.pathname}`;
