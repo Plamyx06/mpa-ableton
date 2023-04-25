@@ -4,7 +4,7 @@
     </svg>
 {% endmacro %}
 
-{% macro primary(text, type, size = "small", class = "", id = "") %}
+{% macro primary(text, type, size = "small", class = "", id = "", attribute = "") %}
     {% set buttonType = type | default("button") %}
     {% set buttonSizeClass = "" %}
     {% if size === "large" %}
@@ -14,9 +14,9 @@
     {% endif %}
     {% if text === "Supprimer" %}
         {% set deleteClass = "hover:bg-red-500" %}
-        {% set id = "btn-delete" %}
+
     {% endif %}
-    <button type="{{ buttonType }}" id="{{id}}"class="flex justify-center items-center bg-gray-500 hover:bg-gray-800 text-white text-center rounded-md {{ deleteClass }} {{ buttonSizeClass }} {{ class }}">
+    <button type="{{ buttonType }}" id="{{id}}" class="flex justify-center items-center bg-gray-500 hover:bg-gray-800 text-white text-center rounded-md {{ deleteClass }} {{ buttonSizeClass }} {{ class }}" {{ attribute | safe }}>
         {{ text | safe }}
     </button>
 {% endmacro %}

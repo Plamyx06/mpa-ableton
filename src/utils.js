@@ -1,5 +1,6 @@
 import fs from "fs/promises";
 import nunjucks from "nunjucks";
+import slugify from "@sindresorhus/slugify";
 
 export async function pathExists(path) {
   try {
@@ -101,9 +102,16 @@ export function response302(response, pathRedirect) {
   response.end();
 }
 
-export function getCategoryNameById(id, category) {
-  const articleCategory = category.find(
-    (articleCategory) => articleCategory.categoryId === id
-  );
-  return articleCategory.name;
+export function getRelationWithId(id, data, dataStr) {
+  if (dataStr === "users") {
+    const user = data.find((user) => user.userId === id);
+    return user.email;
+  } else if (dataStr === "category") {
+    const category = data.find((category) => category.categoryId === id);
+    return category.name;
+  }
+}
+export function createArticleSlug(title, id) {
+  const slug = `${slugify(title)}-${id}`;
+  return slug;
 }

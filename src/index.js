@@ -1,16 +1,20 @@
 import http from "http";
 import nunjucks from "nunjucks";
 import {
-  render404, formatDate, getCategoryNameById,
+  render404,
+  formatDate,
+  getRelationWithId,
+  createArticleSlug,
 } from "./utils.js";
-import { handlePOST } from './handlePOST.js';
-import { handleGET } from './handleGET.js';
+import { handlePOST } from "./handlePOST.js";
+import { handleGET } from "./handleGET.js";
 
 let env = nunjucks.configure({
   noCache: true,
 });
 env.addFilter("formattedDate", formatDate);
-env.addFilter("getCategoryNameById", getCategoryNameById);
+env.addFilter("getRelationWithId", getRelationWithId);
+env.addFilter("createArticleSlug", createArticleSlug);
 
 const PORT = 3000;
 
@@ -44,4 +48,3 @@ async function handleServer(request, response) {
 server.listen(PORT, () => {
   console.info(`Server started on port ${PORT}`);
 });
-

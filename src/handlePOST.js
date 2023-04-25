@@ -21,10 +21,13 @@ export async function handlePOST(request, response, requestURLData) {
   const form = convertFormDataToJSON(body);
   const targetId = path.basename(requestURLData.pathname);
   if (requestURLData.pathname === "/articles/create") {
-    await writeJSON(ARTICLES_DATA_PATH, await addIdAndDateAtArticles(form));
+    await writeJSON(
+      ARTICLES_DATA_PATH,
+      await addIdAndDateAtArticles(form, request)
+    );
     response302(response, `/articles?createSuccess=true`);
   } else if (targetId === form.id) {
-    await editedData(ARTICLES_DATA_PATH, form);
+    await editedData(ARTICLES_DATA_PATH, form, request);
     response302(response, `/articles?editSuccess=true`);
   } else if (requestURLData.pathname === "/articles/delete") {
     await deleteData(ARTICLES_DATA_PATH, form);
@@ -55,20 +58,23 @@ export async function handlePOST(request, response, requestURLData) {
     response302(response, `/category?deleteCategorySuccess=true`);
   }
 }
-
-async function addIdAndDateAtArticles(form) {
+async function addIdAndDateAtArticles(form, request) {
   const articles = await readJSON(ARTICLES_DATA_PATH);
   const nanoid = customAlphabet("0123456789qwertyuiopasdfghjklzxcvbnm", 10);
   form.createdAt = new Date().toISOString();
   form.id = nanoid();
   form.updatedAt = "";
+  form.created_by = await FindUserIdWithCookie(request);
+  form.updated_by = null;
   articles.categoryId = form.categoryId;
   articles.unshift(form);
   return articles;
 }
-async function editedData(jsonPath, form) {
+async function editedData(jsonPath, form, request) {
   const data = await readJSON(jsonPath);
   const foundData = data.find((foundData) => foundData.id === form.id);
+  const updatedBy = await FindUserIdWithCookie(request);
+
   const editData = {
     title: form.title,
     image: form.image,
@@ -76,6 +82,7 @@ async function editedData(jsonPath, form) {
     content: form.content,
     updatedAt: new Date().toISOString(),
     status: form.status,
+    updated_by: updatedBy,
   };
   Object.assign(foundData, editData);
 
@@ -182,6 +189,8 @@ async function handleRegisterRequest(response, form) {
   if (userExist) {
     response302(response, "/login/register?userExist=true");
   } else {
+    const nanoid = customAlphabet("0123456789qwertyuiopasdfghjklzxcvbnm", 8);
+
     const hashedPassword = await argon2.hash(form.password, {
       timeCost: 4,
       hashLength: 16,
@@ -193,9 +202,21 @@ async function handleRegisterRequest(response, form) {
       password: hash,
       sessionId: "",
       createdAt: new Date().toISOString(),
+      sessionId: nanoid(),
     };
     users.push(session);
     await writeJSON(USER_DATA_PATH, users);
     response302(response, "/login?createAccount=true");
+  }
+}
+async function FindUserIdWithCookie(request) {
+  const users = await readJSON(USER_DATA_PATH);
+  const objCookie = request.headers.cookie;
+  const cookies = cookie.parse(objCookie || "");
+  const cookieId = cookies.sessionId;
+  const foundUser = users.find((user) => user.sessionId === cookieId);
+  console.log({ foundUser });
+  if (foundUser) {
+    return foundUser.userId;
   }
 }

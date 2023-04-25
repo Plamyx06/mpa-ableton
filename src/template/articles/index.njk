@@ -63,54 +63,54 @@
                         </div>
                         <div class="px-5 w-full">
                             <h2 class="font-medium pb-2">{{article.title}}</h2>
-
-                            {{ button.primary(article.categoryId | getCategoryNameById(category))}}
-
+                            {{ button.primary(article.categoryId | getRelationWithId(category,"category"))}}
                             <div class="flex justify-between items-center ">
                                 <p class="pt-2 font-light text-xs">
                                     {% if article.updatedAt %}
-                                         Dernière modification le {{ article.updatedAt | formattedDate }}
-                                    {% else %}
-                                        Créé le {{ article.createdAt | formattedDate }}
-                                    {% endif %}
-                                </p>
-                                <div class="flex">
-                                    {%if article.status === "published"%}
-                                        <a href="" class="mr-5">
-                                            {{ button.primary("Publié" + button.iconOpenTab())}}
-                                        </a>
-                                        {%else%}
-                                        <a href="" class="mr-5">
-                                            {{ button.primary("Brouillon")}}
-                                        </a>
-                                        {%endif%}
-                                        <a href="/articles/{{article.id}}"class="mr-5">
-                                            {{ button.primary("Editer")}}
-                                        </a>
-                                        <form method="POST" class="inline-flex" id="form_{{loop.index0}}" action="/articles/delete">
-                                            <input type="hidden" name="id" value="{{article.id}}">
-                                            {{ button.primary("Supprimer") }}
-                                        </form>
+                                         Dernière modification le {{ article.updatedAt | formattedDate }} par
+                                        {%if article.updated_by !== null %}
+                                            {{(article.updated_by | getRelationWithId(users,"users"))| capitalize}}
+                                            {%else%}
+                                            {{(article.created_by | getRelationWithId(users,"users"))| capitalize}}
+                                            {%endif%}
+                                        {% else %}
+                                        Créé le {{ article.createdAt | formattedDate }} par {{(article.created_by | getRelationWithId(users,"users"))| capitalize}}
+                                        {% endif %}
+                                    </p>
+                                    <div class="flex">
+                                        {%if article.status === "published"%}
+                                            <a target="_blank" href="https://ableton-dynamique.vercel.app/blog/{{article.title | createArticleSlug(article.id)}}.html" class="mr-5">
+                                                {{ button.primary("Publié" + button.iconOpenTab())}}
+                                            </a>
+                                            {%else%}
+                                            <a href="" class="mr-5">
+                                                {{ button.primary("Brouillon")}}
+                                            </a>
+                                            {%endif%}
+                                            <a href="/articles/{{article.id}}"class="mr-5">
+                                                {{ button.primary("Editer")}}
+                                            </a>
+                                            {{ button.primary("Supprimer",attribute="data-delete-article="~ article.id) }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                {% endfor %}
+                <p class="flex justify-center pt-5 font-semibold">Page: {{searchParams.page or 1}}/{{maxPage}}</p>
+                <div class="pagination flex justify-center pt-10 space-x-96">
+                    {% if currentPage > 1 %}
+                        <a href="?page={{ currentPage - 1 }}">
+                            {{ button.primary("Précedent", type="submit") }}
+                        </a>
+                    {% endif %}
+                    {% if currentPage < maxPage %}
+                        <a href="?page={{ currentPage + 1 }}">
+                            {{ button.primary("Suivant", type="submit") }}
+                        </a>
+                    {% endif %}
                 </div>
-            {% endfor %}
-            <p class="flex justify-center pt-5 font-semibold">Page: {{searchParams.page or 1}}/{{maxPage}}</p>
-            <div class="pagination flex justify-center pt-10 space-x-96">
-                {% if currentPage > 1 %}
-                    <a href="?page={{ currentPage - 1 }}">
-                        {{ button.primary("Précedent", type="submit") }}
-                    </a>
-                {% endif %}
-                {% if currentPage < maxPage %}
-                    <a href="?page={{ currentPage + 1 }}">
-                        {{ button.primary("Suivant", type="submit") }}
-                    </a>
-                {% endif %}
             </div>
-        </div>
-        {% include "src/components/modalDelete.njk" %}
-        {% endblock%}
+            {% include "src/components/modalDelete.njk" %}
+            {% endblock%}

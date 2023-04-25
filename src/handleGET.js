@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+dotenv.config();
 import { isDir, isFile, readJSON, render404, response302 } from "./utils.js";
 import { readFile } from "fs/promises";
 import nunjucks from "nunjucks";
@@ -60,6 +62,7 @@ export async function handleGET(response, requestURLData, request) {
   const articles = await readJSON(ARTICLES_DATA_PATH);
   const navbar = await readJSON(HEADER_DATA_PATH);
   const footer = await readJSON(FOOTER_DATA_PATH);
+  const users = await readJSON(USER_DATA_PATH);
   const userConnect = await FindEmailWithCookie(request);
   const searchParams = Object.fromEntries(requestURLData.searchParams);
 
@@ -70,6 +73,7 @@ export async function handleGET(response, requestURLData, request) {
     navbar: navbar.navbar,
     navbarLogo: navbar.logoNavbar,
     userConnect: userConnect,
+    users: users,
     footer: {
       section1: footer.footer.mainFooter1,
       titleSection2: footer.footer.footer2,
@@ -112,7 +116,7 @@ async function FindEmailWithCookie(request) {
   }
 }
 async function handleAPIRequest(request, requestURLData, response) {
-  const secret = "lemotdepassecpasse";
+  const secret = process.env.SECRET_API;
   const authorizationApi = request.headers.authorization;
   const dataApi = [
     { path: "/api/articles", dataPath: ARTICLES_DATA_PATH },

@@ -2,46 +2,19 @@
   {
     "email": "aurelien@gmail.com",
     "password": "4$RmCHvrh2OsfZagCjB4x6XQ$q+r1huYaagXbAKET7nDyCw",
-    "sessionId": ""
+    "sessionId": "n5q5eyv10ubzrgdqi1kx",
+    "userId": "l04jtzxc"
   },
   {
     "email": "mario@gmail.com",
     "password": "4$vCbqevKVMNwzYAjefjsHfg$Raf5K45dSHDlEXxdZv+bbg",
-    "sessionId": ""
+    "sessionId": "",
+    "userId": "rqm5t2mg"
   },
   {
     "email": "mathieu@gmail.com",
     "password": "4$5IUzEI9vX3iN7x7Qd6FkfA$irntlmWAADwM1y7ElQZQLg",
-    "sessionId": ""
-  },
-  {
-    "email": "ggggg@gmail.com",
-    "password": "4$B9Vn/pmIMbwii3y/ELJSGg$3Ft8561r1ResvGx0GqCx2Q",
     "sessionId": "",
-    "createdAt": "2023-04-19T11:00:16.814Z"
-  },
-  {
-    "email": "skuta.elodie@gmail.com",
-    "password": "4$KJ2iFzyTPwOmjGllZMmTMg$wmupwowW/m7SGGLifTHpBA",
-    "sessionId": "s8oyg2d3zvpl5txatcnw",
-    "createdAt": "2023-04-19T12:47:19.774Z"
-  },
-  {
-    "email": "",
-    "password": "4$P7qGZaBeFR/U+zXgLrhwIw$SQxu+lA54p5u6LTyyUYVaA",
-    "sessionId": "",
-    "createdAt": "2023-04-20T12:19:25.676Z"
-  },
-  {
-    "email": "fighzsifhgihs@gmail.com",
-    "password": "4$o0+qTP/HnCpjlSvHZXLnxQ$IIv10F0rUquzWUdnAw/2WQ",
-    "sessionId": "",
-    "createdAt": "2023-04-20T12:52:45.057Z"
-  },
-  {
-    "email": "efkjgqekfhg@gmil.com",
-    "password": "4$9BdUy2qBQFdv4y0Y/zhtPg$95811u5jM7vEsMmGvVg0rg",
-    "sessionId": "",
-    "createdAt": "2023-04-20T12:55:38.793Z"
+    "userId": "isounmnp"
   }
 ]
