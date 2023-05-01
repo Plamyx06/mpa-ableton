@@ -18,6 +18,8 @@ export async function handleGET(response, requestURLData, request) {
     if (extname === ".js") {
       const fileName = path.basename(requestURLData.pathname);
       const filePath = `src/script/${fileName}`;
+      response.setHeader("Content-Type", "text/javascript");
+      console.log({ filePath });
       await renderFilePath(response, filePath);
       return;
     } else {

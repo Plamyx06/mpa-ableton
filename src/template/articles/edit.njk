@@ -82,7 +82,7 @@
                                 <input type="text" disabled  name="userId" class=" border-none bg-gray-200 rounded-md h-6 text-center outline-none" value="{{(articles[articleIndex].created_by | getRelationWithId(users,"users"))}}">
                             {%else %}
                                 <label for="" class="pr-6 text-l font-medium leading-6 text-gray-900">Dernière modification par : </label>
-                                <input type="text" disabled  name="userId" class=" border-none bg-gray-200 rounded-md h-6 text-center outline-none" value="{{(articles[articleIndex].updated_by | getRelationWithId(users,"users"))}}">
+                                <input type="text" disabled  name="userId" class=" border-none bg-gray-200 rounded-md h-6 text-center outline-none" value="{{(articles[articleIndex].updated_by | getRelationWithId(users,"users"))|capitalize}}">
                                 {%endif%}
                             </div>
                             <div>

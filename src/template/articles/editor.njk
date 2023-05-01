@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Editor.js Example</title>
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="48x48" href="/favicon/favicon-48.png"/>
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16.png">
+        <link rel="manifest" href="/favicon/manifest.json">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+        <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+
+    </head>
+    <body>
+        <div class="flex">
+            <nav class="bg-gray-800 w-1/6 h-screen flex flex-col justify-between">
+                <div class="space-y-1 px-2 pt-2 ">
+                    <a href="/" class="text-gray-300 block rounded-md px-3 pt-3 pb-8 text-base font-bold">Admin</a>
+                    <a href="/articles" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-light">Articles</a>
+                    <a href="/homepage" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-light">Homepage</a>
+                    <a href="/header" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-light">Header</a>
+                    <a href="/footer" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-light">Footer</a>
+                    <a href="/category" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-light">Catégories d'articles</a>
+                </div>
+
+                <form method="POST" action="/logout">
+                    <div class="space-y-1 px-2 pt-2 mb-5">
+                        <p class="flex text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-light">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#4CAF50" class="w-6 h-6 mr-2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            {{ userConnect | capitalize }}
+                        </p>
+
+                        <a href="/login" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-light">
+                            <button class="w-full text-left" type="submit">
+                        Déconnexion
+                    </button>
+                        </a>
+                    </div>
+                </form>
+            </nav>
+            <main class="w-full">
+
+                <div class="bg-gray-300 border border-gray-500" id="editor"></div>
+                <script type="module" src="editor.js"></script>
+            </main>
+
+        </div>
+
+    </body>
+</html>
