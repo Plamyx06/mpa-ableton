@@ -2,7 +2,7 @@
   {
     "email": "aurelien@gmail.com",
     "password": "4$RmCHvrh2OsfZagCjB4x6XQ$q+r1huYaagXbAKET7nDyCw",
-    "sessionId": "0smpas37zxgu0xx4kz8e",
+    "sessionId": "3myrd7nwifydho7ak9pm",
     "userId": "l04jtzxc"
   },
   {
@@ -16,5 +16,12 @@
     "password": "4$5IUzEI9vX3iN7x7Qd6FkfA$irntlmWAADwM1y7ElQZQLg",
     "sessionId": "",
     "userId": "isounmnp"
+  },
+  {
+    "email": "user@gmail.com",
+    "password": "4$6OQqO6qRHDq4GfnosE5NCw$seEG6bDQYpWcGfFuyRpi3g",
+    "sessionId": "",
+    "createdAt": "2023-05-08T21:56:57.623Z",
+    "userId": "tuzkq5rl"
   }
 ]

@@ -9,6 +9,7 @@ import path from "path";
 import { customAlphabet } from "nanoid";
 import cookie from "cookie";
 import * as argon2 from "argon2";
+import { z } from "zod";
 
 const ARTICLES_DATA_PATH = "src/data/articles.json";
 const USER_DATA_PATH = "src/data/user.json";
@@ -20,6 +21,7 @@ export async function handlePOST(request, response, requestURLData) {
   const body = await readBody(request);
   const form = convertFormDataToJSON(body);
   const targetId = path.basename(requestURLData.pathname);
+
   if (requestURLData.pathname === "/articles/create") {
     await writeJSON(
       ARTICLES_DATA_PATH,
@@ -34,7 +36,7 @@ export async function handlePOST(request, response, requestURLData) {
     response302(response, `/articles?deleteSuccess=true`);
   } else if (requestURLData.pathname === "/login") {
     await handleLoginRequest(response, form);
-  } else if (requestURLData.pathname === "/login/register") {
+  } else if (requestURLData.pathname === "/register") {
     await handleRegisterRequest(response, form);
   } else if (requestURLData.pathname === "/logout") {
     await handleLogoutRequest(request, response);
@@ -60,11 +62,10 @@ export async function handlePOST(request, response, requestURLData) {
 }
 async function addIdAndDateAtArticles(form, request) {
   const articles = await readJSON(ARTICLES_DATA_PATH);
-  const nanoid = customAlphabet("0123456789qwertyuiopasdfghjklzxcvbnm", 10);
   form.createdAt = new Date().toISOString();
-  form.id = nanoid();
+  form.id = generateRandomId(10);
   form.updatedAt = "";
-  form.created_by = await FindUserIdWithCookie(request);
+  form.created_by = await findEmailWithCookie(request);
   form.updated_by = null;
   articles.categoryId = form.categoryId;
   articles.unshift(form);
@@ -73,12 +74,12 @@ async function addIdAndDateAtArticles(form, request) {
 async function editedData(jsonPath, form, request) {
   const data = await readJSON(jsonPath);
   const foundData = data.find((foundData) => foundData.id === form.id);
-  const updatedBy = await FindUserIdWithCookie(request);
+  const updatedBy = await findEmailWithCookie(request);
 
   const editData = {
     title: form.title,
     image: form.image,
-    category: form.category,
+    categoryId: form.category,
     content: form.content,
     updatedAt: new Date().toISOString(),
     status: form.status,
@@ -90,6 +91,7 @@ async function editedData(jsonPath, form, request) {
   return editedData;
 }
 async function deleteData(jsonPath, form) {
+  console.log({ form });
   const data = await readJSON(jsonPath);
   const dataIndex = data.findIndex((foundData) => foundData.id === form.id);
   data.splice(dataIndex, 1);
@@ -131,8 +133,7 @@ async function editedDataFooter(jsonPath, form) {
   return editedData;
 }
 async function addIdAndDateAtCategory(form) {
-  const nanoid = customAlphabet("0123456789qwertyuiopasdfghjklzxcvbnm", 5);
-  form.id = nanoid();
+  form.id = generateRandomId(5);
   form.createdAt = new Date().toISOString();
   form.updatedAt = "";
   const category = await readJSON(ARTICLE_CATEGORIES_DATA_PATH);
@@ -156,8 +157,7 @@ async function handleLoginRequest(response, form) {
     form.password
   );
   if (user && verifyPassword) {
-    const nanoid = customAlphabet("0123456789qwertyuiopasdfghjklzxcvbnm", 20);
-    user.sessionId = nanoid();
+    user.sessionId = generateRandomId(20);
     await writeJSON(USER_DATA_PATH, users);
     const id = user.sessionId;
     const maxAge = 3600 * 7;
@@ -165,7 +165,7 @@ async function handleLoginRequest(response, form) {
       "Set-Cookie",
       `sessionId=${id} ; HttpOnly; Max-Age=${maxAge}; Path=/`
     );
-    response302(response, "/articles?connectSuccess=true");
+    response302(response, "/?connectSuccess=true");
   } else {
     response302(response, "/login?connectFail=true");
   }
@@ -185,12 +185,24 @@ async function handleLogoutRequest(request, response) {
 }
 async function handleRegisterRequest(response, form) {
   const users = await readJSON(USER_DATA_PATH);
+  const emailSchema = z.coerce.string().email();
+  const passwordSchema = z.coerce.string().min(8).max(20).regex(/[A-Z]/);
+  const validatedEmail = emailSchema.safeParse(form.email);
+  const validatedPassword = passwordSchema.safeParse(form.password);
+  console.log({ validatedEmail, validatedPassword });
   const userExist = users.find((user) => user.email === form.email);
   if (userExist) {
-    response302(response, "/login/register?userExist=true");
+    response302(response, "/register?userExist=true");
+    return;
+  }
+  if (!validatedEmail.success) {
+    response302(response, "/register?emailFormat=true");
+    return;
+  }
+  if (!validatedPassword.success) {
+    response302(response, "/register?passwordFormat=true");
+    return;
   } else {
-    const nanoid = customAlphabet("0123456789qwertyuiopasdfghjklzxcvbnm", 8);
-
     const hashedPassword = await argon2.hash(form.password, {
       timeCost: 4,
       hashLength: 16,
@@ -202,21 +214,24 @@ async function handleRegisterRequest(response, form) {
       password: hash,
       sessionId: "",
       createdAt: new Date().toISOString(),
-      sessionId: nanoid(),
+      userId: generateRandomId(8),
     };
     users.push(session);
     await writeJSON(USER_DATA_PATH, users);
     response302(response, "/login?createAccount=true");
   }
 }
-async function FindUserIdWithCookie(request) {
+async function findEmailWithCookie(request) {
   const users = await readJSON(USER_DATA_PATH);
   const objCookie = request.headers.cookie;
   const cookies = cookie.parse(objCookie || "");
   const cookieId = cookies.sessionId;
   const foundUser = users.find((user) => user.sessionId === cookieId);
-  console.log({ foundUser });
   if (foundUser) {
     return foundUser.userId;
   }
+}
+function generateRandomId(nbChar) {
+  const nanoid = customAlphabet("0123456789qwertyuiopasdfghjklzxcvbnm", nbChar);
+  return nanoid();
 }

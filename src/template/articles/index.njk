@@ -7,7 +7,7 @@
 
 {% block main %}
     {% if searchParams.editSuccess or searchParams.deleteSuccess or searchParams.createSuccess or searchParams.connectSuccess  or searchParams.editHeaderSuccess%}
-        <div class="rounded-md bg-green-50 p-4 mb-4">
+        <div class="rounded-md bg-green-50 p-4 mb-4 absolute w-full">
             <div class="flex">
                 <div class="flex-shrink-0">
                     <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -35,7 +35,7 @@
             </div>
         </div>
     {% endif %}
-    <div class="w-full pt-10 pl-20 pr-20">
+    <div class="w-full pt-16 pl-20 pr-20">
 
         <div class="flex justify-between mb-10">
             <h1 class="text-4xl font-bold tracking-tight text-gray-900 pb-15">Articles({{articles.length}})</h1>
@@ -63,18 +63,18 @@
                         </div>
                         <div class="px-5 w-full">
                             <h2 class="font-medium pb-2">{{article.title}}</h2>
-                            {{ button.primary(article.categoryId | getRelationWithId(category,"category"))}}
+                            {{ button.primary(article.categoryId | getPropertyById(category))}}
                             <div class="flex justify-between items-center ">
                                 <p class="pt-2 font-light text-xs">
                                     {% if article.updatedAt %}
                                          Dernière modification le {{ article.updatedAt | formattedDate }} par
                                         {%if article.updated_by !== null %}
-                                            {{(article.updated_by | getRelationWithId(users,"users"))| capitalize}}
+                                            {{(article.updated_by | getPropertyById(users))}}
                                             {%else%}
-                                            {{(article.created_by | getRelationWithId(users,"users"))| capitalize}}
+                                            {{(article.created_by | getPropertyById(users))}}
                                             {%endif%}
                                         {% else %}
-                                        Créé le {{ article.createdAt | formattedDate }} par {{(article.created_by | getRelationWithId(users,"users"))| capitalize}}
+                                        Créé le {{ article.createdAt | formattedDate }} par {{(article.created_by | getPropertyById(users))}}
                                         {% endif %}
                                     </p>
                                     <div class="flex">
@@ -90,7 +90,8 @@
                                             <a href="/articles/{{article.id}}"class="mr-5">
                                                 {{ button.primary("Editer")}}
                                             </a>
-                                            {{ button.primary("Supprimer",attribute="data-delete-article="~ article.id) }}
+                                            {{ button.primary("Supprimer", attribute='data-delete-article="' ~ article.id ~ '" data-title-article="' ~ article.title ~ '"') }}
+
                                         </div>
                                     </div>
                                 </div>

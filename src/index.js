@@ -1,9 +1,11 @@
+import * as dotenv from "dotenv";
+dotenv.config();
 import http from "http";
 import nunjucks from "nunjucks";
 import {
   render404,
   formatDate,
-  getRelationWithId,
+  getPropertyById,
   createArticleSlug,
 } from "./utils.js";
 import { handlePOST } from "./handlePOST.js";
@@ -13,10 +15,10 @@ let env = nunjucks.configure({
   noCache: true,
 });
 env.addFilter("formattedDate", formatDate);
-env.addFilter("getRelationWithId", getRelationWithId);
+env.addFilter("getPropertyById", getPropertyById);
 env.addFilter("createArticleSlug", createArticleSlug);
 
-const PORT = 3000;
+const PORT = process.env.PORT;
 
 const server = http.createServer(async (request, response) => {
   try {

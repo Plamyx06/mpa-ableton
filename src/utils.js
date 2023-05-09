@@ -102,15 +102,13 @@ export function response302(response, pathRedirect) {
   response.end();
 }
 
-export function getRelationWithId(id, data, dataStr) {
-  if (dataStr === "users") {
-    const user = data.find((user) => user.userId === id);
-    return user.email;
-  } else if (dataStr === "category") {
-    const category = data.find((category) => category.categoryId === id);
-    return category.name;
-  }
+export function getPropertyById(id, data) {
+  const result = data.find(
+    (item) => item.userId === id || item.categoryId === id
+  );
+  return result ? result.email || result.name : null;
 }
+
 export function createArticleSlug(title, id) {
   const slug = `${slugify(title)}-${id}`;
   return slug;

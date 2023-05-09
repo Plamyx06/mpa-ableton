@@ -7,14 +7,14 @@ window.addEventListener("DOMContentLoaded", () => {
   registerButton.addEventListener("click", (event) => {
     if (!(password.value === password1.value)) {
       event.preventDefault();
-      errorBlock.classList.remove("hidden");
+      errorBlock.style.display = "block";
       password.value = "";
       password1.value = "";
       setTimeout(() => {
-        errorBlock.classList.add("hidden");
+        errorBlock.style.display = "block";
       }, 3000);
     } else {
-      errorBlock.classList.add("hidden");
+      errorBlock.style.display = "none";
     }
   });
 });

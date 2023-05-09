@@ -13,51 +13,55 @@
         <meta name="theme-color" content="#ffffff">
         <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
     </head>
-    {% if searchParams.connectFail %}
-        <div class="rounded-md bg-red-50 p-4">
-            <div class="flex">
-                <div class="flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-red-500">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                    </svg>
-                </div>
-                <div class="ml-3">
-                    <p class="text-sm font-medium text-red-800">
-          Votre nom d'utilisateur et votre mot de passe ne correspondent pas. Veuillez réessayer
-        </p>
+    <body>
+        {% if searchParams.connectFail %}
+            <div class="absolute w-full">
+                <div class="rounded-md bg-red-50 p-4">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-red-500">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm font-medium text-red-800">
+                            Votre nom d'utilisateur et votre mot de passe ne correspondent pas. Veuillez réessayer
+                        </p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    {% endif %}
+        {% endif %}
 
-    <div class="flex min-h-full justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gray-200">
-        <div class="w-full max-w-md space-y-8">
-            <div class="pt-20">
-                <img class="w-full text-center " src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/a8c96d62649485.5a96feefb0ff3.png" alt="ableton">
-                <h2 class="text-center text-3xl font-bold tracking-tight text-gray-900">Admin</h2>
-            </div>
-            <form class="mt-8 space-y-6" action="/login" method="POST">
-                <div class="-space-y-px rounded-md shadow-sm">
-                    <div>
-                        <label for="email-address" class="sr-only">Adresse mail</label>
-                        <input id="email-address" name="email" type="email" autocomplete="email" required class="relative block w-full rounded-t-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Adresse mail">
-                    </div>
-                    <div>
-                        <label for="password" class="sr-only">Mot de passe</label>
-                        <input id="password" name="password" type="password" autocomplete="current-password" required class="relative block w-full rounded-b-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Mot de passe">
-                    </div>
+        <div class=" flex min-h-full justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gray-200">
+            <div class="w-full max-w-md space-y-8">
+                <div class="pt-20">
+                    <img class="w-full text-center " src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/a8c96d62649485.5a96feefb0ff3.png" alt="ableton">
+                    <h2 class="text-center text-3xl font-bold tracking-tight text-gray-900">Admin</h2>
                 </div>
-                <div>
-                    <button type="submit" class="group relative flex w-full justify-center rounded-md bg-gray-600 py-2 px-3 text-sm font-semibold text-white hover:bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                <form class="mt-8 space-y-6" action="/login" method="POST">
+                    <div class="-space-y-px rounded-md shadow-sm">
+                        <div>
+                            <label for="email-address" class="sr-only">Adresse mail</label>
+                            <input id="email-address" name="email" type="email" autocomplete="email" required class="relative block w-full rounded-t-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Adresse mail">
+                        </div>
+                        <div>
+                            <label for="password" class="sr-only">Mot de passe</label>
+                            <input id="password" name="password" type="password" autocomplete="current-password" required class="relative block w-full rounded-b-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Mot de passe">
+                        </div>
+                    </div>
+                    <div>
+                        <button type="submit" class="group relative flex w-full justify-center rounded-md bg-gray-600 py-2 px-3 text-sm font-semibold text-white hover:bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                         
           Connexion
         </button>
-                    <a href="/login/register">
-                        <button type="button" class="mt-3 group relative flex w-full justify-center rounded-md bg-gray-600 py-2 px-3 text-sm font-semibold text-white hover:bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                        <a href="/register">
+                            <button type="button" class="mt-3 group relative flex w-full justify-center rounded-md bg-gray-600 py-2 px-3 text-sm font-semibold text-white hover:bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                         
           Inscription 
         </button>
-                    </div>
-                </form>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
+        </body>

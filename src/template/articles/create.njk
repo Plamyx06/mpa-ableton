@@ -2,6 +2,15 @@
 {% import "src/components/button.njk" as button %}
 {% block head %}
     <title>Articles / Creation</title>
+    <script src="editor.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+    <!-- editorLoad -->
+    <script src="https://cdn.jsdelivr.net/npm/editorjs-html@3.4.0/build/edjsHTML.browser.js"></script>
+    <!-- editorToHtml -->
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/paragraph@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script>
 {% endblock %}
 {% block main %}
 
@@ -18,7 +27,7 @@
                     </svg>Retour aux articles</a>
             </div>
 
-            <form method="POST" class="space-y-4">
+            <form method="POST" id="form" class="space-y-4">
                 <div>
                     <label for="title" class=" text-xl font-medium leading-6 text-gray-900">Titre</label>
                     <div class="mt-2">
@@ -56,13 +65,15 @@
                     </div>
                 </div>
                 <div>
-                    <label for="content" class=" text-xl font-medium text-gray-900">Contenu</label>
-                    <div class="mt-2">
-                        <textarea type="text" name="content" id="content" rows="10" class="resize-none w-full block rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600"></textarea>
+                    <label for="content" id="content" class=" text-xl font-medium text-gray-900">Contenu</label>
+                    <div id="content-editor" class="mt-2 ">
+                        <div class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600" id="editor"></div>
+
+                        <input type="hidden" name="content" id="article-content"value="">
                     </div>
                 </div>
                 <div class="flex justify-end mt-20">
-                    {{ button.primary("Créer",size="large","submit")}}
+                    {{ button.primary("Créer",id="save-editor",size="large","submit")}}
                 </button>
                 <div></form>
             </div>

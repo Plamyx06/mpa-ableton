@@ -1,4 +1,4 @@
-import dotenv from "dotenv";
+import * as dotenv from "dotenv";
 dotenv.config();
 import { isDir, isFile, readJSON, render404, response302 } from "./utils.js";
 import { readFile } from "fs/promises";
@@ -18,7 +18,7 @@ export async function handleGET(response, requestURLData, request) {
     if (extname === ".js") {
       const fileName = path.basename(requestURLData.pathname);
       const filePath = `src/script/${fileName}`;
-      response.setHeader("Content-Type", "text/javascript");
+      response.setHeader("Content-Type", "application/javascript");
       console.log({ filePath });
       await renderFilePath(response, filePath);
       return;
@@ -32,7 +32,7 @@ export async function handleGET(response, requestURLData, request) {
     return;
   } else if (
     requestURLData.pathname !== "/login" &&
-    requestURLData.pathname !== "/login/register"
+    requestURLData.pathname !== "/register"
   ) {
     const objCookie = request.headers.cookie;
     const cookies = cookie.parse(objCookie || "");
@@ -65,7 +65,7 @@ export async function handleGET(response, requestURLData, request) {
   const navbar = await readJSON(HEADER_DATA_PATH);
   const footer = await readJSON(FOOTER_DATA_PATH);
   const users = await readJSON(USER_DATA_PATH);
-  const userConnect = await FindEmailWithCookie(request);
+  const userConnect = await findEmailWithCookie(request);
   const searchParams = Object.fromEntries(requestURLData.searchParams);
 
   const templateData = {
@@ -106,7 +106,7 @@ async function verifyUserSessionId(id) {
   const users = await readJSON(USER_DATA_PATH);
   return !!users.find((user) => user.sessionId === id);
 }
-async function FindEmailWithCookie(request) {
+async function findEmailWithCookie(request) {
   const users = await readJSON(USER_DATA_PATH);
   const objCookie = request.headers.cookie;
   const cookies = cookie.parse(objCookie || "");
@@ -119,6 +119,7 @@ async function FindEmailWithCookie(request) {
 }
 async function handleAPIRequest(request, requestURLData, response) {
   const secret = process.env.SECRET_API;
+
   const authorizationApi = request.headers.authorization;
   const dataApi = [
     { path: "/api/articles", dataPath: ARTICLES_DATA_PATH },

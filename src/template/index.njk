@@ -35,18 +35,18 @@
                         </div>
                         <div class="px-5 w-full">
                             <h2 class="font-medium pb-2">{{article.title}}</h2>
-                            {{ button.primary(article.categoryId | getRelationWithId(category, "category"))}}
+                            {{ button.primary(article.categoryId | getPropertyById(category))}}
                             <div class="flex justify-between items-baseline">
                                 <p class="pt-2 font-light text-xs">
                                     {% if article.updatedAt %}
                                          Dernière modification le {{ article.updatedAt | formattedDate }} par
                                         {%if article.updated_by !== null %}
-                                            {{(article.updated_by | getRelationWithId(users,"users")) | capitalize}}
+                                            {{(article.updated_by | getPropertyById(users)) }}
                                             {%else%}
-                                            {{(article.created_by | getRelationWithId(users,"users")) | capitalize}}
+                                            {{(article.created_by | getPropertyById(users)) }}
                                             {%endif%}
                                         {% else %}
-                                        Créé le {{ article.createdAt | formattedDate }} par {{(article.created_by | getRelationWithId(users,"users"))}}
+                                        Créé le {{ article.createdAt | formattedDate }} par {{(article.created_by | getPropertyById(users))}}
                                         {% endif %}
                                     </p>
 
@@ -63,10 +63,9 @@
                                             <a href="/articles/{{article.id}}"class="mr-5">
                                                 {{ button.primary("Editer")}}
                                             </a>
-                                            {{ button.primary("Supprimer",attribute="data-delete-article="~ article.id) }}
+                                            {{ button.primary("Supprimer", attribute='data-delete-article="' ~ article.id ~ '" data-title-article="' ~ article.title ~ '"') }}
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
