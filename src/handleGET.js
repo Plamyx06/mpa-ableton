@@ -5,12 +5,13 @@ import { readFile } from "fs/promises";
 import nunjucks from "nunjucks";
 import path from "path";
 import cookie from "cookie";
+import db from "./database.js";
 
-const ARTICLES_DATA_PATH = "src/data/articles.json";
-const ARTICLE_CATEGORIES_DATA_PATH = "src/data/article-categories.json";
-const HEADER_DATA_PATH = "src/data/header.json";
-const FOOTER_DATA_PATH = "src/data/footer.json";
-const USER_DATA_PATH = "src/data/user.json";
+//const ARTICLES_DATA_PATH = "src/data/articles.json";
+//const ARTICLE_CATEGORIES_DATA_PATH = "src/data/article-categories.json";
+//const HEADER_DATA_PATH = "src/data/header.json";
+//const FOOTER_DATA_PATH = "src/data/footer.json";
+//const USER_DATA_PATH = "src/data/user.json";
 
 export async function handleGET(response, requestURLData, request) {
   const extname = path.extname(requestURLData.pathname);
@@ -30,18 +31,18 @@ export async function handleGET(response, requestURLData, request) {
   } else if (requestURLData.pathname.startsWith("/api")) {
     await handleAPIRequest(request, requestURLData, response);
     return;
-  } else if (
+  } /* else if (
     requestURLData.pathname !== "/login" &&
     requestURLData.pathname !== "/register"
   ) {
     const objCookie = request.headers.cookie;
     const cookies = cookie.parse(objCookie || "");
-    const cookieId = cookies.sessionId;
+    const cookieId = cookies.session_id;
     if (!(await verifyUserSessionId(cookieId))) {
       response302(response, "/login?connectFail=true");
       return;
     }
-  }
+  }*/
 
   const basenameURL = path.basename(requestURLData.pathname);
   let templatePath = `src/template${requestURLData.pathname}`;
@@ -51,7 +52,7 @@ export async function handleGET(response, requestURLData, request) {
   } else if (await isFile(`${templatePath}.njk`)) {
     templatePath = `${templatePath}.njk`;
   } else if (requestURLData.pathname === `/articles/${basenameURL}`) {
-    const idExist = await isId(basenameURL, ARTICLES_DATA_PATH);
+    const idExist = await isId(basenameURL);
     if (idExist) {
       templatePath = `src/template/articles/edit.njk`;
     }
@@ -60,33 +61,31 @@ export async function handleGET(response, requestURLData, request) {
     return;
   }
 
-  const category = await readJSON(ARTICLE_CATEGORIES_DATA_PATH);
-  const articles = await readJSON(ARTICLES_DATA_PATH);
-  const navbar = await readJSON(HEADER_DATA_PATH);
-  const footer = await readJSON(FOOTER_DATA_PATH);
-  const users = await readJSON(USER_DATA_PATH);
-  const userConnect = await findEmailWithCookie(request);
+  const category = await fetchDataFromTable("article_category");
+  const articles = await fetchDataFromTable("article");
+  const headerSvg = await fetchDataFromTable("header");
+  const headerLink = await fetchDataFromTable("header_link");
+  const footer = await fetchDataFromTable("footer_link");
+  const users = await fetchDataFromTable("user");
+  const socialLink = await fetchDataFromTable("social_link");
+  const userConnect = await findEmailWithCookie(request, users);
   const searchParams = Object.fromEntries(requestURLData.searchParams);
 
   const templateData = {
     searchParams: searchParams,
     articles: articles,
     category: category,
-    navbar: navbar.navbar,
-    navbarLogo: navbar.logoNavbar,
+    header: headerLink,
+    headerSvg: headerSvg,
     userConnect: userConnect,
     users: users,
-    footer: {
-      section1: footer.footer.mainFooter1,
-      titleSection2: footer.footer.footer2,
-      section2: footer.footer.mainFooter2,
-      socialLink: footer.footer.socialLink,
-    },
+    footer: footer,
+    socialLink: socialLink,
+
     editArticlesIndex: articles.findIndex(
       (articles) => articles.id === basenameURL
     ),
   };
-
   const html = nunjucks.render(templatePath, templateData);
   response.end(html);
 }
@@ -98,26 +97,28 @@ async function renderFilePath(response, filePath) {
     render404(response);
   }
 }
-async function isId(targetId, jsonPath) {
-  const data = await readJSON(jsonPath);
+
+async function isId(targetId) {
+  const data = await fetchDataFromTable("article");
   return !!data.find(({ id }) => id === targetId);
 }
+
 async function verifyUserSessionId(id) {
-  const users = await readJSON(USER_DATA_PATH);
-  return !!users.find((user) => user.sessionId === id);
+  const users = await fetchDataFromTable("user");
+  return !!users.find((user) => user.session_id === id);
 }
-async function findEmailWithCookie(request) {
-  const users = await readJSON(USER_DATA_PATH);
+
+async function findEmailWithCookie(request, users) {
   const objCookie = request.headers.cookie;
   const cookies = cookie.parse(objCookie || "");
-  const cookieId = cookies.sessionId;
-  const foundUser = users.find((user) => user.sessionId === cookieId);
+  const cookieId = cookies.session_id;
+  const foundUser = users.find((user) => user.session_id === cookieId);
 
   if (foundUser) {
     return foundUser.email;
   }
 }
-async function handleAPIRequest(request, requestURLData, response) {
+/*async function handleAPIRequest(request, requestURLData, response) {
   const secret = process.env.SECRET_API;
 
   const authorizationApi = request.headers.authorization;
@@ -143,5 +144,18 @@ async function handleAPIRequest(request, requestURLData, response) {
       response.end(JSON.stringify(data));
       return;
     }
+  }
+}*/
+async function fetchDataFromTable(tableName) {
+  const trx = await db.transaction();
+  try {
+    const data = await trx(tableName).select("*");
+    await trx.commit();
+    return data;
+  } catch (error) {
+    await trx.rollback();
+    throw error;
+  } finally {
+    await trx.destroy();
   }
 }

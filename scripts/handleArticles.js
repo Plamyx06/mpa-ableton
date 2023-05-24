@@ -13,8 +13,8 @@ async function addDataAtAllArticles(data) {
   const articles = await readJSON(data);
 
   for (const article of articles) {
-    article.createdAt = new Date().toISOString();
-    article.updatedAt = "";
+    article.created_at = new Date().toISOString();
+    article.updated_at = "";
     article.status = "published";
   }
 

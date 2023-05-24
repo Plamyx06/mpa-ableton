@@ -13,10 +13,10 @@ const data = [];
 const nanoid = customAlphabet("0123456789qwertyuiopasdfghjklzxcvbnm", 5);
 for (const category of categories) {
   const categoryObject = {
-    categoryId: nanoid(),
+    category_id: nanoid(),
     name: category,
-    createdAt: new Date().toISOString(),
-    updatedAt: "",
+    created_at: new Date().toISOString(),
+    updated_at: "",
   };
   data.push(categoryObject);
 }

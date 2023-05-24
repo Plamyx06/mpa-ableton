@@ -35,18 +35,18 @@
                         </div>
                         <div class="px-5 w-full">
                             <h2 class="font-medium pb-2">{{article.title}}</h2>
-                            {{ button.primary(article.categoryId | getPropertyById(category))}}
+                            {{ button.primary(article.category_id | getPropertyById(category))}}
                             <div class="flex justify-between items-baseline">
                                 <p class="pt-2 font-light text-xs">
-                                    {% if article.updatedAt %}
-                                         Dernière modification le {{ article.updatedAt | formattedDate }} par
+                                    {% if article.updated_at %}
+                                         Dernière modification le {{ article.updated_at | formattedDate }} par
                                         {%if article.updated_by !== null %}
                                             {{(article.updated_by | getPropertyById(users)) }}
                                             {%else%}
                                             {{(article.created_by | getPropertyById(users)) }}
                                             {%endif%}
                                         {% else %}
-                                        Créé le {{ article.createdAt | formattedDate }} par {{(article.created_by | getPropertyById(users))}}
+                                        Créé le {{ article.created_at | formattedDate }} par {{(article.created_by | getPropertyById(users))}}
                                         {% endif %}
                                     </p>
 

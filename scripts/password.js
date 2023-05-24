@@ -22,7 +22,7 @@ const verify = await argon2.verify(
   `$argon2id$v=19$m=65536,t=4,p=${passHash}`,
   password
 );
-console.log({ verify });*
+console.log({ verify });
 
 
 /*

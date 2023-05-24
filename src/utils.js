@@ -1,6 +1,7 @@
 import fs from "fs/promises";
 import nunjucks from "nunjucks";
 import slugify from "@sindresorhus/slugify";
+import db from "./database.js";
 
 export async function pathExists(path) {
   try {
@@ -104,7 +105,7 @@ export function response302(response, pathRedirect) {
 
 export function getPropertyById(id, data) {
   const result = data.find(
-    (item) => item.userId === id || item.categoryId === id
+    (item) => item.user_id === id || item.category_id === id
   );
   return result ? result.email || result.name : null;
 }
@@ -112,4 +113,17 @@ export function getPropertyById(id, data) {
 export function createArticleSlug(title, id) {
   const slug = `${slugify(title)}-${id}`;
   return slug;
+}
+export async function fetchDataFromTable(tableName) {
+  const trx = await db.transaction();
+  try {
+    const data = await trx(tableName).select("*");
+    await trx.commit();
+    return data;
+  } catch (error) {
+    await trx.rollback();
+    throw error;
+  } finally {
+    await trx.destroy();
+  }
 }

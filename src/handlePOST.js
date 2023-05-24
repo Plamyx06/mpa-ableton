@@ -10,12 +10,12 @@ import { customAlphabet } from "nanoid";
 import cookie from "cookie";
 import * as argon2 from "argon2";
 import { z } from "zod";
+import db from "./database.js";
 
-const ARTICLES_DATA_PATH = "src/data/articles.json";
-const USER_DATA_PATH = "src/data/user.json";
-const HEADER_DATA_PATH = "src/data/header.json";
-const FOOTER_DATA_PATH = "src/data/footer.json";
-const ARTICLE_CATEGORIES_DATA_PATH = "src/data/article-categories.json";
+//const ARTICLES_DATA_PATH = "src/data/articles.json";
+//const USER_DATA_PATH = "src/data/user.json";
+//const FOOTER_DATA_PATH = "src/data/footer.json";
+//const ARTICLE_CATEGORIES_DATA_PATH = "src/data/article-categories.json";
 
 export async function handlePOST(request, response, requestURLData) {
   const body = await readBody(request);
@@ -23,10 +23,7 @@ export async function handlePOST(request, response, requestURLData) {
   const targetId = path.basename(requestURLData.pathname);
 
   if (requestURLData.pathname === "/articles/create") {
-    await writeJSON(
-      ARTICLES_DATA_PATH,
-      await addIdAndDateAtArticles(form, request)
-    );
+    await addNewArticle(form);
     response302(response, `/articles?createSuccess=true`);
   } else if (targetId === form.id) {
     await editedData(ARTICLES_DATA_PATH, form, request);
@@ -60,17 +57,21 @@ export async function handlePOST(request, response, requestURLData) {
     response302(response, `/category?deleteCategorySuccess=true`);
   }
 }
-async function addIdAndDateAtArticles(form, request) {
-  const articles = await readJSON(ARTICLES_DATA_PATH);
-  form.createdAt = new Date().toISOString();
+async function addNewArticle(form) {
+  form.created_at = new Date().toISOString();
   form.id = generateRandomId(10);
-  form.updatedAt = "";
-  form.created_by = await findEmailWithCookie(request);
+  form.updated_at = null;
+  form.created_by = "user@gmail.com"; //await findEmailWithCookie(request);
   form.updated_by = null;
-  articles.categoryId = form.categoryId;
-  articles.unshift(form);
-  return articles;
+  form.category_id;
+  console.log({ form });
+  const trx = await db.transaction();
+  await trx("article").insert(form);
+  await trx.commit();
+  await trx.destroy();
+  console.log("New article added successfully.");
 }
+
 async function editedData(jsonPath, form, request) {
   const data = await readJSON(jsonPath);
   const foundData = data.find((foundData) => foundData.id === form.id);
@@ -79,9 +80,9 @@ async function editedData(jsonPath, form, request) {
   const editData = {
     title: form.title,
     image: form.image,
-    categoryId: form.category,
+    category_id: form.category,
     content: form.content,
-    updatedAt: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
     status: form.status,
     updated_by: updatedBy,
   };
@@ -134,8 +135,8 @@ async function editedDataFooter(jsonPath, form) {
 }
 async function addIdAndDateAtCategory(form) {
   form.id = generateRandomId(5);
-  form.createdAt = new Date().toISOString();
-  form.updatedAt = "";
+  form.created_at = new Date().toISOString();
+  form.updated_at = "";
   const category = await readJSON(ARTICLE_CATEGORIES_DATA_PATH);
   category.push(form);
   return category;
@@ -157,13 +158,13 @@ async function handleLoginRequest(response, form) {
     form.password
   );
   if (user && verifyPassword) {
-    user.sessionId = generateRandomId(20);
+    user.session_id = generateRandomId(20);
     await writeJSON(USER_DATA_PATH, users);
-    const id = user.sessionId;
+    const id = user.session_id;
     const maxAge = 3600 * 7;
     response.setHeader(
       "Set-Cookie",
-      `sessionId=${id} ; HttpOnly; Max-Age=${maxAge}; Path=/`
+      `session_id=${id} ; HttpOnly; Max-Age=${maxAge}; Path=/`
     );
     response302(response, "/?connectSuccess=true");
   } else {
@@ -174,22 +175,26 @@ async function handleLogoutRequest(request, response) {
   const users = await readJSON(USER_DATA_PATH);
   const cookieObject = request.headers.cookie;
   const cookieParse = cookie.parse(cookieObject);
-  const cookieId = cookieParse.sessionId;
-  const user = users.find((user) => user.sessionId === cookieId);
+  const cookieId = cookieParse.session_id;
+  const user = users.find((user) => user.session_id === cookieId);
   if (user) {
-    user.sessionId = "";
+    user.session_id = "";
     await writeJSON(USER_DATA_PATH, users);
   }
-  response.setHeader("Set-Cookie", "sessionId=; HttpOnly; Max-Age=0; Path=/");
+  response.setHeader("Set-Cookie", "session_id=; HttpOnly; Max-Age=0; Path=/");
   response302(response, "/login");
 }
 async function handleRegisterRequest(response, form) {
   const users = await readJSON(USER_DATA_PATH);
   const emailSchema = z.coerce.string().email();
-  const passwordSchema = z.coerce.string().min(8).max(20).regex(/[A-Z]/);
+  const passwordSchema = z.coerce
+    .string()
+    .min(8)
+    .max(20)
+    .regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]+$/);
   const validatedEmail = emailSchema.safeParse(form.email);
   const validatedPassword = passwordSchema.safeParse(form.password);
-  console.log({ validatedEmail, validatedPassword });
+
   const userExist = users.find((user) => user.email === form.email);
   if (userExist) {
     response302(response, "/register?userExist=true");
@@ -212,9 +217,9 @@ async function handleRegisterRequest(response, form) {
     const session = {
       email: form.email,
       password: hash,
-      sessionId: "",
-      createdAt: new Date().toISOString(),
-      userId: generateRandomId(8),
+      session_id: "",
+      created_at: new Date().toISOString(),
+      user_id: generateRandomId(8),
     };
     users.push(session);
     await writeJSON(USER_DATA_PATH, users);
@@ -225,10 +230,10 @@ async function findEmailWithCookie(request) {
   const users = await readJSON(USER_DATA_PATH);
   const objCookie = request.headers.cookie;
   const cookies = cookie.parse(objCookie || "");
-  const cookieId = cookies.sessionId;
-  const foundUser = users.find((user) => user.sessionId === cookieId);
+  const cookieId = cookies.session_id;
+  const foundUser = users.find((user) => user.session_id === cookieId);
   if (foundUser) {
-    return foundUser.userId;
+    return foundUser.user_id;
   }
 }
 function generateRandomId(nbChar) {

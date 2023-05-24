@@ -67,7 +67,7 @@
                             </label>
                             <select class="rounded-md block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600" name="category" id="category">
                                 {% for selectCategory in category %}
-                                    <option value="{{ selectCategory.categoryId }}" {% if selectCategory.categoryId === articles[articleIndex].categoryId %}selected{% endif %}>{{ selectCategory.name }}</option>
+                                    <option value="{{ selectCategory.category_id }}" {% if selectCategory.category_id === articles[articleIndex].category_id %}selected{% endif %}>{{ selectCategory.name }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -78,15 +78,18 @@
                             <input type="text" name="image" id="image" value="{{ articles[articleIndex].image }}" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">
                         </div>
                     </div>
+
                     <div>
                         <label for="content" class=" text-xl font-medium text-gray-900">Contenu :</label>
-                        <div id="content-editor" class="mt-2">
-                            <div class="border border-gray-500 rounded-md" id="editor" ></div>
+                        <div id="content-editor" class="mt-2 w-full border border-gray-500 rounded-md flex justify-center">
+                            <div class="prose" id="editor"></div>
                             <input type="hidden" name="content" id="article-content"value="{{ articles[articleIndex].content }}">
                         </div>
 
                     </div>
+
                     <div class="flex justify-between mt-20">
+
                         <div>
                             {%if articles[articleIndex].updated_by === null%}
                                 <div class="flex">
@@ -101,7 +104,7 @@
                                 </div>
                                 {%endif%}
                             </div>
-                            <div>
+                            <div class="mb-5">
                                 {{ button.primary("Sauvegarder",id="save-editor",size="large","submit")}}
                             </div>
                         </div>

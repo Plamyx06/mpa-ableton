@@ -138,11 +138,12 @@
       "EQing"
     ],
     "createdAt": "2023-03-23T12:14:37.729Z",
-    "updatedAt": "2023-05-08T21:12:46.138Z",
+    "updatedAt": "2023-05-11T10:21:38.937Z",
     "status": "published",
     "categoryId": "qxqnj",
     "created_by": "l04jtzxc",
-    "updated_by": "l04jtzxc"
+    "category_id": "qxqnj",
+    "updated_at": "2023-05-12T11:11:04.753Z"
   },
   {
     "id": "u32a7bj4gk",
