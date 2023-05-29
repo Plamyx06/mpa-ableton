@@ -104,9 +104,7 @@ export function response302(response, pathRedirect) {
 }
 
 export function getPropertyById(id, data) {
-  const result = data.find(
-    (item) => item.user_id === id || item.category_id === id
-  );
+  const result = data.find((item) => item.user_id === id || item.id === id);
   return result ? result.email || result.name : null;
 }
 
@@ -114,16 +112,18 @@ export function createArticleSlug(title, id) {
   const slug = `${slugify(title)}-${id}`;
   return slug;
 }
-export async function fetchDataFromTable(tableName) {
+export async function fetchDataFromTable(tableName, orderBy, orderDirection) {
   const trx = await db.transaction();
-  try {
-    const data = await trx(tableName).select("*");
-    await trx.commit();
-    return data;
-  } catch (error) {
-    await trx.rollback();
-    throw error;
-  } finally {
-    await trx.destroy();
+  let query = trx(tableName).select("*");
+
+  if (orderBy) {
+    query = query.orderBy(orderBy, orderDirection);
   }
+
+  const data = await query;
+
+  await trx.commit();
+  await trx.destroy();
+
+  return data;
 }

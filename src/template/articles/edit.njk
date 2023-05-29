@@ -33,11 +33,12 @@
                 <form method="POST" id="form" class="space-y-4">
                     <div class="flex items-baseline justify-end">
 
-                        <div>
-                            <label for="id" class="pr-6 text-xl font-medium leading-6 text-gray-900">ID : </label>
-                            <input type="text" disabled id="id" name="id" class=" border-none bg-gray-200 rounded-md h-6 text-center outline-none" value="{{articles[articleIndex].id}}">
-                            <input type="hidden" id="id" name="id" class=" border-none bg-gray-200 rounded-md h-6 text-center outline-none" value="{{articles[articleIndex].id}}">
+                        <div class="flex">
+                            <label for="id" class="pr-6 text-xl font-medium text-gray-900 flex whitespace-nowrap">Id :</label>
+                            <input type="text" disabled id="id" name="id" class=" border-none bg-gray-200 rounded-md h-6  text-center outline-none w-96" value="{{articles[articleIndex].id}}">
                         </div>
+                        <input type="hidden" id="id" name="id" class=" border-none bg-gray-200 rounded-md h-6 text-center outline-none" value="{{articles[articleIndex].id}}">
+
                     </div>
                     <div>
                         <label for="title" class=" text-xl font-medium leading-6 text-gray-900">Titre :</label>
@@ -67,7 +68,7 @@
                             </label>
                             <select class="rounded-md block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600" name="category" id="category">
                                 {% for selectCategory in category %}
-                                    <option value="{{ selectCategory.category_id }}" {% if selectCategory.category_id === articles[articleIndex].category_id %}selected{% endif %}>{{ selectCategory.name }}</option>
+                                    <option value="{{ selectCategory.id }}" {% if articles[articleIndex].category_id === selectCategory.id %}selected{% endif %}>{{ selectCategory.name }}</option>
                                 {% endfor %}
                             </select>
                         </div>

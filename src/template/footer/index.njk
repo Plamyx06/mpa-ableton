@@ -2,7 +2,21 @@
 {% import "src/components/button.njk" as button %}
 
 {% block main %}
-    <div class="w-full pt-10 pl-20 pr-20">
+    {% if searchParams.editFooterSuccess %}
+        <div class="absolute w-full rounded-md bg-green-50 p-4 mb-4">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd"/>
+                    </svg>
+                </div>
+                <div class="ml-3">
+                    <p class="text-sm font-medium text-green-800">Le footer a été modifié avec succes</p>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    <div class="w-full pt-16 pl-20 pr-20">
         <div class="ml-40 items-baseline mb-5">
             <h1 class="text-4xl font-bold tracking-tight text-gray-900 ">Gestion du footer</h1>
         </div>
@@ -24,14 +38,14 @@
                     <div class="mt-2">
                         <label for="title" class="text-xl font-medium leading-6 text-gray-900">Section 1</label>
 
-                        {% for footerTitle in footer.section1 %}
+                        {% for footerTitle in footer.slice(0, 3) %}
                             <input type="text" name="section1Title_{{loop.index0}}" id="Section1Title_{{loop.index0}}" value="{{ footerTitle.title }}" class="block my-2 w-96 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">
                         {% endfor %}
                     </div>
 
                     <div class="mt-2">
                         <label for="title" class="text-xl font-medium leading-6 text-gray-900">&#8203;</label>
-                        {% for svg in footer.section1 %}
+                        {% for svg in footer.slice(0, 3) %}
                             <p class="block my-2 py-1.5 text-gray-900">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"/>
@@ -42,7 +56,7 @@
                     <div class="mt-2">
                         <label for="section1Href" class="text-xl font-medium leading-6 text-gray-900">Liens</label>
 
-                        {% for footerHref in footer.section1 %}
+                        {% for footerHref in footer.slice(0, 3) %}
 
                             <input type="text" name="section1Href_{{loop.index0}}" id="section1href_{{loop.index0}}" value="{{ footerHref.href }}" class="block my-2 rounded-md w-96 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">
 
@@ -55,13 +69,13 @@
                 <div class="" >
                     <label for="title" class="text-xl font-medium leading-6 text-gray-900">Section 2
                 </label>
-                    <input type="text" name="mainTitle" id="mainTitle" value="{{ footer.titleSection2.mainTitle }}" class="block my-2 w-96 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">
+                    <input type="text" name="mainTitle" id="mainTitle" value="{{ footer[3].main_title }}" class="block my-2 w-96 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">
                 </div>
                 <div class ="section2 flex justify-between">
                     <div class="mt-2">
                         <label for="title" class="text-xl font-medium leading-6 text-gray-900">&#8203;</label>
 
-                        {% for footerTitle in footer.section2 %}
+                        {% for footerTitle in footer.slice(3, 6) %}
 
                             <input type="text" name="section2Title_{{loop.index0}}" id="section2Title_{{loop.index0}}" value="{{ footerTitle.title }}" class="block my-2 w-96 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">
 
@@ -70,7 +84,7 @@
 
                     <div class="mt-2">
                         <label for="title" class="text-xl font-medium leading-6 text-gray-900">&#8203;</label>
-                        {% for svg in footer.section2 %}
+                        {% for svg in footer.slice(3, 6) %}
                             <p class="block my-2 py-1.5 text-gray-900">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"/>
@@ -81,9 +95,8 @@
                     <div class="mt-2">
                         <label for="section2Href" class="text-xl font-medium leading-6 text-gray-900">Liens</label>
 
-                        {% for footerHref in footer.section2 %}
+                        {% for footerHref in footer.slice(3, 6) %}
 
-                            {% set counter = counter + 1 %}
                             <input type="text" name="section2Href_{{loop.index0}}" id="section2Href_{{loop.index0 }}" value="{{ footerHref.href }}" class="block my-2 rounded-md w-96 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">
 
                         {% endfor %}
@@ -96,7 +109,7 @@
                     <div class="flex flex-col">
                         <label for="title" class="text-xl font-medium leading-6 text-gray-900 mb-4">Réseaux sociaux</label>
 
-                        {% for footerSocialTitle in footer.socialLink %}
+                        {% for footerSocialTitle in socialLink %}
 
                             <input type="text" disabled id="socialTitle" name="socialTitle" class=" border-none rounded-md py-2.5 w-96 outline-none font-semibold" value="{{footerSocialTitle.title}}">
 
@@ -105,7 +118,7 @@
 
                     <div class="mt-2">
                         <label for="title" class="text-xl font-medium leading-6 text-gray-900">&#8203;</label>
-                        {% for svg in footer.socialLink %}
+                        {% for svg in socialLink %}
                             <p class="block my-2 py-1.5 text-gray-900">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"/>
@@ -116,7 +129,7 @@
                     <div class="mt-2">
                         <label for="href" class="text-xl font-medium leading-6 text-gray-900">Liens</label>
 
-                        {% for footerSocialHref in footer.socialLink %}
+                        {% for footerSocialHref in socialLink %}
 
                             <input type="text" name="socialHref_{{loop.index0}}" id="socialHref_{{loop.index0}}" value="{{ footerSocialHref.href }}" class="block my-2 rounded-md w-96 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">
 

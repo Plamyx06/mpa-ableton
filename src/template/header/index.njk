@@ -21,7 +21,7 @@
                 <div class ="flex justify-between">
                     <div class="mt-2">
                         <label for="logo" class="text-xl w-96 font-medium leading-6 text-gray-900">Logo actuel </label>
-                        <p class="mt-4 block w-96 pt-5 leading-6 text-gray-900">{{navbarLogo.logoSvg | safe}}</p>
+                        <p class="mt-4 block w-96 pt-5 leading-6 text-gray-900">{{headerSvg.logo_svg | safe}}</p>
                     </div>
                     <div class="mt-8">
                         <label for="title" class="text-xl  font-medium leading-6 text-gray-900">&#8203;</label>
@@ -33,7 +33,7 @@
                     </div>
                     <div>
                         <label for="logo" class="text-xl font-medium leading-6 text-gray-900">Logo format SVG<span class="text-sm"><br>Modifier le logo avec un nouveau SVG</span></label>
-                        <textarea name="logoSvg" id="LogoSvg" class="resize-none block my-2 w-96 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">{{navbarLogo.logoSvg | safe}}</textarea>
+                        <textarea name="logoSvg" id="LogoSvg" class="resize-none block my-2 w-96 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">{{headerSvg.logo_svg | safe}}</textarea>
 
                     </div>
                 </div>
@@ -41,7 +41,7 @@
                     <div class="mt-2">
                         <label for="title" class="text-xl font-medium leading-6 text-gray-900">Titres</label>
 
-                        {% for navTitle in navbar %}
+                        {% for navTitle in header %}
 
                             <input type="text" name="title_{{loop.index0}}" id="title_{{loop.index0}}" value="{{ navTitle.title }}" class="block my-2 w-96 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">
 
@@ -50,7 +50,7 @@
 
                     <div class="mt-2">
                         <label for="title" class="text-xl font-medium leading-6 text-gray-900">&#8203;</label>
-                        {% for svg in navbar %}
+                        {% for svg in header %}
                             <p class="block my-2 py-1.5 text-gray-900">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"/>
@@ -61,7 +61,7 @@
                     <div class="mt-2">
                         <label for="href" class="text-xl font-medium leading-6 text-gray-900">Liens</label>
 
-                        {% for navHref in navbar %}
+                        {% for navHref in header %}
                             <input type="text" name="href_{{loop.index0}}" id="href_{{loop.index0}}" value="{{ navHref.href }}" class="block my-2 rounded-md w-96 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">
                         {% endfor %}
                     </div>
