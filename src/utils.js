@@ -119,7 +119,6 @@ export async function fetchDataFromTable(tableName, orderBy, orderDirection) {
   if (orderBy) {
     query = query.orderBy(orderBy, orderDirection);
   }
-
   const data = await query;
 
   await trx.commit();
