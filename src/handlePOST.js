@@ -17,7 +17,7 @@ export async function handlePOST(request, response, requestURLData) {
   const targetId = path.basename(requestURLData.pathname);
 
   if (requestURLData.pathname === "/articles/create") {
-    await addNewArticle(form);
+    await addNewArticle(form, request);
     response302(response, `/articles?createSuccess=true`);
   } else if (targetId === form.id) {
     await editedArticle(form);
@@ -48,7 +48,7 @@ export async function handlePOST(request, response, requestURLData) {
     response302(response, `/category?deleteCategorySuccess=true`);
   }
 }
-async function addNewArticle(form) {
+async function addNewArticle(form, request) {
   form.updated_at = null;
   form.created_by = await findUserWithCookie(request);
   form.updated_by = null;
