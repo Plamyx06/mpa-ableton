@@ -11,6 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/paragraph@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script>
+    <script src="checkArticle.js"></script>
 {% endblock %}
 {% block main %}
 
@@ -31,7 +32,7 @@
                 <div>
                     <label for="title" class=" text-xl font-medium leading-6 text-gray-900">Titre</label>
                     <div class="mt-2">
-                        <input type="text" name="title" id="title" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">
+                        <input type="text" name="title" id="title" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-red-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-600">
                     </div>
                 </div>
 
@@ -51,7 +52,7 @@
                         <label class="mr-5 font-semibold text-xl" for="category">
                                 Category :
                             </label>
-                        <select class="rounded-md block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600" name="category_id" id="category_id">
+                        <select class="rounded-md block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-green-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600" name="category_id" id="category_id">
                             {% for selectCategory in category %}
                                 <option value="{{ selectCategory.id }}" {%if articles[articleIndex].category_id === selectCategory.id %} selected {% endif %}>{{ selectCategory.name }}</option>
                             {% endfor %}
@@ -61,7 +62,7 @@
                 <div>
                     <label for="image" class=" text-xl font-medium leading-6 text-gray-900">Image</label>
                     <div class="mt-2">
-                        <input type="text" name="image" id="image" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600">
+                        <input type="text" name="image" id="image" placeholder="URL d'image valide (http://...)"class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-red-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-red-600">
                     </div>
                 </div>
                 <div>

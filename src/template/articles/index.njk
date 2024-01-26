@@ -36,82 +36,78 @@
         </div>
     {% endif %}
     <div class="w-full pt-16 pl-20 pr-20">
-
         <div class="flex justify-between mb-10">
-            <h1 class="text-4xl font-bold tracking-tight text-gray-900 pb-15">Articles({{articles.length}})</h1>
-            <a href="/articles/create" >
-                {{ button.primary("+ Nouveau",size="large")}}
+            <h1 class="text-4xl font-bold tracking-tight text-gray-900 pb-15">Articles ({{ pagination.totalArticles }})</h1>
+            <a href="/articles/create">
+                {{ button.primary("+ Nouveau", size="large") }}
             </a>
         </div>
 
-        {% set totalArticles = articles.length%}
-        {% set currentPage = 1 %}
-        {% set articlesPerPage = 5 %}
-        {% set maxPage = (totalArticles / articlesPerPage) | round(0, "ceil") %}
+        {% set currentPage = pagination.currentPage %}
+        {% set articlesPerPage = pagination.articlesPerPage %}
+        {% set maxPage = pagination.maxPage %}
 
-        {% set currentPage = searchParams.page | default(1) | int %}
-
-        {% set startIndex = (currentPage - 1) * articlesPerPage %}
-        {% set endIndex = startIndex + articlesPerPage %}
-
-        {% for article in articles.slice(startIndex, endIndex) %}
+        {% for article in pagination.articles%}
             <div class="flex flex-col pt-1">
                 <div class="box-border p-4 border-2 border-gray-500 rounded-md">
                     <div class="flex">
                         <div>
-                            <img class="w-40 h-20" src="{{article.image}}">
+                            <img class="w-40 h-20" src="{{ article.image }}">
                         </div>
                         <div class="px-5 w-full">
-                            <h2 class="font-medium pb-2">{{article.title}}</h2>
-                            {{ button.primary(article.category_id | getPropertyById(category))}}
-                            <div class="flex justify-between items-center ">
+                            <h2 class="font-medium pb-2">{{ article.title }}</h2>
+                            {{ button.primary(article.category_id | getPropertyById(category)) }}
+                            <div class="flex justify-between items-center">
                                 <p class="pt-2 font-light text-xs">
                                     {% if article.updated_at %}
-                                         Dernière modification le {{ article.updated_at | formattedDate }} par
-                                        {%if article.updated_by !== null %}
-                                            {{(article.updated_by | getPropertyById(users))}}
-                                            {%else%}
-                                            {{(article.created_by | getPropertyById(users))}}
-                                            {%endif%}
+                  Dernière modification le {{ article.updated_at | formattedDate }} par
+                  {% if article.updated_by !== null %}
+                                            {{ article.updated_by | getPropertyById(users) }}
                                         {% else %}
-                                        Créé le {{ article.created_at | formattedDate }} par {{(article.created_by | getPropertyById(users))}}
+                                            {{ article.created_by | getPropertyById(users) }}
                                         {% endif %}
-                                    </p>
-                                    <div class="flex">
-                                        {%if article.status === "published"%}
-                                            <a target="_blank" href="https://ableton-dynamique.vercel.app/blog/{{article.title | createArticleSlug(article.id)}}.html" class="mr-5">
-                                                {{ button.primary("Publié" + button.iconOpenTab())}}
-                                            </a>
-                                            {%else%}
-                                            <a href="" class="mr-5">
-                                                {{ button.primary("Brouillon")}}
-                                            </a>
-                                            {%endif%}
-                                            <a href="/articles/{{article.id}}"class="mr-5">
-                                                {{ button.primary("Editer")}}
-                                            </a>
-                                            {{ button.primary("Supprimer", attribute='data-delete-article="' ~ article.id ~ '" data-title-article="' ~ article.title ~ '"') }}
-
-                                        </div>
-                                    </div>
+                                    {% else %}
+                  Créé le {{ article.created_at | formattedDate }} par {{ article.created_by | getPropertyById(users) }}
+                                    {% endif %}
+                                </p>
+                                <div class="flex">
+                                    {% if article.status === "published" %}
+                                        <a target="_blank" href="https://ableton-dynamique.vercel.app/blog/{{ article.title | createArticleSlug(article.id) }}.html" class="mr-5">
+                                            {{ button.primary("Publié" + button.iconOpenTab()) }}
+                                        </a>
+                                    {% else %}
+                                        <a href="" class="mr-5">
+                                            {{ button.primary("Brouillon") }}
+                                        </a>
+                                    {% endif %}
+                                    <a href="/articles/{{ article.id }}" class="mr-5">
+                                        {{ button.primary("Editer") }}
+                                    </a>
+                                    {{ button.primary("Supprimer", attribute='data-delete-article="' ~ article.id ~ '" data-title-article="' ~ article.title ~ '"') }}
                                 </div>
                             </div>
                         </div>
                     </div>
-                {% endfor %}
-                <p class="flex justify-center pt-5 font-semibold">Page: {{searchParams.page or 1}}/{{maxPage}}</p>
-                <div class="pagination flex justify-center pt-10 space-x-96">
-                    {% if currentPage > 1 %}
-                        <a href="?page={{ currentPage - 1 }}">
-                            {{ button.primary("Précedent", type="submit") }}
-                        </a>
-                    {% endif %}
-                    {% if currentPage < maxPage %}
-                        <a href="?page={{ currentPage + 1 }}">
-                            {{ button.primary("Suivant", type="submit") }}
-                        </a>
-                    {% endif %}
                 </div>
             </div>
-            {% include "src/components/modalDelete.njk" %}
-            {% endblock%}
+        {% endfor %}
+
+        <p class="flex justify-center pt-5 font-semibold">Page: {{ currentPage }}/{{ maxPage }}</p>
+        <div class="pagination flex justify-center pt-10 space-x-96">
+            {% if currentPage > 1 %}
+                <a href="?page={{ currentPage - 1 }}">
+                    {{ button.primary("Précédent", type="submit") }}
+                </a>
+            {% endif %}
+            {% if currentPage < maxPage %}
+                <a href="?page={{ currentPage + 1 }}">
+                    {{ button.primary("Suivant", type="submit") }}
+                </a>
+            {% endif %}
+        </div>
+    </div>
+    {% include "src/components/modalDelete.njk" %}
+
+    {% endblock%}
+</div>
+</div>

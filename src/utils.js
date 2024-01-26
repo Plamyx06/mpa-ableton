@@ -112,17 +112,13 @@ export function createArticleSlug(title, id) {
   const slug = `${slugify(title)}-${id}`;
   return slug;
 }
-export async function fetchDataFromTable(tableName, orderBy, orderDirection) {
-  const trx = await db.transaction();
-  let query = trx(tableName).select("*");
+export async function readApi(tableName, orderBy, orderDirection) {
+  let query = db(tableName).select("*");
 
   if (orderBy) {
     query = query.orderBy(orderBy, orderDirection);
   }
   const data = await query;
-
-  await trx.commit();
-  await trx.destroy();
 
   return data;
 }

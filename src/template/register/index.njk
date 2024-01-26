@@ -29,7 +29,7 @@
             </div>
         </div>
     </div>
-    {% if searchParams.userExist or searchParams.emailFormat or searchParams.passwordFormat %}
+    {% if searchParams.userExist or searchParams.validationFailed %}
         <div class="rounded-md bg-red-50 p-4 absolute w-full">
             <div class="flex">
                 <div class="flex-shrink-0">
@@ -40,10 +40,8 @@
 
                 {% if searchParams.userExist %}
                     {% set comment = "L'adresse email est déjà utilisé, veuillez vous connecter." %}
-                {% elif searchParams.emailFormat %}
-                    {% set comment = "l'adresse email n'existe pas" %}
-                {% elif searchParams.passwordFormat %}
-                    {% set comment = "Le mot de passe que vous avez entré ne correspond pas à notre politique de sécurité " %}
+                {% elif searchParams.validationFailed %}
+                    {% set comment = "Le mot de passe ou l'adressee email que vous avez entré ne correspond pas à notre politique de sécurité " %}
                 {% endif %}
 
                 {% if comment %}

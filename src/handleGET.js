@@ -1,16 +1,11 @@
 import * as dotenv from "dotenv";
 dotenv.config();
-import {
-  isDir,
-  isFile,
-  render404,
-  response302,
-  fetchDataFromTable,
-} from "./utils.js";
+import { isDir, isFile, render404, response302, readApi } from "./utils.js";
 import { readFile } from "fs/promises";
 import nunjucks from "nunjucks";
 import path from "path";
 import cookie from "cookie";
+import db from "./database.js";
 
 export async function handleGET(response, requestURLData, request) {
   const extname = path.extname(requestURLData.pathname);
@@ -41,6 +36,7 @@ export async function handleGET(response, requestURLData, request) {
       return;
     }
   }
+  await maxPageCheck(response, requestURLData);
 
   const basenameURL = path.basename(requestURLData.pathname);
   let templatePath = `src/template${requestURLData.pathname}`;
@@ -59,17 +55,22 @@ export async function handleGET(response, requestURLData, request) {
     return;
   }
 
-  const category = await fetchDataFromTable("article_category");
-  const articles = await fetchDataFromTable("article", "created_at", "desc");
-  const headerSvg = await fetchDataFromTable("header_logo");
-  const headerLink = await fetchDataFromTable("header_link");
-  const footer = await fetchDataFromTable("footer_link", "main_title", "asc");
-  const users = await fetchDataFromTable("user");
-  const socialLink = await fetchDataFromTable("social_link");
+  const category = await db("article_category").select("*");
+  const articles = await db("article")
+    .select("*")
+    .orderByRaw("COALESCE(updated_at, created_at) DESC");
+  const headerSvg = await db("header_logo").select("*");
+  const headerLink = await db("header_link").select("*");
+  const footer = await db("footer_link")
+    .select("*")
+    .orderBy("main_title", "asc");
+  const users = await db("user").select("*");
+  const socialLink = await db("social_link").select("*");
   const userConnect = await findEmailWithCookie(request, users);
   const searchParams = Object.fromEntries(requestURLData.searchParams);
 
   const templateData = {
+    pagination: await handlePagination(requestURLData),
     searchParams: searchParams,
     articles: articles,
     category: category,
@@ -95,11 +96,11 @@ async function renderFilePath(response, filePath) {
   }
 }
 async function isId(targetId) {
-  const data = await fetchDataFromTable("article");
+  const data = await db("article").select("*").orderBy("created_at", "desc");
   return !!data.find(({ id }) => id === targetId);
 }
 async function verifyUserSessionId(id) {
-  const users = await fetchDataFromTable("user");
+  const users = await db("user").select("*");
   return !!users.find((user) => user.session_id === id);
 }
 async function findEmailWithCookie(request, users) {
@@ -145,7 +146,7 @@ async function handleAPIRequest(request, requestURLData, response) {
         response.end("Accès refusé");
         return;
       }
-      const data = await fetchDataFromTable(
+      const data = await readApi(
         api.dataTable,
         api.orderBy,
         api.orderDirection
@@ -154,5 +155,45 @@ async function handleAPIRequest(request, requestURLData, response) {
       response.end(JSON.stringify(data));
       return;
     }
+  }
+}
+async function handlePagination(requestURLData) {
+  const currentPage = parseInt(requestURLData.searchParams.get("page")) || 1;
+  const articlesPerPage = 5;
+  const startIndex = (currentPage - 1) * articlesPerPage;
+
+  const totalArticles = await db("article").count("* as count").first();
+  const totalArticlesCount = parseInt(totalArticles.count);
+
+  const maxPage = Math.ceil(totalArticlesCount / articlesPerPage);
+  const articles = await db("article")
+    .select("*")
+    .orderByRaw(
+      "CASE WHEN updated_at IS NOT NULL THEN updated_at ELSE created_at END DESC, id DESC"
+    )
+    .limit(articlesPerPage)
+    .offset(startIndex);
+
+  return {
+    currentPage,
+    articlesPerPage,
+    totalArticles: totalArticlesCount,
+    maxPage,
+    articles,
+  };
+}
+async function maxPageCheck(response, requestURLData) {
+  const currentPage = parseInt(requestURLData.searchParams.get("page"));
+  const articlesPerPage = 5;
+
+  const totalArticles = await db("article").count("* as count").first();
+  const totalArticlesCount = parseInt(totalArticles.count);
+
+  const maxPage = Math.ceil(totalArticlesCount / articlesPerPage);
+
+  if (currentPage > maxPage) {
+    render404(response);
+  } else {
+    return;
   }
 }
